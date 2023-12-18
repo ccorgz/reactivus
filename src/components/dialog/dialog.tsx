@@ -2,6 +2,8 @@ import ReactDOM from "react-dom/client";
 
 import React, { useState } from "react";
 
+import "../../styles/dialog.css";
+
 type styles =
   | "btn-primary"
   | "btn-secondary"
@@ -75,6 +77,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
 };
 
 const show = async (props?: AlertProps): Promise<boolean> => {
+  console.log("props :", props);
   const result: boolean = await appendAlert(props);
   return result;
 };
