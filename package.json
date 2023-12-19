@@ -1,6 +1,6 @@
 {
-  "name": "ccorgzui",
-  "version": "0.0.23",
+  "name": "reactivus",
+  "version": "0.0.26",
   "description": "React Based UI Components Package To Facilitate Web Front End Development - By Ccorgz",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
