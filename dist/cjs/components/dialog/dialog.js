@@ -62,38 +62,92 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// IMPORT REACTDOM FOR DOM OPERATIONS
 var client_1 = __importDefault(require("react-dom/client"));
+// IMPORT REACT IN FULL AND REACT USESTATE HOOK
 var react_1 = __importStar(require("react"));
+// IMPORT BUTTON COMPONENT
+var button_1 = __importDefault(require("../button/button"));
+// IMPORT SVG FILES TO COMPOSE THE DIALOG ICON
+var success_1 = __importDefault(require("./icons/success/success"));
+var danger_1 = __importDefault(require("./icons/danger/danger"));
+var question_1 = __importDefault(require("./icons/question/question"));
+var info_1 = __importDefault(require("./icons/info/info"));
+var warning_1 = __importDefault(require("./icons/warning/warning"));
+// GROUP THE ICONS SVG INTO AN OBJECT
+var iconsList = {
+    success: react_1.default.createElement(success_1.default, null),
+    danger: react_1.default.createElement(danger_1.default, null),
+    question: react_1.default.createElement(question_1.default, null),
+    info: react_1.default.createElement(info_1.default, null),
+    warning: react_1.default.createElement(warning_1.default, null),
+};
+// IMPORT STYLESHEET FILE FOR THE DIALOG COMPONENT
+require("../../styles/dialog.css");
+// FUNCTION TO APPEND THE NEW ALERT DOM COMPONENT INTO THE HTML FILE
 var appendAlert = function (props) {
     var container = document.createElement("div");
     document.body.appendChild(container);
     var root = client_1.default.createRoot(container);
     return new Promise(function (resolve) {
-        root.render(react_1.default.createElement(AlertBox, { onClose: function (value) { return resolve(value); }, alertProps: props }));
+        root.render(react_1.default.createElement(AlertBox, { onClose: function (value) {
+                setTimeout(function () {
+                    root.unmount();
+                    document.body.removeChild(container);
+                    resolve(value);
+                }, 100);
+            }, alertProps: props }));
     });
 };
+// DIALOG CONTENT BOX
 var AlertBox = function (_a) {
+    var _b, _c, _d, _e, _f, _g;
     var onClose = _a.onClose, alertProps = _a.alertProps;
-    var _b = (0, react_1.useState)(true), showAlert = _b[0], setShowAlert = _b[1];
-    // const handleConfirm = () => {
-    //   setShowAlert(false);
-    //   onClose(true);
-    // };
+    var _h = (0, react_1.useState)(true), showAlert = _h[0], setShowAlert = _h[1];
+    var handleConfirm = function () {
+        setShowAlert(false);
+        onClose(true);
+    };
     var handleCancel = function () {
         setShowAlert(false);
         onClose(false);
     };
-    if (showAlert)
-        return (react_1.default.createElement("div", { className: "alertMainBox" },
-            react_1.default.createElement("div", { className: "alertBackLayerBox", onClick: function () {
+    // DOM ELEMENT OF THE CLOSE BUTTON
+    var CloseAlertSvg = function () {
+        return (react_1.default.createElement("svg", { version: "1.1", viewBox: "0 0 130.2 130.2" },
+            react_1.default.createElement("line", { className: "path", fill: "none", stroke: "#606060", "stroke-width": "6", "stroke-linecap": "round", x1: "40.2", y1: "40.2", x2: "90", y2: "90" }),
+            react_1.default.createElement("line", { className: "path", fill: "none", stroke: "#606060", "stroke-width": "6", "stroke-linecap": "round", x1: "90", y1: "40.2", x2: "40.2", y2: "90" })));
+    };
+    // RETURN THE CONTENT BOX DOM ELEMENT
+    return (react_1.default.createElement("div", { className: "alertMainBox ".concat(showAlert ? "showAlertMainBox" : "hideAlertMainBox", " ").concat((_b = alertProps === null || alertProps === void 0 ? void 0 : alertProps.position) !== null && _b !== void 0 ? _b : "center") },
+        react_1.default.createElement("div", { className: "alertBackLayerBox", onClick: function () {
+                handleCancel();
+            } }),
+        react_1.default.createElement("div", { className: "alertBox ".concat(showAlert ? "showAlertBox" : "hideAlertBox") },
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCloseButton) && (react_1.default.createElement("div", { className: "alertBoxCloseButton", onClick: function () {
                     handleCancel();
-                } }),
-            react_1.default.createElement("div", { className: "alertBox" },
-                react_1.default.createElement("div", { className: "alertBoxTitleIcon" }),
-                react_1.default.createElement("div", { className: "alertBoxTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.title),
-                react_1.default.createElement("div", { className: "alertBoxTitleContent" }),
-                react_1.default.createElement("div", { className: "alertButtonsBox" }))));
+                } },
+                react_1.default.createElement(CloseAlertSvg, null))),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) && (react_1.default.createElement("div", { className: "alertBoxTitleIcon" }, iconsList[(_c = alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) !== null && _c !== void 0 ? _c : "success"])),
+            react_1.default.createElement("div", { className: "alertBoxTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.title),
+            react_1.default.createElement("div", { className: "alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.text),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx) && (react_1.default.createElement("div", { className: "alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx)),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.html) && (react_1.default.createElement("div", { className: "alertBoxTitleContent", dangerouslySetInnerHTML: { __html: alertProps === null || alertProps === void 0 ? void 0 : alertProps.html } })),
+            react_1.default.createElement("div", { className: "alertButtonsBox" },
+                react_1.default.createElement(button_1.default, { options: {
+                        label: (_d = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonText) !== null && _d !== void 0 ? _d : "Ok",
+                        style: (_e = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonStyle) !== null && _e !== void 0 ? _e : "btn-success",
+                    }, onClick: function () {
+                        handleConfirm();
+                    } }),
+                (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCancelButton) && (react_1.default.createElement(button_1.default, { options: {
+                        label: (_f = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonText) !== null && _f !== void 0 ? _f : "Cancel",
+                        style: (_g = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonStyle) !== null && _g !== void 0 ? _g : "btn-danger",
+                    }, onClick: function () {
+                        handleCancel();
+                    } }))))));
 };
+// METHOD TO FIRE THE DIALOG BOX
 var show = function (props) { return __awaiter(void 0, void 0, void 0, function () {
     var result;
     return __generator(this, function (_a) {
@@ -105,8 +159,10 @@ var show = function (props) { return __awaiter(void 0, void 0, void 0, function 
         }
     });
 }); };
+// RETUR OBJECT
 var dialog = {
     show: show,
 };
+// DEFAULT EXPORT
 exports.default = dialog;
 //# sourceMappingURL=dialog.js.map

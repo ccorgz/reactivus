@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./dangerIcon.css";
+import "../../../../styles/dialog-icons/dangerIcon.css";
 
-const SuccessSvg = () => {
+const DangerSvg = () => {
   return (
     <svg version="1.1" viewBox="0 0 130.2 130.2">
       <circle
@@ -18,7 +18,7 @@ const SuccessSvg = () => {
       <line
         className="path cross1"
         fill="none"
-        stroke="#CB2A29B9"
+        stroke="#CB2A29"
         stroke-width="6"
         stroke-linecap="round"
         x1="40.2"
@@ -29,7 +29,7 @@ const SuccessSvg = () => {
       <line
         className="path cross2"
         fill="none"
-        stroke="#CB2A29B9"
+        stroke="#CB2A29"
         stroke-width="6"
         stroke-linecap="round"
         x1="90"
@@ -41,4 +41,4 @@ const SuccessSvg = () => {
   );
 };
 
-export default SuccessSvg;
+export default DangerSvg;

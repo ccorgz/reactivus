@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./successIcon.css";
+import "../../../../styles/dialog-icons/successIcon.css";
 
 const SuccessSvg = () => {
   return (
@@ -18,7 +18,7 @@ const SuccessSvg = () => {
       <polyline
         className="path check"
         fill="none"
-        stroke="#73AF5570"
+        stroke="#73AF55"
         stroke-width="6"
         stroke-linecap="round"
         stroke-miterlimit="10"

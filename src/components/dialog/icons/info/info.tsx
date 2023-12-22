@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./infoIcon.css";
+import "../../../../styles/dialog-icons/infoIcon.css";
 
 const InfoSvg = () => {
   return (
@@ -21,7 +21,7 @@ const InfoSvg = () => {
         y="75"
         font-size="70"
         font-family="Arial, sans-serif"
-        fill="#2375ac70"
+        fill="#2375ac"
         text-anchor="middle"
         dominant-baseline="middle"
       >

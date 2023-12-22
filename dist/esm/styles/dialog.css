@@ -1,4 +1,4 @@
-/* DIALOG */
+/* DIALOG MAIN BOX */
 
 .alertMainBox {
   position: absolute;
@@ -57,8 +57,9 @@
   background-color: #fff;
   border-radius: 10px;
   width: clamp(200px, 480px, 95%);
-  height: clamp(200px, 480px, 480px);
-  padding: 10px;
+  min-height: 200px;
+  height: auto;
+  padding: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,6 +91,24 @@
   to {
     transform: scale(0.1);
   }
+}
+
+.alertBoxCloseButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.alertBoxCloseButton svg {
+  width: 40px;
+  transition: all .4s ease;
+}
+
+.alertBoxCloseButton:hover svg {
+  width: 45px;
+  color: #000000 !important;
+  stroke: #000000 !important;
 }
 
 .alertBoxTitle {
@@ -129,18 +148,39 @@
   align-items: center;
 }
 
-
-
-/* svg {
-  width: 100px;
-  display: block;
+/* PLACE THE DIALOG BOX IN THE TOP RIGHT CORNER */
+.top-right {
+  justify-content: flex-end !important;
+  align-items: flex-start;
+  padding: 10px;
 }
-
-.path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 0;
+/* PLACE THE DIALOG BOX IN THE TOP LEFT CORNER */
+.top-left {
+  justify-content: flex-start !important;
+  align-items: flex-start;
+  padding: 10px;
 }
-
-.path.circle {
-  animation: dash 0.9s ease-in-out;
-} */
+/* PLACE THE DIALOG BOX IN THE BOTTOM LEFT CORNER */
+.bottom-left {
+  justify-content: flex-start !important;
+  align-items: flex-end;
+  padding: 10px;
+}
+/* PLACE THE DIALOG BOX IN THE BOTTOM RIGHT CORNER */
+.bottom-right {
+  justify-content: flex-end !important;
+  align-items: flex-end;
+  padding: 10px;
+}
+/* PLACE THE DIALOG BOX IN THE CENTER LEFT*/
+.center-left {
+  justify-content: flex-start !important;
+  align-items: center;
+  padding: 10px;
+}
+/* PLACE THE DIALOG BOX IN THE CENTER RIGHT */
+.center-right {
+  justify-content: flex-end !important;
+  align-items: center;
+  padding: 10px;
+}

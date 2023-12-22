@@ -1,12 +1,12 @@
 import React from "react";
 
-import "./questionIcon.css";
+import "../../../../styles/dialog-icons/questionIcon.css";
 
 const QuestionSvg = () => {
   return (
     <svg version="1.1" viewBox="0 0 130.2 130.2">
       <circle
-        className="path circles"
+        className="path circle"
         fill="none"
         stroke="#60606070"
         stroke-width="6"
@@ -21,7 +21,7 @@ const QuestionSvg = () => {
         y="75"
         font-size="70"
         font-family="Arial, sans-serif"
-        fill="#60606070"
+        fill="#606060"
         text-anchor="middle"
         dominant-baseline="middle"
       >

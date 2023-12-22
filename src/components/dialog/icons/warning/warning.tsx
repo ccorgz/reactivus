@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./warningIcon.css";
+import "../../../../styles/dialog-icons/warningIcon.css";
 
 const WarningSvg = () => {
   return (
@@ -21,7 +21,7 @@ const WarningSvg = () => {
         y="75"
         font-size="70"
         font-family="Arial, sans-serif"
-        fill="#FFA50070"
+        fill="#FFA500"
         text-anchor="middle"
         dominant-baseline="middle"
       >
