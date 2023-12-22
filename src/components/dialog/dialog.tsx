@@ -54,23 +54,78 @@ type positions =
 
 // DEFINE THE WHOLE DIALOG TYPES
 type AlertProps = {
+  /**
+   * Title to be displayed as a header in the dialog.
+   */
   title?: string;
+  /**
+   * Description text to be displayed right bellow the title.
+   */
   text?: string;
+  /**
+   * Controls wether the cancel button is visible or not.
+   */
   showCancelButton?: boolean;
+  /**
+   * Defines in wich style pattern the cancel button will be shown.
+   */
   cancelButtonStyle?: styles;
+  /**
+   * Defines the text to be displayed in the cancel button.
+   */
   cancelButtonText?: string;
+  /**
+   * Controls wether the confirm button is visible or not.
+   */
   showConfirmButton?: boolean;
+  /**
+   * Defines in wich style pattern the confirm button will be shown.
+   */
   confirmButtonStyle?: styles;
+  /**
+   * Defines the text to be displayed in the confirm button.
+   */
   confirmButtonText?: string;
+  /**
+   * Controls wether the close button is visible or not.
+   */
   showCloseButton?: boolean;
+  /**
+   * Defines a HTML string to be rendered right bellow the text.
+   */
   html?: string;
-  htmlx?: any;
+  /**
+   * Defines a HTMLX object to be rendered right bellow the text.
+   */
+  htmlx?: HTMLElement;
+  /**
+   * Defines wich animated icons will be displayed.
+   */
   icon?: icons;
+  /**
+   * Defines wich screen position the dialog will be shown.
+   */
   position?: positions;
 };
 
+// DEFINE THE DIALOG RETURN TYPES
+type DialogReturn = {
+  /**
+   * Indicates whether the user confirmed the dialog at the confirm button.
+   */
+  isConfirmed: boolean;
+  /**
+   * Indicates whether the user canceled the dialog at the cancel button.
+   */
+  isCanceled: boolean;
+  /**
+   * Indicates whether the user aborted the dialog at the close button or the backLayer box.
+   */
+  isAborted: boolean;
+};
+
 // FUNCTION TO APPEND THE NEW ALERT DOM COMPONENT INTO THE HTML FILE
-const appendAlert = (props?: AlertProps): Promise<boolean> => {
+const appendAlert = (props?: AlertProps): Promise<DialogReturn> => {
   const container = document.createElement("div");
 
   document.body.appendChild(container);
@@ -79,7 +134,7 @@ const appendAlert = (props?: AlertProps): Promise<boolean> => {
   return new Promise((resolve) => {
     root.render(
       <AlertBox
-        onClose={(value: boolean) => {
+        onClose={(value: DialogReturn) => {
           setTimeout(() => {
             root.unmount();
             document.body.removeChild(container);
@@ -104,14 +159,30 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
 
   const handleConfirm = () => {
     setShowAlert(false);
-    onClose(true);
+    onClose({
+      isConfirmed: true,
+      isCanceled: false,
+      isAborted: false,
+    });
   };
 
   const handleCancel = () => {
     setShowAlert(false);
-    onClose(false);
+    onClose({
+      isConfirmed: false,
+      isCanceled: true,
+      isAborted: false,
+    });
   };
 
+  const handleAbort = () => {
+    setShowAlert(false);
+    onClose({
+      isConfirmed: false,
+      isCanceled: false,
+      isAborted: true,
+    });
+  };
 
   // DOM ELEMENT OF THE CLOSE BUTTON
   const CloseAlertSvg = () => {
@@ -153,7 +224,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
       <div
         className={"alertBackLayerBox"}
         onClick={() => {
-          handleCancel();
+          handleAbort();
         }}
       ></div>
       <div
@@ -163,7 +234,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           <div
             className={"alertBoxCloseButton"}
             onClick={() => {
-              handleCancel();
+              handleAbort();
             }}
           >
             <CloseAlertSvg />
@@ -213,14 +284,14 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
 };
 
 // METHOD TO FIRE THE DIALOG BOX
-const show = async (props: AlertProps): Promise<boolean> => {
-  const result: boolean = await appendAlert(props);
+const show = async (props: AlertProps): Promise<DialogReturn> => {
+  const result: DialogReturn = await appendAlert(props);
   return result;
 };
 
 // DIALOG BOX TYPE
 type DialogType = {
-  show: (props: AlertProps) => Promise<boolean>;
+  show: (props: AlertProps) => Promise<DialogReturn>;
 };
 
 // RETUR OBJECT
