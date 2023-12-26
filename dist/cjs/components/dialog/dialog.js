@@ -106,34 +106,50 @@ var AlertBox = function (_a) {
     var _h = (0, react_1.useState)(true), showAlert = _h[0], setShowAlert = _h[1];
     var handleConfirm = function () {
         setShowAlert(false);
-        onClose(true);
+        onClose({
+            isConfirmed: true,
+            isCanceled: false,
+            isAborted: false,
+        });
     };
     var handleCancel = function () {
         setShowAlert(false);
-        onClose(false);
+        onClose({
+            isConfirmed: false,
+            isCanceled: true,
+            isAborted: false,
+        });
+    };
+    var handleAbort = function () {
+        setShowAlert(false);
+        onClose({
+            isConfirmed: false,
+            isCanceled: false,
+            isAborted: true,
+        });
     };
     // DOM ELEMENT OF THE CLOSE BUTTON
     var CloseAlertSvg = function () {
         return (react_1.default.createElement("svg", { version: "1.1", viewBox: "0 0 130.2 130.2" },
-            react_1.default.createElement("line", { className: "path", fill: "none", stroke: "#606060", "stroke-width": "6", "stroke-linecap": "round", x1: "40.2", y1: "40.2", x2: "90", y2: "90" }),
-            react_1.default.createElement("line", { className: "path", fill: "none", stroke: "#606060", "stroke-width": "6", "stroke-linecap": "round", x1: "90", y1: "40.2", x2: "40.2", y2: "90" })));
+            react_1.default.createElement("line", { className: "reactivus-path", fill: "none", stroke: "#606060", "stroke-width": "6", "stroke-linecap": "round", x1: "40.2", y1: "40.2", x2: "90", y2: "90" }),
+            react_1.default.createElement("line", { className: "reactivus-path", fill: "none", stroke: "#606060", "stroke-width": "6", "stroke-linecap": "round", x1: "90", y1: "40.2", x2: "40.2", y2: "90" })));
     };
     // RETURN THE CONTENT BOX DOM ELEMENT
-    return (react_1.default.createElement("div", { className: "alertMainBox ".concat(showAlert ? "showAlertMainBox" : "hideAlertMainBox", " ").concat((_b = alertProps === null || alertProps === void 0 ? void 0 : alertProps.position) !== null && _b !== void 0 ? _b : "center") },
-        react_1.default.createElement("div", { className: "alertBackLayerBox", onClick: function () {
-                handleCancel();
+    return (react_1.default.createElement("div", { className: "reactivus-alertMainBox ".concat(showAlert ? "reactivus-showAlertMainBox" : "reactivus-hideAlertMainBox", " reactivus-").concat((_b = alertProps === null || alertProps === void 0 ? void 0 : alertProps.position) !== null && _b !== void 0 ? _b : "reactivus-center") },
+        react_1.default.createElement("div", { className: "reactivus-alertBackLayerBox", onClick: function () {
+                handleAbort();
             } }),
-        react_1.default.createElement("div", { className: "alertBox ".concat(showAlert ? "showAlertBox" : "hideAlertBox") },
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCloseButton) && (react_1.default.createElement("div", { className: "alertBoxCloseButton", onClick: function () {
-                    handleCancel();
+        react_1.default.createElement("div", { className: "reactivus-alertBox ".concat(showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox") },
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCloseButton) && (react_1.default.createElement("div", { className: "reactivus-alertBoxCloseButton", onClick: function () {
+                    handleAbort();
                 } },
                 react_1.default.createElement(CloseAlertSvg, null))),
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) && (react_1.default.createElement("div", { className: "alertBoxTitleIcon" }, iconsList[(_c = alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) !== null && _c !== void 0 ? _c : "success"])),
-            react_1.default.createElement("div", { className: "alertBoxTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.title),
-            react_1.default.createElement("div", { className: "alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.text),
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx) && (react_1.default.createElement("div", { className: "alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx)),
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.html) && (react_1.default.createElement("div", { className: "alertBoxTitleContent", dangerouslySetInnerHTML: { __html: alertProps === null || alertProps === void 0 ? void 0 : alertProps.html } })),
-            react_1.default.createElement("div", { className: "alertButtonsBox" },
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleIcon" }, iconsList[(_c = alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) !== null && _c !== void 0 ? _c : "success"])),
+            react_1.default.createElement("div", { className: "reactivus-alertBoxTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.title),
+            react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.text),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx)),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.html) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent", dangerouslySetInnerHTML: { __html: alertProps === null || alertProps === void 0 ? void 0 : alertProps.html } })),
+            react_1.default.createElement("div", { className: "reactivus-alertButtonsBox" },
                 react_1.default.createElement(button_1.default, { options: {
                         label: (_d = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonText) !== null && _d !== void 0 ? _d : "Ok",
                         style: (_e = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonStyle) !== null && _e !== void 0 ? _e : "btn-success",

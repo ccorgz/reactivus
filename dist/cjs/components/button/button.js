@@ -34,11 +34,11 @@ function Button(_a) {
     // DEFINE VALOR PARA STYLE OPTIONS
     var styleOp = (_b = rest.style) !== null && _b !== void 0 ? _b : {};
     styleOp.width = (_c = options.width) !== null && _c !== void 0 ? _c : "auto";
-    return (react_1.default.createElement("button", __assign({ className: "buttonMainBox ".concat((_d = options.style) !== null && _d !== void 0 ? _d : "btn-light", " ").concat((_e = options.size) !== null && _e !== void 0 ? _e : "btn-md", " ").concat(options.disabled ? "btn-disabled" : "", "\n      ").concat(options.rounded ? "btn-rounded" : ""), style: styleOp }, rest),
-        options.tooltip && options.tooltip.show && (react_1.default.createElement("span", { className: "tooltip ".concat("tooltip-" + options.tooltip.position) }, (_f = options.tooltip) === null || _f === void 0 ? void 0 : _f.text)),
-        options.iconPosition === "left" && (react_1.default.createElement(react_1.default.Fragment, null, options.loading ? react_1.default.createElement("div", { className: "loading" }) : options.icon)),
+    return (react_1.default.createElement("button", __assign({ className: "reactivus-buttonMainBox reactivus-".concat((_d = options.style) !== null && _d !== void 0 ? _d : "btn-light", " reactivus-").concat((_e = options.size) !== null && _e !== void 0 ? _e : "btn-md", " reactivus-").concat(options.disabled ? "btn-disabled" : "", "\n      reactivus-").concat(options.rounded ? "btn-rounded" : ""), style: styleOp }, rest),
+        options.tooltip && options.tooltip.show && (react_1.default.createElement("span", { className: "reactivus-tooltip ".concat("reactivus-tooltip-" + options.tooltip.position) }, (_f = options.tooltip) === null || _f === void 0 ? void 0 : _f.text)),
+        options.iconPosition === "left" && (react_1.default.createElement(react_1.default.Fragment, null, options.loading ? react_1.default.createElement("div", { className: "reactivus-loading" }) : options.icon)),
         options.label,
-        options.iconPosition === "right" && (react_1.default.createElement(react_1.default.Fragment, null, options.loading ? react_1.default.createElement("div", { className: "loading" }) : options.icon))));
+        options.iconPosition === "right" && (react_1.default.createElement(react_1.default.Fragment, null, options.loading ? react_1.default.createElement("div", { className: "reactivus-loading" }) : options.icon))));
 }
 exports.default = Button;
 //# sourceMappingURL=button.js.map

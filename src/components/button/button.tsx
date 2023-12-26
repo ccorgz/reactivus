@@ -43,25 +43,25 @@ export default function Button({
 
   return (
     <button
-      className={`buttonMainBox ${options.style ?? "btn-light"} ${
+      className={`reactivus-buttonMainBox reactivus-${options.style ?? "btn-light"} reactivus-${
         options.size ?? "btn-md"
-      } ${options.disabled ? "btn-disabled" : ""}
-      ${options.rounded ? "btn-rounded" : ""}`}
+      } reactivus-${options.disabled ? "btn-disabled" : ""}
+      reactivus-${options.rounded ? "btn-rounded" : ""}`}
       style={styleOp}
       {...rest}
     >
       {options.tooltip && options.tooltip.show && (
-        <span className={`tooltip ${"tooltip-" + options.tooltip.position}`}>
+        <span className={`reactivus-tooltip ${"reactivus-tooltip-" + options.tooltip.position}`}>
           {options.tooltip?.text}
         </span>
       )}
 
       {options.iconPosition === "left" && (
-        <>{options.loading ? <div className={"loading"} /> : options.icon}</>
+        <>{options.loading ? <div className={"reactivus-loading"} /> : options.icon}</>
       )}
       {options.label}
       {options.iconPosition === "right" && (
-        <>{options.loading ? <div className={"loading"} /> : options.icon}</>
+        <>{options.loading ? <div className={"reactivus-loading"} /> : options.icon}</>
       )}
     </button>
   );

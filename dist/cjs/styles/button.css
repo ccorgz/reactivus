@@ -1,4 +1,4 @@
-.buttonMainBox {
+.reactivus-buttonMainBox {
   width: auto;
   display: flex;
   gap: 10px;
@@ -15,7 +15,7 @@
   height: 2.5rem;
 }
 
-.labelBox {
+.reactivus-labelBox {
   display: flex;
   gap: 10px;
   flex-direction: row;
@@ -23,71 +23,71 @@
   justify-content: center;
 }
 
-.btn-none {
+.reactivus-btn-none {
   background-color: transparent;
   color: #000;
   box-shadow: none;
 }
-.btn-none:hover {
+.reactivus-btn-none:hover {
   background-color: transparent;
 }
-.btn-success {
+.reactivus-btn-success {
   background-color: #3f7d54;
   color: #fafafa;
 }
-.btn-success:hover {
+.reactivus-btn-success:hover {
   background-color: #056639;
 }
 
-.btn-danger {
+.reactivus-btn-danger {
   background-color: #cb2a29;
   color: #fafafa;
 }
-.btn-danger:hover {
+.reactivus-btn-danger:hover {
   background-color: #9c1f1e;
 }
 
-.btn-info {
+.reactivus-btn-info {
   background-color: #2e86c1;
   color: #fafafa;
 }
-.btn-info:hover {
+.reactivus-btn-info:hover {
   background-color: #2375ac;
 }
 
-.btn-dark {
+.reactivus-btn-dark {
   background-color: #606062;
   color: #fafafa;
 }
-.btn-dark:hover {
+.reactivus-btn-dark:hover {
   background-color: #424246;
 }
 
-.btn-warning {
+.reactivus-btn-warning {
   background-color: #FFA500;
   color: #fafafa;
 }
-.btn-warning:hover {
+.reactivus-btn-warning:hover {
   background-color: #df9100;
 }
 
-.btn-sm {
+.reactivus-btn-sm {
   height: 2rem;
   font-size: 0.9rem;
   padding: 7.5px 10px;
 }
 
-.btn-md {
+.reactivus-btn-md {
   font-size: 1.2rem;
   padding: 7.5px 10px;
 }
 
-.btn-lg {
+.reactivus-btn-lg {
   font-size: 1.5rem;
   padding: 7.5px 10px;
 }
 
-.btn-rounded {
+.reactivus-btn-rounded {
   position: relative;
   display: flex;
   justify-content: center;
@@ -98,16 +98,16 @@
   cursor: pointer;
 }
 
-.btn-disabled {
+.reactivus-btn-disabled {
   pointer-events: none;
   opacity: 0.8;
 }
 
-.buttonMainBox:hover .tooltip {
+.reactivus-buttonMainBox:hover .tooltip {
   visibility: visible;
 }
 
-.tooltip {
+.reactivus-tooltip {
   position: absolute;
   top: 110%;
   visibility: hidden;
@@ -121,7 +121,7 @@
   z-index: 99 !important;
   width: 150px;
 }
-.tooltip-bottom::after {
+.reactivus-tooltip-bottom::after {
   content: " ";
   position: absolute;
   bottom: 100%;
@@ -131,10 +131,10 @@
   border-style: solid;
   border-color: transparent transparent #00000090 transparent;
 }
-.tooltip-top {
+.reactivus-tooltip-top {
   top: -80%;
 }
-.tooltip-top::after {
+.reactivus-tooltip-top::after {
   content: " ";
   position: absolute;
   top: 100%;
@@ -144,13 +144,13 @@
   border-style: solid;
   border-color: #00000090 transparent transparent transparent;
 }
-.tooltip-right {
+.reactivus-tooltip-right {
   left: 120%;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.tooltip-right::after {
+.reactivus-tooltip-right::after {
   content: " ";
   position: absolute;
   bottom: 50%;
@@ -161,13 +161,13 @@
   border-style: solid;
   border-color: transparent #00000090 transparent transparent;
 }
-.tooltip-left {
+.reactivus-tooltip-left {
   right: 120%;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.tooltip-left::after {
+.reactivus-tooltip-left::after {
   content: " ";
   position: absolute;
   bottom: 50%;
@@ -179,7 +179,7 @@
   border-color: transparent transparent transparent #00000090;
 }
 
-.loading {
+.reactivus-loading {
   border: 2px solid #f3f3f3;
   border-top: 2px solid transparent;
   border-radius: 50%;

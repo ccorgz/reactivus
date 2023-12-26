@@ -52,11 +52,11 @@ export default function Input({
     return (
       <div
         {...rest}
-        className={`inputBox ${options.status ?? "light"}`}
+        className={`reactivus-inputBox reactivus-${options.status ?? "light"}`}
         style={{ width: options.width }}
       >
         {options.label && <label>{options.label}</label>}
-        <select className={`selectInputBox`} ref={options.ref ?? null}>
+        <select className={`reactivus-selectInputBox`} ref={options.ref ?? null}>
           {children}
         </select>
       </div>
@@ -65,7 +65,7 @@ export default function Input({
     return (
       <div
         {...rest}
-        className={`inputBox ${options.status ?? "light"}`}
+        className={`reactivus-inputBox reactivus-${options.status ?? "light"}`}
         style={{ width: options.width }}
       >
         {options.label && <label>{options.label}</label>}

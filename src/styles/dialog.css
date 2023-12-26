@@ -1,7 +1,7 @@
 /* DIALOG MAIN BOX */
 
-.alertMainBox {
-  position: absolute;
+.reactivus-alertMainBox {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -13,9 +13,10 @@
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   opacity: 1;
+  overflow: hidden;
 }
 
-.showAlertMainBox {
+.reactivus-showAlertMainBox {
   animation: showAlertMainBox 0.4s ease;
 }
 
@@ -29,7 +30,7 @@
   }
 }
 
-.hideAlertMainBox {
+.reactivus-hideAlertMainBox {
   animation: hideAlertMainBox 0.2s ease;
 }
 
@@ -43,7 +44,7 @@
   }
 }
 
-.alertBackLayerBox {
+.reactivus-alertBackLayerBox {
   position: absolute;
   top: 0;
   left: 0;
@@ -52,7 +53,7 @@
   background-color: #00000050;
 }
 
-.alertBox {
+.reactivus-alertBox {
   position: absolute;
   background-color: #fff;
   border-radius: 10px;
@@ -69,7 +70,7 @@
   transform: scale(0.1);
 }
 
-.showAlertBox {
+.reactivus-showAlertBox {
   animation: showAlertBox 0.3s ease forwards;
 }
 
@@ -79,7 +80,7 @@
   }
 }
 
-.hideAlertBox {
+.reactivus-hideAlertBox {
   animation: hideAlertBox 0.2s ease forwards;
   overflow: hidden;
 }
@@ -93,25 +94,25 @@
   }
 }
 
-.alertBoxCloseButton {
+.reactivus-alertBoxCloseButton {
   position: absolute;
   top: 0;
   right: 0;
   cursor: pointer;
 }
 
-.alertBoxCloseButton svg {
+.reactivus-alertBoxCloseButton svg {
   width: 40px;
-  transition: all .4s ease;
+  transition: all 0.4s ease;
 }
 
-.alertBoxCloseButton:hover svg {
+.reactivus-alertBoxCloseButton:hover svg {
   width: 45px;
   color: #000000 !important;
   stroke: #000000 !important;
 }
 
-.alertBoxTitle {
+.reactivus-alertBoxTitle {
   width: 100%;
   text-align: center;
   display: flex;
@@ -121,7 +122,7 @@
   color: #505050;
 }
 
-.alertBoxTitleContent {
+.reactivus-alertBoxTitleContent {
   min-width: 100%;
   text-align: center;
   display: flex;
@@ -131,7 +132,7 @@
   color: #606060;
 }
 
-.alertButtonsBox {
+.reactivus-alertButtonsBox {
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -140,7 +141,7 @@
   padding: 10px;
 }
 
-.alertBoxTitleIcon {
+.reactivus-alertBoxTitleIcon {
   height: 120px;
   width: 120px;
   display: flex;
@@ -148,38 +149,43 @@
   align-items: center;
 }
 
+.reactivus-alertBoxTitleIcon svg {
+  width: 100%;
+  display: block;
+}
+
 /* PLACE THE DIALOG BOX IN THE TOP RIGHT CORNER */
-.top-right {
+.reactivus-top-right {
   justify-content: flex-end !important;
   align-items: flex-start;
   padding: 10px;
 }
 /* PLACE THE DIALOG BOX IN THE TOP LEFT CORNER */
-.top-left {
+.reactivus-top-left {
   justify-content: flex-start !important;
   align-items: flex-start;
   padding: 10px;
 }
 /* PLACE THE DIALOG BOX IN THE BOTTOM LEFT CORNER */
-.bottom-left {
+.reactivus-bottom-left {
   justify-content: flex-start !important;
   align-items: flex-end;
   padding: 10px;
 }
 /* PLACE THE DIALOG BOX IN THE BOTTOM RIGHT CORNER */
-.bottom-right {
+.reactivus-bottom-right {
   justify-content: flex-end !important;
   align-items: flex-end;
   padding: 10px;
 }
 /* PLACE THE DIALOG BOX IN THE CENTER LEFT*/
-.center-left {
+.reactivus-center-left {
   justify-content: flex-start !important;
   align-items: center;
   padding: 10px;
 }
 /* PLACE THE DIALOG BOX IN THE CENTER RIGHT */
-.center-right {
+.reactivus-center-right {
   justify-content: flex-end !important;
   align-items: center;
   padding: 10px;

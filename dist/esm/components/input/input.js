@@ -69,12 +69,12 @@ function Input(_a) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [seePwd]);
     if (options.type === "select") {
-        return (react_1.default.createElement("div", __assign({}, rest, { className: "inputBox ".concat((_b = options.status) !== null && _b !== void 0 ? _b : "light"), style: { width: options.width } }),
+        return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-inputBox reactivus-".concat((_b = options.status) !== null && _b !== void 0 ? _b : "light"), style: { width: options.width } }),
             options.label && react_1.default.createElement("label", null, options.label),
-            react_1.default.createElement("select", { className: "selectInputBox", ref: (_c = options.ref) !== null && _c !== void 0 ? _c : null }, children)));
+            react_1.default.createElement("select", { className: "reactivus-selectInputBox", ref: (_c = options.ref) !== null && _c !== void 0 ? _c : null }, children)));
     }
     else {
-        return (react_1.default.createElement("div", __assign({}, rest, { className: "inputBox ".concat((_d = options.status) !== null && _d !== void 0 ? _d : "light"), style: { width: options.width } }),
+        return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-inputBox reactivus-".concat((_d = options.status) !== null && _d !== void 0 ? _d : "light"), style: { width: options.width } }),
             options.label && react_1.default.createElement("label", null, options.label),
             options.icon && react_1.default.createElement("span", null, options.icon),
             react_1.default.createElement("input", __assign({ type: type, placeholder: options === null || options === void 0 ? void 0 : options.placeholder }, rest, { ref: (_e = options.ref) !== null && _e !== void 0 ? _e : null, onChange: function (e) { return e.preventDefault(); }, onKeyDown: options.onKeyDown })),

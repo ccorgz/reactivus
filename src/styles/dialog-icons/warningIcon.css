@@ -1,22 +1,18 @@
-svg {
-  width: 100px;
-  display: block;
-}
-.path {
+.reactivus-path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 0;
 }
-.path.circle {
+.reactivus-path.reactivus-circle {
   -webkit-animation: dash 0.9s ease-in-out;
   animation: dash 0.7s ease-in-out;
 }
 
-.path.warning {
+.reactivus-path.reactivus-warning {
   stroke-dashoffset: -100;
   -webkit-animation: showDownWarning 0.9s 0.35s ease-in-out forwards;
   animation: showDownWarning 0.5s 0.35s ease-in-out forwards;
 }
-.path.warning,
+.reactivus-path.reactivus-warning,
 text {
   stroke-dashoffset: -100;
   transform-origin: center;

@@ -189,7 +189,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
     return (
       <svg version="1.1" viewBox="0 0 130.2 130.2">
         <line
-          className="path"
+          className="reactivus-path"
           fill="none"
           stroke="#606060"
           stroke-width="6"
@@ -200,7 +200,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           y2="90"
         />
         <line
-          className="path"
+          className="reactivus-path"
           fill="none"
           stroke="#606060"
           stroke-width="6"
@@ -217,22 +217,22 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
   // RETURN THE CONTENT BOX DOM ELEMENT
   return (
     <div
-      className={`alertMainBox ${
-        showAlert ? "showAlertMainBox" : "hideAlertMainBox"
-      } ${alertProps?.position ?? "center"}`}
+      className={`reactivus-alertMainBox ${
+        showAlert ? "reactivus-showAlertMainBox" : "reactivus-hideAlertMainBox"
+      } reactivus-${alertProps?.position ?? "reactivus-center"}`}
     >
       <div
-        className={"alertBackLayerBox"}
+        className={"reactivus-alertBackLayerBox"}
         onClick={() => {
           handleAbort();
         }}
       ></div>
       <div
-        className={`alertBox ${showAlert ? "showAlertBox" : "hideAlertBox"}`}
+        className={`reactivus-alertBox ${showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"}`}
       >
         {alertProps?.showCloseButton && (
           <div
-            className={"alertBoxCloseButton"}
+            className={"reactivus-alertBoxCloseButton"}
             onClick={() => {
               handleAbort();
             }}
@@ -241,22 +241,22 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           </div>
         )}
         {alertProps?.icon && (
-          <div className={"alertBoxTitleIcon"}>
+          <div className={"reactivus-alertBoxTitleIcon"}>
             {iconsList[alertProps?.icon ?? "success"]}
           </div>
         )}
-        <div className={"alertBoxTitle"}>{alertProps?.title}</div>
-        <div className={"alertBoxTitleContent"}>{alertProps?.text}</div>
+        <div className={"reactivus-alertBoxTitle"}>{alertProps?.title}</div>
+        <div className={"reactivus-alertBoxTitleContent"}>{alertProps?.text}</div>
         {alertProps?.htmlx && (
-          <div className={"alertBoxTitleContent"}>{alertProps?.htmlx}</div>
+          <div className={"reactivus-alertBoxTitleContent"}>{alertProps?.htmlx}</div>
         )}
         {alertProps?.html && (
           <div
-            className={"alertBoxTitleContent"}
+            className={"reactivus-alertBoxTitleContent"}
             dangerouslySetInnerHTML={{ __html: alertProps?.html }}
           ></div>
         )}
-        <div className={"alertButtonsBox"}>
+        <div className={"reactivus-alertButtonsBox"}>
           <Button
             options={{
               label: alertProps?.confirmButtonText ?? "Ok",
