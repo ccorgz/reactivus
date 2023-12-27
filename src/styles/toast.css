@@ -1,0 +1,239 @@
+.reactivus-toast-container-box {
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  transition: all 1s ease;
+}
+
+.reactivus-toast-box {
+  width: 300px;
+  height: auto;
+  border-radius: 5px;
+  margin: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 20px 10px;
+  overflow: hidden;
+  animation: toastBounce 1s ease-in-out, showFromLeft 0.2s ease;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  position: relative;
+}
+
+.reactivus-toast-content-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+@keyframes toastBounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(0px);
+  }
+  40% {
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes showFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes hideToLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}
+
+@keyframes showFromRight {
+  0% {
+    transform: translateX(+100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes hideToRight {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(+150%);
+  }
+}
+
+.reactivus-toast-success .reactivus-toast-time-bar {
+  background-color: #3f7d54;
+}
+
+.reactivus-toast-danger .reactivus-toast-time-bar {
+  background-color: #cb2a29;
+}
+
+.reactivus-toast-warning .reactivus-toast-time-bar {
+  background-color: #ffa500;
+}
+.reactivus-toast-info .reactivus-toast-time-bar {
+  background-color: #2e86c1;
+}
+
+.reactivus-toast-time-bar {
+  height: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+@keyframes toastTimeBar {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.reactivus-toast-top-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px;
+}
+.reactivus-toast-top-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 10px;
+}
+.reactivus-toast-bottom-left {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+}
+.reactivus-toast-bottom-right {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+}
+
+/* ---------- ICONS ---------- */
+
+.reactivus-toast-icon-success {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background-color: #3f7d54;
+  border-radius: 50%;
+}
+
+.reactivus-checkmark-stem {
+  position: absolute;
+  width: 3px;
+  height: 9px;
+  background-color: #fff;
+  left: 11px;
+  top: 6px;
+}
+
+.reactivus-checkmark-kick {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: #fff;
+  left: 8px;
+  top: 12px;
+}
+
+.reactivus-toast-icon-danger {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-color: #cb2a29;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .reactivus-toast-icon-warning {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-color: #ffa500;
+  color: #FFF;
+  text-align: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  clip-path: polygon(51% 0, 0% 100%, 100% 100%);
+} */
+
+.reactivus-toast-icon-warning {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  color: #ffa500;
+}
+.reactivus-toast-icon-warning:before {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  transform: translateY(-36%);
+  z-index: 1;
+  content: "!";
+}
+.reactivus-toast-icon-warning:after {
+  display: inline-block;
+  margin-left: 3px;
+  font-size: 5px;
+  border: solid 3em transparent;
+  border-top-width: 0;
+  border-bottom-width: 5em;
+  border-bottom-color: #ffa500;
+  clip-path: circle(54% at 50% 69%);
+  vertical-align: bottom;
+  content: "";
+}
+
+.reactivus-toast-icon-info {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-color: #2e86c1;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
