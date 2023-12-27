@@ -68,8 +68,16 @@ const ToastContainer = (props: ContainerProps) => {
     "reactivus.toast.container.props",
     JSON.stringify(props)
   );
+
   return (
-    <div id={toastContainerId} className="reactivus-toast-container-box"></div>
+    <div
+      id={toastContainerId}
+      className={`reactivus-toast-container-box ${
+        props.position
+          ? "reactivus-toast-" + props.position
+          : "reactivus-toast-top-right"
+      }`}
+    ></div>
   );
 };
 
@@ -77,15 +85,29 @@ const ToastContainer = (props: ContainerProps) => {
 const appendToastToContainer = (toastElement: any) => {
   const container = document.getElementById(toastContainerId);
 
-  const containerProps = JSON.parse(
+  const containerProps: ContainerProps = JSON.parse(
     localStorage.getItem("reactivus.toast.container.props") ?? ""
+  );
+
+  toastElement.classList.add(
+    containerProps.position
+      ? containerProps.position == "bottom-right" ||
+        containerProps.position == "top-right"
+        ? "reactivus-toast-show-right"
+        : "reactivus-toast-show-left"
+      : "reactivus-toast-show-left"
   );
 
   if (container) {
     container.appendChild(toastElement);
     containerProps.closeOnClick &&
       toastElement.addEventListener("click", () => {
-        toastElement.style.animation = "hideToLeft .2s ease forwards";
+        toastElement.style.animation = containerProps.position
+          ? containerProps.position == "bottom-right" ||
+            containerProps.position == "top-right"
+            ? "hideToRight .2s ease forwards"
+            : "hideToLeft .2s ease forwards"
+          : "hideToLeft .2s ease forwards";
         setTimeout(() => {
           container?.removeChild(toastElement);
         }, 350);
@@ -100,7 +122,12 @@ const appendToastToContainer = (toastElement: any) => {
       toastElement &&
       toastElement.parentNode === container
     ) {
-      toastElement.style.animation = "hideToLeft .2s ease forwards";
+      toastElement.style.animation = containerProps.position
+        ? containerProps.position == "bottom-right" ||
+          containerProps.position == "top-right"
+          ? "hideToRight .2s ease forwards"
+          : "hideToLeft .2s ease forwards"
+        : "hideToLeft .2s ease forwards";
       setTimeout(() => {
         container?.removeChild(toastElement);
       }, 350);

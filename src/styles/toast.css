@@ -2,16 +2,15 @@
   z-index: 9999999;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
   transition: all 1s ease;
+  position: absolute;
+  width: clamp(320px, 320px, 100%);
 }
 
 .reactivus-toast-box {
-  width: 300px;
+  width: clamp(300px, 300px, 100%);
   height: auto;
   border-radius: 5px;
-  margin: 10px;
   position: relative;
   display: flex;
   align-items: center;
@@ -19,10 +18,10 @@
   flex-direction: column;
   padding: 20px 10px;
   overflow: hidden;
-  animation: toastBounce 1s ease-in-out, showFromLeft 0.2s ease;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   position: relative;
+  margin: 10px;
 }
 
 .reactivus-toast-content-box {
@@ -31,6 +30,16 @@
   align-items: center;
   gap: 10px;
   width: 100%;
+}
+
+.reactivus-toast-show-left {
+  animation: toastBounce 1s ease-in-out,
+    showFromLeft 0.2s ease;
+}
+
+.reactivus-toast-show-right {
+  animation: toastBounce 1s ease-in-out,
+    showFromRight 0.2s ease;
 }
 
 @keyframes toastBounce {
@@ -44,14 +53,17 @@
   40% {
     transform: translateX(-10px);
   }
+  60% {
+    transform: translateX(-5px);
+  }
 }
 
 @keyframes showFromLeft {
   0% {
-    transform: translateX(-100%);
+    margin-left: -100%;
   }
   100% {
-    transform: translateX(0%);
+    margin-left: 0%;
   }
 }
 
@@ -63,13 +75,12 @@
     transform: translateX(-150%);
   }
 }
-
 @keyframes showFromRight {
   0% {
-    transform: translateX(+100%);
+    margin-left: 100%;
   }
   100% {
-    transform: translateX(0%);
+    margin-left: 0%;
   }
 }
 
@@ -114,28 +125,24 @@
 }
 
 .reactivus-toast-top-right {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
-  padding: 10px;
 }
 .reactivus-toast-top-left {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  padding: 10px;
 }
 .reactivus-toast-bottom-left {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
-  padding: 10px;
 }
 .reactivus-toast-bottom-right {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   right: 0;
-  padding: 10px;
 }
 
 /* ---------- ICONS ---------- */
@@ -181,19 +188,6 @@
   justify-content: center;
   align-items: center;
 }
-
-/* .reactivus-toast-icon-warning {
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  background-color: #ffa500;
-  color: #FFF;
-  text-align: start;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  clip-path: polygon(51% 0, 0% 100%, 100% 100%);
-} */
 
 .reactivus-toast-icon-warning {
   position: relative;
