@@ -109,7 +109,9 @@ const appendToastToContainer = (toastElement: any) => {
             : "hideToLeft .2s ease forwards"
           : "hideToLeft .2s ease forwards";
         setTimeout(() => {
-          container?.removeChild(toastElement);
+          if (toastElement && toastElement.parentNode === container) {
+            container?.removeChild(toastElement);
+          }
         }, 350);
       });
   } else {
@@ -194,7 +196,7 @@ const warning = (text: string, props?: ContainerProps) => {
 };
 
 // DEFINE THE TOAST TYPES
-type types = "success" | "danger" | "info" | "warning";
+// type types = "success" | "danger" | "info" | "warning";
 
 // TOAST TYPES
 type ToastType = {

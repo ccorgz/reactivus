@@ -58,15 +58,15 @@ type AlertProps = {
 };
 type DialogReturn = {
     /**
-     * Indicates whether the user confirmed the dialog at the confirm button.
+     * Indicates wether the user confirmed the dialog at the confirm button.
      */
     isConfirmed: boolean;
     /**
-     * Indicates whether the user canceled the dialog at the cancel button.
+     * Indicates wether the user canceled the dialog at the cancel button.
      */
     isCanceled: boolean;
     /**
-     * Indicates whether the user aborted the dialog at the close button or the backLayer box.
+     * Indicates wether the user aborted the dialog at the close button or the backLayer box.
      */
     isAborted: boolean;
 };
