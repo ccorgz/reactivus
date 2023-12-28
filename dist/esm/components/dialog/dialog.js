@@ -87,6 +87,7 @@ require("../../styles/dialog.css");
 // FUNCTION TO APPEND THE NEW ALERT DOM COMPONENT INTO THE HTML FILE
 var appendAlert = function (props) {
     var container = document.createElement("div");
+    container.id = "reactivus-dialog-container";
     document.body.appendChild(container);
     var root = client_1.default.createRoot(container);
     return new Promise(function (resolve) {
@@ -131,15 +132,15 @@ var AlertBox = function (_a) {
     // DOM ELEMENT OF THE CLOSE BUTTON
     var CloseAlertSvg = function () {
         return (react_1.default.createElement("svg", { version: "1.1", viewBox: "0 0 130.2 130.2" },
-            react_1.default.createElement("line", { className: "reactivus-path", fill: "none", stroke: "#606060", "stroke-width": "6", "stroke-linecap": "round", x1: "40.2", y1: "40.2", x2: "90", y2: "90" }),
-            react_1.default.createElement("line", { className: "reactivus-path", fill: "none", stroke: "#606060", "stroke-width": "6", "stroke-linecap": "round", x1: "90", y1: "40.2", x2: "40.2", y2: "90" })));
+            react_1.default.createElement("line", { className: "reactivus-path", fill: "none", stroke: "#606060", strokeWidth: "6", strokeLinecap: "round", x1: "40.2", y1: "40.2", x2: "90", y2: "90" }),
+            react_1.default.createElement("line", { className: "reactivus-path", fill: "none", stroke: "#606060", strokeWidth: "6", strokeLinecap: "round", x1: "90", y1: "40.2", x2: "40.2", y2: "90" })));
     };
     // RETURN THE CONTENT BOX DOM ELEMENT
     return (react_1.default.createElement("div", { className: "reactivus-alertMainBox ".concat(showAlert ? "reactivus-showAlertMainBox" : "reactivus-hideAlertMainBox", " reactivus-").concat((_b = alertProps === null || alertProps === void 0 ? void 0 : alertProps.position) !== null && _b !== void 0 ? _b : "reactivus-center") },
         react_1.default.createElement("div", { className: "reactivus-alertBackLayerBox", onClick: function () {
                 handleAbort();
             } }),
-        react_1.default.createElement("div", { className: "reactivus-alertBox ".concat(showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox") },
+        react_1.default.createElement("div", { className: "reactivus-alertBox ".concat(showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"), id: "reactivus-dialog-box" },
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCloseButton) && (react_1.default.createElement("div", { className: "reactivus-alertBoxCloseButton", onClick: function () {
                     handleAbort();
                 } },
@@ -175,9 +176,25 @@ var show = function (props) { return __awaiter(void 0, void 0, void 0, function 
         }
     });
 }); };
+var hide = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var alertBoxElement, container;
+    return __generator(this, function (_a) {
+        alertBoxElement = document.getElementById("reactivus-dialog-box");
+        container = document.getElementById("reactivus-dialog-container");
+        container === null || container === void 0 ? void 0 : container.classList.add("reactivus-hideAlertMainBox");
+        alertBoxElement === null || alertBoxElement === void 0 ? void 0 : alertBoxElement.classList.add("reactivus-hideAlertBox");
+        setTimeout(function () {
+            if (container && document.body.contains(container)) {
+                document.body.removeChild(container);
+            }
+        }, 500);
+        return [2 /*return*/];
+    });
+}); };
 // RETUR OBJECT
 var dialog = {
     show: show,
+    hide: hide,
 };
 // DEFAULT EXPORT
 exports.default = dialog;

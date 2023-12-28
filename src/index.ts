@@ -6,6 +6,4 @@ import Input from "./components/button/button";
 
 import toast from "./components/toast/toast";
 
-import { ToastContainer } from "./components/toast/toast";
-
-export { dialog, Button, Input, toast, ToastContainer };
+export { dialog, Button, Input, toast };

@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -43,18 +54,24 @@ var icons = {
 var toastContainerId = "reactivus-toast-container";
 // METHOD THAT HANDLE THE TOAST CONTAINER
 var ToastContainer = function (props) {
+    var _a;
     // PERSISTS THE CONTAINER DATA INTO LOCALSTORAGE
-    localStorage.setItem("reactivus.toast.container.props", JSON.stringify(props));
-    return (react_1.default.createElement("div", { id: toastContainerId, className: "reactivus-toast-container-box ".concat(props.position
+    // localStorage.setItem(
+    //   "reactivus.toast.container.props",
+    //   JSON.stringify(props ?? "")
+    // );
+    var dataAttributeString = JSON.stringify(props !== null && props !== void 0 ? props : "");
+    return (react_1.default.createElement("div", __assign({ id: toastContainerId, className: "reactivus-toast-container-box ".concat(props.position
             ? "reactivus-toast-" + props.position
-            : "reactivus-toast-top-right") }));
+            : "reactivus-toast-top-right") }, (_a = {}, _a["data-props"] = dataAttributeString, _a))));
 };
 exports.ToastContainer = ToastContainer;
 // PRIVATE METHOD TO APPEND A TOAST TO THE CONTAINER
 var appendToastToContainer = function (toastElement) {
-    var _a, _b;
+    var _a;
     var container = document.getElementById(toastContainerId);
-    var containerProps = JSON.parse((_a = localStorage.getItem("reactivus.toast.container.props")) !== null && _a !== void 0 ? _a : "");
+    var conatinerDataProps = (container === null || container === void 0 ? void 0 : container.dataset) ? container === null || container === void 0 ? void 0 : container.dataset.props : "";
+    var containerProps = JSON.parse(conatinerDataProps !== null && conatinerDataProps !== void 0 ? conatinerDataProps : "");
     toastElement.classList.add(containerProps.position
         ? containerProps.position == "bottom-right" ||
             containerProps.position == "top-right"
@@ -95,15 +112,14 @@ var appendToastToContainer = function (toastElement) {
                 container === null || container === void 0 ? void 0 : container.removeChild(toastElement);
             }, 350);
         }
-    }, (_b = containerProps.autoClose) !== null && _b !== void 0 ? _b : 3000);
+    }, (_a = containerProps.autoClose) !== null && _a !== void 0 ? _a : 3000);
 };
 // TOAST BOX
 var createToast = function (style, text, props) {
-    var _a;
     // DEFINES THE CONTAINER PROPS OBJECT
-    var containerProps = props
-        ? props
-        : JSON.parse((_a = localStorage.getItem("reactivus.toast.container.props")) !== null && _a !== void 0 ? _a : "");
+    var container = document.getElementById(toastContainerId);
+    var conatinerDataProps = (container === null || container === void 0 ? void 0 : container.dataset) ? container === null || container === void 0 ? void 0 : container.dataset.props : "";
+    var containerProps = JSON.parse(conatinerDataProps !== null && conatinerDataProps !== void 0 ? conatinerDataProps : "");
     var toastElement = document.createElement("div");
     toastElement.id = "reactivus-toast-box";
     toastElement.className = "reactivus-toast-box reactivus-toast-".concat(style);
@@ -143,12 +159,20 @@ var warning = function (text, props) {
     var successToast = createToast("warning", text, props);
     appendToastToContainer(successToast);
 };
+// METHOD TO DISMISS ALL TOASTS
+var dismiss = function () {
+    var container = document.getElementById(toastContainerId);
+    while (container && container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+};
 // RETURN OBJECT
 var toast = {
     success: success,
     danger: danger,
     info: info,
     warning: warning,
+    dismiss: dismiss,
 };
 // DEFAULT EXPORT
 exports.default = toast;

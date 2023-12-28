@@ -46,7 +46,7 @@ type AlertProps = {
     /**
      * Defines a HTMLX object to be rendered right bellow the text.
      */
-    htmlx?: HTMLElement;
+    htmlx?: HTMLElement | any;
     /**
      * Defines wich animated icons will be displayed.
      */
@@ -71,7 +71,14 @@ type DialogReturn = {
     isAborted: boolean;
 };
 type DialogType = {
+    /**
+     * Show a dialog alert box.
+     */
     show: (props: AlertProps) => Promise<DialogReturn>;
+    /**
+     * Hide the dialog alert box.
+     */
+    hide: () => void;
 };
 declare const dialog: DialogType;
 export default dialog;

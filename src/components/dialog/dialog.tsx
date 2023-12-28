@@ -97,7 +97,7 @@ type AlertProps = {
   /**
    * Defines a HTMLX object to be rendered right bellow the text.
    */
-  htmlx?: HTMLElement;
+  htmlx?: HTMLElement | any;
   /**
    * Defines wich animated icons will be displayed.
    */
@@ -127,6 +127,7 @@ type DialogReturn = {
 // FUNCTION TO APPEND THE NEW ALERT DOM COMPONENT INTO THE HTML FILE
 const appendAlert = (props?: AlertProps): Promise<DialogReturn> => {
   const container = document.createElement("div");
+  container.id = "reactivus-dialog-container";
 
   document.body.appendChild(container);
 
@@ -192,8 +193,8 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           className="reactivus-path"
           fill="none"
           stroke="#606060"
-          stroke-width="6"
-          stroke-linecap="round"
+          strokeWidth="6"
+          strokeLinecap="round"
           x1="40.2"
           y1="40.2"
           x2="90"
@@ -203,8 +204,8 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           className="reactivus-path"
           fill="none"
           stroke="#606060"
-          stroke-width="6"
-          stroke-linecap="round"
+          strokeWidth="6"
+          strokeLinecap="round"
           x1="90"
           y1="40.2"
           x2="40.2"
@@ -228,7 +229,10 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
         }}
       ></div>
       <div
-        className={`reactivus-alertBox ${showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"}`}
+        className={`reactivus-alertBox ${
+          showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"
+        }`}
+        id={"reactivus-dialog-box"}
       >
         {alertProps?.showCloseButton && (
           <div
@@ -246,9 +250,13 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           </div>
         )}
         <div className={"reactivus-alertBoxTitle"}>{alertProps?.title}</div>
-        <div className={"reactivus-alertBoxTitleContent"}>{alertProps?.text}</div>
+        <div className={"reactivus-alertBoxTitleContent"}>
+          {alertProps?.text}
+        </div>
         {alertProps?.htmlx && (
-          <div className={"reactivus-alertBoxTitleContent"}>{alertProps?.htmlx}</div>
+          <div className={"reactivus-alertBoxTitleContent"}>
+            {alertProps?.htmlx}
+          </div>
         )}
         {alertProps?.html && (
           <div
@@ -288,15 +296,36 @@ const show = async (props: AlertProps): Promise<DialogReturn> => {
   const result: DialogReturn = await appendAlert(props);
   return result;
 };
+const hide = async () => {
+  const alertBoxElement = document.getElementById("reactivus-dialog-box");
+  const container = document.getElementById("reactivus-dialog-container");
+
+  container?.classList.add("reactivus-hideAlertMainBox");
+  alertBoxElement?.classList.add("reactivus-hideAlertBox");
+
+  setTimeout(() => {
+    if (container && document.body.contains(container)) {
+      document.body.removeChild(container);
+    }
+  }, 500);
+};
 
 // DIALOG BOX TYPE
 type DialogType = {
+  /**
+   * Show a dialog alert box.
+   */
   show: (props: AlertProps) => Promise<DialogReturn>;
+  /**
+   * Hide the dialog alert box.
+   */
+  hide: () => void;
 };
 
 // RETUR OBJECT
 const dialog: DialogType = {
   show,
+  hide,
 };
 
 // DEFAULT EXPORT

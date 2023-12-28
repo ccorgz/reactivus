@@ -64,10 +64,11 @@ const toastContainerId = "reactivus-toast-container";
 // METHOD THAT HANDLE THE TOAST CONTAINER
 const ToastContainer = (props: ContainerProps) => {
   // PERSISTS THE CONTAINER DATA INTO LOCALSTORAGE
-  localStorage.setItem(
-    "reactivus.toast.container.props",
-    JSON.stringify(props)
-  );
+  // localStorage.setItem(
+  //   "reactivus.toast.container.props",
+  //   JSON.stringify(props ?? "")
+  // );
+  const dataAttributeString = JSON.stringify(props ?? "");
 
   return (
     <div
@@ -77,6 +78,7 @@ const ToastContainer = (props: ContainerProps) => {
           ? "reactivus-toast-" + props.position
           : "reactivus-toast-top-right"
       }`}
+      {...{ ["data-props"]: dataAttributeString }}
     ></div>
   );
 };
@@ -85,9 +87,8 @@ const ToastContainer = (props: ContainerProps) => {
 const appendToastToContainer = (toastElement: any) => {
   const container = document.getElementById(toastContainerId);
 
-  const containerProps: ContainerProps = JSON.parse(
-    localStorage.getItem("reactivus.toast.container.props") ?? ""
-  );
+  const conatinerDataProps = container?.dataset ? container?.dataset.props : "";
+  const containerProps: ContainerProps = JSON.parse(conatinerDataProps ?? "");
 
   toastElement.classList.add(
     containerProps.position
@@ -140,9 +141,9 @@ const appendToastToContainer = (toastElement: any) => {
 // TOAST BOX
 const createToast = (style: styles, text: string, props?: ContainerProps) => {
   // DEFINES THE CONTAINER PROPS OBJECT
-  const containerProps: ContainerProps = props
-    ? props
-    : JSON.parse(localStorage.getItem("reactivus.toast.container.props") ?? "");
+  const container = document.getElementById(toastContainerId);
+  const conatinerDataProps = container?.dataset ? container?.dataset.props : "";
+  const containerProps: ContainerProps = JSON.parse(conatinerDataProps ?? "");
 
   const toastElement = document.createElement("div");
   toastElement.id = "reactivus-toast-box";
@@ -195,15 +196,36 @@ const warning = (text: string, props?: ContainerProps) => {
   appendToastToContainer(successToast);
 };
 
-// DEFINE THE TOAST TYPES
-// type types = "success" | "danger" | "info" | "warning";
+// METHOD TO DISMISS ALL TOASTS
+const dismiss = () => {
+  const container = document.getElementById(toastContainerId);
+  while (container && container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+};
 
 // TOAST TYPES
 type ToastType = {
+  /**
+   * Show a toast with a success (green) style.
+   */
   success: (text: string, props?: ContainerProps) => void;
+  /**
+   * Show a toast with a danger (red) style.
+   */
   danger: (text: string, props?: ContainerProps) => void;
+  /**
+   * Show a toast with a info (blue) style.
+   */
   info: (text: string, props?: ContainerProps) => void;
+  /**
+   * Show a toast with a warning (orange/yellow) style.
+   */
   warning: (text: string, props?: ContainerProps) => void;
+  /**
+   * Dismiss all the toasts.
+   */
+  dismiss: () => void;
 };
 
 // RETURN OBJECT
@@ -212,6 +234,7 @@ const toast: ToastType = {
   danger,
   info,
   warning,
+  dismiss,
 };
 
 // DEFAULT EXPORT

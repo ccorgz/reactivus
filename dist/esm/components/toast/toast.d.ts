@@ -17,10 +17,26 @@ type ContainerProps = {
 };
 declare const ToastContainer: (props: ContainerProps) => React.JSX.Element;
 type ToastType = {
+    /**
+     * Show a toast with a success (green) style.
+     */
     success: (text: string, props?: ContainerProps) => void;
+    /**
+     * Show a toast with a danger (red) style.
+     */
     danger: (text: string, props?: ContainerProps) => void;
+    /**
+     * Show a toast with a info (blue) style.
+     */
     info: (text: string, props?: ContainerProps) => void;
+    /**
+     * Show a toast with a warning (orange/yellow) style.
+     */
     warning: (text: string, props?: ContainerProps) => void;
+    /**
+     * Dismiss all the toasts.
+     */
+    dismiss: () => void;
 };
 declare const toast: ToastType;
 export default toast;
