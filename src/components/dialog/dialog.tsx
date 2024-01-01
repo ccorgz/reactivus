@@ -266,20 +266,16 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
         )}
         <div className={"reactivus-alertButtonsBox"}>
           <Button
-            options={{
-              label: alertProps?.confirmButtonText ?? "Ok",
-              style: alertProps?.confirmButtonStyle ?? "btn-success",
-            }}
+            label={alertProps?.confirmButtonText ?? "Ok"}
+            style={alertProps?.confirmButtonStyle ?? "btn-success"}
             onClick={() => {
               handleConfirm();
             }}
           />
           {alertProps?.showCancelButton && (
             <Button
-              options={{
-                label: alertProps?.cancelButtonText ?? "Cancel",
-                style: alertProps?.cancelButtonStyle ?? "btn-danger",
-              }}
+              label={alertProps?.cancelButtonText ?? "Cancel"}
+              style={alertProps?.cancelButtonStyle ?? "btn-danger"}
               onClick={() => {
                 handleCancel();
               }}

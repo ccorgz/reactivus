@@ -151,16 +151,10 @@ var AlertBox = function (_a) {
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx)),
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.html) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent", dangerouslySetInnerHTML: { __html: alertProps === null || alertProps === void 0 ? void 0 : alertProps.html } })),
             react_1.default.createElement("div", { className: "reactivus-alertButtonsBox" },
-                react_1.default.createElement(button_1.default, { options: {
-                        label: (_d = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonText) !== null && _d !== void 0 ? _d : "Ok",
-                        style: (_e = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonStyle) !== null && _e !== void 0 ? _e : "btn-success",
-                    }, onClick: function () {
+                react_1.default.createElement(button_1.default, { label: (_d = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonText) !== null && _d !== void 0 ? _d : "Ok", style: (_e = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonStyle) !== null && _e !== void 0 ? _e : "btn-success", onClick: function () {
                         handleConfirm();
                     } }),
-                (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCancelButton) && (react_1.default.createElement(button_1.default, { options: {
-                        label: (_f = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonText) !== null && _f !== void 0 ? _f : "Cancel",
-                        style: (_g = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonStyle) !== null && _g !== void 0 ? _g : "btn-danger",
-                    }, onClick: function () {
+                (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCancelButton) && (react_1.default.createElement(button_1.default, { label: (_f = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonText) !== null && _f !== void 0 ? _f : "Cancel", style: (_g = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonStyle) !== null && _g !== void 0 ? _g : "btn-danger", onClick: function () {
                         handleCancel();
                     } }))))));
 };
