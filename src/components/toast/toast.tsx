@@ -63,11 +63,6 @@ const toastContainerId = "reactivus-toast-container";
 
 // METHOD THAT HANDLE THE TOAST CONTAINER
 const ToastContainer = (props: ContainerProps) => {
-  // PERSISTS THE CONTAINER DATA INTO LOCALSTORAGE
-  // localStorage.setItem(
-  //   "reactivus.toast.container.props",
-  //   JSON.stringify(props ?? "")
-  // );
   const dataAttributeString = JSON.stringify(props ?? "");
 
   return (

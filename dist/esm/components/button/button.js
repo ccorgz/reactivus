@@ -29,16 +29,16 @@ require("../../styles/button.css");
 var react_1 = __importDefault(require("react"));
 // EXPORTA COMPONENTE POR PADRÃO
 function Button(_a) {
-    var _b, _c, _d, _e, _f;
-    var options = _a.options, rest = __rest(_a, ["options"]);
+    var _b;
+    var label = _a.label, style = _a.style, width = _a.width, heigth = _a.heigth, icon = _a.icon, iconPosition = _a.iconPosition, size = _a.size, rounded = _a.rounded, disabled = _a.disabled, tooltip = _a.tooltip, tooltipPosition = _a.tooltipPosition, loading = _a.loading, text = _a.text, shadow = _a.shadow, rest = __rest(_a, ["label", "style", "width", "heigth", "icon", "iconPosition", "size", "rounded", "disabled", "tooltip", "tooltipPosition", "loading", "text", "shadow"]);
     // DEFINE VALOR PARA STYLE OPTIONS
-    var styleOp = (_b = rest.style) !== null && _b !== void 0 ? _b : {};
-    styleOp.width = (_c = options.width) !== null && _c !== void 0 ? _c : "auto";
-    return (react_1.default.createElement("button", __assign({ className: "reactivus-buttonMainBox reactivus-".concat((_d = options.style) !== null && _d !== void 0 ? _d : "btn-light", " reactivus-").concat((_e = options.size) !== null && _e !== void 0 ? _e : "btn-md", " reactivus-").concat(options.disabled ? "btn-disabled" : "", "\n      reactivus-").concat(options.rounded ? "btn-rounded" : ""), style: styleOp }, rest),
-        options.tooltip && options.tooltip.show && (react_1.default.createElement("span", { className: "reactivus-tooltip ".concat("reactivus-tooltip-" + options.tooltip.position) }, (_f = options.tooltip) === null || _f === void 0 ? void 0 : _f.text)),
-        options.iconPosition === "left" && (react_1.default.createElement(react_1.default.Fragment, null, options.loading ? react_1.default.createElement("div", { className: "reactivus-loading" }) : options.icon)),
-        options.label,
-        options.iconPosition === "right" && (react_1.default.createElement(react_1.default.Fragment, null, options.loading ? react_1.default.createElement("div", { className: "reactivus-loading" }) : options.icon))));
+    var styleOption = (_b = rest.style) !== null && _b !== void 0 ? _b : {};
+    styleOption.width = width !== null && width !== void 0 ? width : "auto";
+    return (react_1.default.createElement("button", __assign({ className: "reactivus-button-main-box \n      reactivus-".concat(style !== null && style !== void 0 ? style : "btn-light", " reactivus-").concat(size !== null && size !== void 0 ? size : "btn-md", " \n      reactivus-").concat(disabled ? "btn-disabled" : "", " \n      reactivus-").concat(rounded ? "btn-rounded" : "", " \n      ").concat(text ? "reactivus-text-button" : "", " \n      ").concat(shadow ? "reactivus-shadow-button" : ""), style: styleOption }, rest),
+        tooltip && (react_1.default.createElement("span", { className: "reactivus-tooltip ".concat("reactivus-tooltip-" + tooltipPosition) }, tooltip !== null && tooltip !== void 0 ? tooltip : "")),
+        iconPosition === "left" && (react_1.default.createElement(react_1.default.Fragment, null, loading ? react_1.default.createElement("div", { className: "reactivus-loading" }) : icon)),
+        label,
+        iconPosition != "left" && (react_1.default.createElement(react_1.default.Fragment, null, loading ? react_1.default.createElement("div", { className: "reactivus-loading" }) : icon))));
 }
 exports.default = Button;
 //# sourceMappingURL=button.js.map

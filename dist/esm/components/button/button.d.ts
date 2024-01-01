@@ -1,23 +1,20 @@
 import "../../styles/button.css";
-interface IButton {
-    options: {
-        label?: string;
-        style?: "btn-primary" | "btn-secondary" | "btn-danger" | "btn-success" | "btn-info" | "btn-dark" | "btn-light" | "btn-none" | "btn-warning";
-        width?: string;
-        heigth?: string;
-        icon?: any;
-        iconPosition?: "left" | "right";
-        size?: "btn-sm" | "btn-md" | "btn-lg";
-        rounded?: true | false;
-        disabled?: true | false;
-        tooltip?: {
-            show: true | false;
-            text: string;
-            position: "top" | "right" | "bottom" | "left";
-        };
-        loading?: boolean;
-    };
-}
+type ButtonProps = {
+    label?: string;
+    style?: "btn-primary" | "btn-secondary" | "btn-danger" | "btn-success" | "btn-info" | "btn-dark" | "btn-light" | "btn-none" | "btn-warning";
+    width?: string;
+    heigth?: string;
+    icon?: any;
+    iconPosition?: "left" | "right";
+    size?: "btn-sm" | "btn-md" | "btn-lg";
+    rounded?: true | false;
+    disabled?: true | false;
+    tooltip?: string;
+    tooltipPosition?: "top" | "right" | "bottom" | "left";
+    loading?: boolean;
+    text?: boolean;
+    shadow?: boolean;
+};
 import React from "react";
-export default function Button({ options, ...rest }: IButton & Record<string, unknown>): React.JSX.Element;
+export default function Button({ label, style, width, heigth, icon, iconPosition, size, rounded, disabled, tooltip, tooltipPosition, loading, text, shadow, ...rest }: ButtonProps & Record<string, unknown>): React.JSX.Element;
 export {};

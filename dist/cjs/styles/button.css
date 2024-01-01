@@ -1,4 +1,4 @@
-.reactivus-buttonMainBox {
+.reactivus-button-main-box {
   width: auto;
   display: flex;
   gap: 10px;
@@ -9,18 +9,19 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
   color: #606060;
   position: relative;
   height: 2.5rem;
+  white-space: nowrap;
 }
 
-.reactivus-labelBox {
-  display: flex;
-  gap: 10px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+.reactivus-text-button {
+  background-color: transparent !important;
+}
+
+.reactivus-shadow-button {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .reactivus-btn-none {
@@ -38,6 +39,13 @@
 .reactivus-btn-success:hover {
   background-color: #056639;
 }
+.reactivus-btn-success.reactivus-text-button {
+  color: #3f7d54 !important;
+  font-weight: 500;
+}
+.reactivus-btn-success.reactivus-text-button:hover {
+  background-color: #3f7d5420 !important;
+}
 
 .reactivus-btn-danger {
   background-color: #cb2a29;
@@ -45,6 +53,13 @@
 }
 .reactivus-btn-danger:hover {
   background-color: #9c1f1e;
+}
+.reactivus-btn-danger.reactivus-text-button {
+  color: #cb2a29 !important;
+  font-weight: 500;
+}
+.reactivus-btn-danger.reactivus-text-button:hover {
+  background-color: #cb2a2920 !important;
 }
 
 .reactivus-btn-info {
@@ -54,6 +69,13 @@
 .reactivus-btn-info:hover {
   background-color: #2375ac;
 }
+.reactivus-btn-info.reactivus-text-button {
+  color: #2e86c1 !important;
+  font-weight: 500;
+}
+.reactivus-btn-info.reactivus-text-button:hover {
+  background-color: #2e86c120 !important;
+}
 
 .reactivus-btn-dark {
   background-color: #606062;
@@ -62,13 +84,27 @@
 .reactivus-btn-dark:hover {
   background-color: #424246;
 }
+.reactivus-btn-dark.reactivus-text-button {
+  color: #424246 !important;
+  font-weight: 500;
+}
+.reactivus-btn-dark.reactivus-text-button:hover {
+  background-color: #42424620 !important;
+}
 
 .reactivus-btn-warning {
-  background-color: #FFA500;
+  background-color: #ffa500;
   color: #fafafa;
 }
 .reactivus-btn-warning:hover {
   background-color: #df9100;
+}
+.reactivus-btn-warning.reactivus-text-button {
+  color: #ffa500 !important;
+  font-weight: 500;
+}
+.reactivus-btn-warning.reactivus-text-button:hover {
+  background-color: #ffa50020 !important;
 }
 
 .reactivus-btn-sm {
@@ -103,7 +139,7 @@
   opacity: 0.8;
 }
 
-.reactivus-buttonMainBox:hover .tooltip {
+.reactivus-button-main-box:hover .reactivus-tooltip {
   visibility: visible;
 }
 
@@ -112,14 +148,14 @@
   top: 110%;
   visibility: hidden;
   font-size: 1rem;
-  background-color: #00000090;
+  background-color: #00000099;
   color: #fff;
   text-align: center;
   padding: 5px 10px;
   border-radius: 6px;
   position: absolute;
   z-index: 99 !important;
-  width: 150px;
+  width: clamp(150px, 200px, 250px);
 }
 .reactivus-tooltip-bottom::after {
   content: " ";
@@ -132,7 +168,7 @@
   border-color: transparent transparent #00000090 transparent;
 }
 .reactivus-tooltip-top {
-  top: -80%;
+  top: -85%;
 }
 .reactivus-tooltip-top::after {
   content: " ";
@@ -145,7 +181,7 @@
   border-color: #00000090 transparent transparent transparent;
 }
 .reactivus-tooltip-right {
-  left: 120%;
+  left: calc(100% + 5px);
   top: 50%;
   transform: translateY(-50%);
 }
@@ -162,7 +198,7 @@
   border-color: transparent #00000090 transparent transparent;
 }
 .reactivus-tooltip-left {
-  right: 120%;
+  right: 105%;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -172,8 +208,7 @@
   position: absolute;
   bottom: 50%;
   transform: translateY(50%);
-  left: 105%;
-  margin-left: -4px;
+  left: calc(100%);
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent transparent #00000090;

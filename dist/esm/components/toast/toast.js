@@ -55,11 +55,6 @@ var toastContainerId = "reactivus-toast-container";
 // METHOD THAT HANDLE THE TOAST CONTAINER
 var ToastContainer = function (props) {
     var _a;
-    // PERSISTS THE CONTAINER DATA INTO LOCALSTORAGE
-    // localStorage.setItem(
-    //   "reactivus.toast.container.props",
-    //   JSON.stringify(props ?? "")
-    // );
     var dataAttributeString = JSON.stringify(props !== null && props !== void 0 ? props : "");
     return (react_1.default.createElement("div", __assign({ id: toastContainerId, className: "reactivus-toast-container-box ".concat(props.position
             ? "reactivus-toast-" + props.position

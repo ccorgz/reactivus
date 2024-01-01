@@ -1,67 +1,83 @@
 import "../../styles/button.css";
 
 // DEFINE TIPAGEM DE DADOS DO COMPONENTE
-interface IButton {
-  options: {
-    label?: string;
-    style?:
-      | "btn-primary"
-      | "btn-secondary"
-      | "btn-danger"
-      | "btn-success"
-      | "btn-info"
-      | "btn-dark"
-      | "btn-light"
-      | "btn-none"
-      | "btn-warning";
-    width?: string;
-    heigth?: string;
-    icon?: any;
-    iconPosition?: "left" | "right";
-    size?: "btn-sm" | "btn-md" | "btn-lg";
-    rounded?: true | false;
-    disabled?: true | false;
-    tooltip?: {
-      show: true | false;
-      text: string;
-      position: "top" | "right" | "bottom" | "left";
-    };
-    loading?: boolean;
-  };
-}
+type ButtonProps = {
+  label?: string;
+  style?:
+    | "btn-primary"
+    | "btn-secondary"
+    | "btn-danger"
+    | "btn-success"
+    | "btn-info"
+    | "btn-dark"
+    | "btn-light"
+    | "btn-none"
+    | "btn-warning";
+  width?: string;
+  heigth?: string;
+  icon?: any;
+  iconPosition?: "left" | "right";
+  size?: "btn-sm" | "btn-md" | "btn-lg";
+  rounded?: true | false;
+  disabled?: true | false;
+  tooltip?: string;
+  tooltipPosition?: "top" | "right" | "bottom" | "left";
+  loading?: boolean;
+  text?: boolean;
+  shadow?: boolean;
+};
 
 import React from "react";
 
 // EXPORTA COMPONENTE POR PADRÃO
 export default function Button({
-  options,
+  label,
+  style,
+  width,
+  heigth,
+  icon,
+  iconPosition,
+  size,
+  rounded,
+  disabled,
+  tooltip,
+  tooltipPosition,
+  loading,
+  text,
+  shadow,
   ...rest
-}: IButton & Record<string, unknown>) {
+}: ButtonProps & Record<string, unknown>) {
   // DEFINE VALOR PARA STYLE OPTIONS
-  let styleOp: any = rest.style ?? {};
-  styleOp.width = options.width ?? "auto";
+  let styleOption: any = rest.style ?? {};
+  styleOption.width = width ?? "auto";
 
   return (
     <button
-      className={`reactivus-buttonMainBox reactivus-${options.style ?? "btn-light"} reactivus-${
-        options.size ?? "btn-md"
-      } reactivus-${options.disabled ? "btn-disabled" : ""}
-      reactivus-${options.rounded ? "btn-rounded" : ""}`}
-      style={styleOp}
+      className={`reactivus-button-main-box 
+      reactivus-${style ?? "btn-light"} reactivus-${size ?? "btn-md"} 
+      reactivus-${disabled ? "btn-disabled" : ""} 
+      reactivus-${rounded ? "btn-rounded" : ""} 
+      ${text ? "reactivus-text-button" : ""} 
+      ${shadow ? "reactivus-shadow-button" : ""}`}
+      style={styleOption}
       {...rest}
     >
-      {options.tooltip && options.tooltip.show && (
-        <span className={`reactivus-tooltip ${"reactivus-tooltip-" + options.tooltip.position}`}>
-          {options.tooltip?.text}
+      {tooltip && (
+        <span
+          className={`reactivus-tooltip ${
+            "reactivus-tooltip-" + tooltipPosition
+          }`}
+        >
+          {tooltip ?? ""}
         </span>
       )}
 
-      {options.iconPosition === "left" && (
-        <>{options.loading ? <div className={"reactivus-loading"} /> : options.icon}</>
+      {iconPosition === "left" && (
+        <>{loading ? <div className={"reactivus-loading"} /> : icon}</>
       )}
-      {options.label}
-      {options.iconPosition === "right" && (
-        <>{options.loading ? <div className={"reactivus-loading"} /> : options.icon}</>
+      {label}
+      {iconPosition != "left" && (
+        <>{loading ? <div className={"reactivus-loading"} /> : icon}</>
       )}
     </button>
   );
