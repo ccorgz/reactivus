@@ -58,7 +58,8 @@ export default function Button({
       reactivus-${disabled ? "btn-disabled" : ""} 
       reactivus-${rounded ? "btn-rounded" : ""} 
       ${text ? "reactivus-text-button" : ""} 
-      ${shadow ? "reactivus-shadow-button" : ""}`}
+      ${shadow ? "reactivus-shadow-button" : ""}
+      ${rounded && icon && !label ? "reactivus-btn-rounded-icon" : ""}`}
       style={styleOption}
       {...rest}
     >
@@ -72,13 +73,15 @@ export default function Button({
         </span>
       )}
 
-      {iconPosition === "left" && (
-        <>{loading ? <div className={"reactivus-loading"} /> : icon}</>
-      )}
-      {label}
-      {iconPosition != "left" && (
-        <>{loading ? <div className={"reactivus-loading"} /> : icon}</>
-      )}
+      <span className={`reactivus-button-label-icon-box`}>
+        {iconPosition != "left" && icon && (
+          <>{loading ? <div className={"reactivus-loading"} /> : <span>{icon}</span>}</>
+        )}
+        {label}
+        {iconPosition == "right" && (
+          <>{loading ? <div className={"reactivus-loading"} /> : <span>{icon}</span>}</>
+        )}
+      </span>
     </button>
   );
 }
