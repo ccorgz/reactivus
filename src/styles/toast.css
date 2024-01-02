@@ -4,7 +4,14 @@
   flex-direction: column;
   transition: all 1s ease;
   position: absolute;
+  top: 0;
   width: clamp(320px, 320px, 100%);
+  background-color: #00000020;
+}
+
+.reactivus-toast-container-toasts-box {
+  position: fixed;
+  top: 0;
 }
 
 .reactivus-toast-box {
@@ -20,7 +27,8 @@
   overflow: hidden;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  position: relative;
+  /* position: fixed; */
+  top: 0;
   margin: 10px;
   color: #000;
 }
@@ -34,13 +42,11 @@
 }
 
 .reactivus-toast-show-left {
-  animation: toastBounce 1s ease-in-out,
-    showFromLeft 0.2s ease;
+  animation: toastBounce 1s ease-in-out, showFromLeft 0.2s ease;
 }
 
 .reactivus-toast-show-right {
-  animation: toastBounce 1s ease-in-out,
-    showFromRight 0.2s ease;
+  animation: toastBounce 1s ease-in-out, showFromRight 0.2s ease;
 }
 
 @keyframes toastBounce {

@@ -67,14 +67,18 @@ const ToastContainer = (props: ContainerProps) => {
 
   return (
     <div
-      id={toastContainerId}
       className={`reactivus-toast-container-box ${
         props.position
           ? "reactivus-toast-" + props.position
           : "reactivus-toast-top-right"
       }`}
-      {...{ ["data-props"]: dataAttributeString }}
-    ></div>
+    >
+      <div
+        className={`reactivus-toast-container-toasts-box`}
+        id={toastContainerId}
+        {...{ ["data-props"]: dataAttributeString }}
+      ></div>
+    </div>
   );
 };
 

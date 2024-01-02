@@ -56,9 +56,10 @@ var toastContainerId = "reactivus-toast-container";
 var ToastContainer = function (props) {
     var _a;
     var dataAttributeString = JSON.stringify(props !== null && props !== void 0 ? props : "");
-    return (react_1.default.createElement("div", __assign({ id: toastContainerId, className: "reactivus-toast-container-box ".concat(props.position
+    return (react_1.default.createElement("div", { className: "reactivus-toast-container-box ".concat(props.position
             ? "reactivus-toast-" + props.position
-            : "reactivus-toast-top-right") }, (_a = {}, _a["data-props"] = dataAttributeString, _a))));
+            : "reactivus-toast-top-right") },
+        react_1.default.createElement("div", __assign({ className: "reactivus-toast-container-toasts-box", id: toastContainerId }, (_a = {}, _a["data-props"] = dataAttributeString, _a)))));
 };
 exports.ToastContainer = ToastContainer;
 // PRIVATE METHOD TO APPEND A TOAST TO THE CONTAINER

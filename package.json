@@ -1,6 +1,6 @@
 {
   "name": "reactivus",
-  "version": "0.0.47",
+  "version": "0.0.48",
   "description": "React Based UI Components Package To Facilitate Web Front End Development - By Ccorgz",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -16,7 +16,7 @@
     "copyStyles:cjs": "xcopy /E /I /Y src\\styles dist\\cjs\\styles",
     "copyStyles:esm": "xcopy /E /I /Y src\\styles dist\\esm\\styles"
   },
-  "author": "ccorgz (https://github.com/ccorgz)",
+  "author": "ccorgz (https://ccorgz.com)",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.10.2",
