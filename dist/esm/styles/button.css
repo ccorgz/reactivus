@@ -12,7 +12,15 @@
   color: #606060;
   position: relative;
   height: 2.5rem;
+}
+.reactivus-button-label-icon-box {
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
 }
 
 .reactivus-text-button {
@@ -130,8 +138,15 @@
   align-items: center;
   padding: 10px;
   font-size: 1.2rem;
-  border-radius: 2rem;
+  border-radius: 2.5rem;
+  height: 2.5rem;
   cursor: pointer;
+}
+
+.reactivus-btn-rounded-icon {
+  font-size: 1.4rem;
+  padding: 12px;
+  border-radius: 50%;
 }
 
 .reactivus-btn-disabled {
@@ -145,7 +160,7 @@
 
 .reactivus-tooltip {
   position: absolute;
-  top: 110%;
+  top: 120%;
   visibility: hidden;
   font-size: 1rem;
   background-color: #00000099;
@@ -156,6 +171,7 @@
   position: absolute;
   z-index: 99 !important;
   width: clamp(150px, 200px, 250px);
+  white-space: wrap !important;
 }
 .reactivus-tooltip-bottom::after {
   content: " ";
@@ -168,7 +184,7 @@
   border-color: transparent transparent #00000090 transparent;
 }
 .reactivus-tooltip-top {
-  top: -85%;
+  top: -140%;
 }
 .reactivus-tooltip-top::after {
   content: " ";
@@ -181,7 +197,7 @@
   border-color: #00000090 transparent transparent transparent;
 }
 .reactivus-tooltip-right {
-  left: calc(100% + 5px);
+  right: -210px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -198,7 +214,7 @@
   border-color: transparent #00000090 transparent transparent;
 }
 .reactivus-tooltip-left {
-  right: 105%;
+  left: -210px;
   top: 50%;
   transform: translateY(-50%);
 }

@@ -74,7 +74,7 @@ export default function Button({
       )}
 
       <span className={`reactivus-button-label-icon-box`}>
-        {iconPosition != "left" && icon && (
+        {iconPosition != "right" && icon && (
           <>{loading ? <div className={"reactivus-loading"} /> : <span>{icon}</span>}</>
         )}
         {label}
