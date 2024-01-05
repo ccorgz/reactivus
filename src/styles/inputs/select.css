@@ -1,0 +1,76 @@
+.reactivus-select-input-box {
+  width: auto;
+  min-width: 50px;
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #606060;
+  position: relative;
+  height: 2.5rem;
+}
+
+.reactivus-select-title-box {
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.reactivus-select-title-icon-close {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 2px;
+  margin-left: 10px;
+}
+
+.reactivus-select-title-icon-close svg {
+  transform: rotate(90deg);
+  fill: #606060;
+}
+.reactivus-select-input-box input {
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 1rem;
+  color: #606060;
+}
+
+.reactivus-select-options-box {
+  position: absolute;
+  top: calc(100% + 2.5px);
+  left: 0;
+  background-color: #fff;
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  /* overflow-y: scroll; */
+}
+
+.reactivus-select-options-box-hide {
+  max-height: 0px;
+  padding: 0;
+}
+
+.reactivus-select-options-box-show {
+  max-height: auto;
+  padding: 5px 0;
+}
+.reactivus-select-item-box {
+  padding: 10px 7.5px;
+  white-space: nowrap;
+}
+.reactivus-select-item-box:hover {
+  background-color: #cccccc20;
+}
