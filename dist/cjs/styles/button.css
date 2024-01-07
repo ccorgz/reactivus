@@ -35,6 +35,7 @@
 .reactivus-btn-none {
   background-color: transparent;
   color: #000;
+  fill: #000;
   box-shadow: none;
 }
 .reactivus-btn-none:hover {
@@ -43,12 +44,14 @@
 .reactivus-btn-success {
   background-color: #3f7d54;
   color: #fafafa;
+  fill: #fafafa;
 }
 .reactivus-btn-success:hover {
   background-color: #056639;
 }
 .reactivus-btn-success.reactivus-text-button {
   color: #3f7d54 !important;
+  fill: #3f7d54 !important;
   font-weight: 500;
 }
 .reactivus-btn-success.reactivus-text-button:hover {
@@ -58,12 +61,14 @@
 .reactivus-btn-danger {
   background-color: #cb2a29;
   color: #fafafa;
+  fill: #fafafa;
 }
 .reactivus-btn-danger:hover {
   background-color: #9c1f1e;
 }
 .reactivus-btn-danger.reactivus-text-button {
   color: #cb2a29 !important;
+  fill: #cb2a29 !important;
   font-weight: 500;
 }
 .reactivus-btn-danger.reactivus-text-button:hover {
@@ -73,12 +78,14 @@
 .reactivus-btn-info {
   background-color: #2e86c1;
   color: #fafafa;
+  fill: #fafafa;
 }
 .reactivus-btn-info:hover {
   background-color: #2375ac;
 }
 .reactivus-btn-info.reactivus-text-button {
   color: #2e86c1 !important;
+  fill: #2e86c1 !important;
   font-weight: 500;
 }
 .reactivus-btn-info.reactivus-text-button:hover {
@@ -88,12 +95,14 @@
 .reactivus-btn-dark {
   background-color: #606062;
   color: #fafafa;
+  fill: #fafafa;
 }
 .reactivus-btn-dark:hover {
   background-color: #424246;
 }
 .reactivus-btn-dark.reactivus-text-button {
   color: #424246 !important;
+  fill: #424246 !important;
   font-weight: 500;
 }
 .reactivus-btn-dark.reactivus-text-button:hover {
@@ -103,12 +112,14 @@
 .reactivus-btn-warning {
   background-color: #ffa500;
   color: #fafafa;
+  fill: #fafafa;
 }
 .reactivus-btn-warning:hover {
   background-color: #df9100;
 }
 .reactivus-btn-warning.reactivus-text-button {
   color: #ffa500 !important;
+  fill: #ffa500 !important;
   font-weight: 500;
 }
 .reactivus-btn-warning.reactivus-text-button:hover {
