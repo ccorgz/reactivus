@@ -52,6 +52,10 @@ export default function Select({
   const titleBoxRef = useRef<any>(null);
 
   useEffect(() => {
+    if (options == optionsList) {
+      return;
+    }
+
     setOptionsList(options ?? []);
 
     const valueOptionLabel: any = optionsList?.filter(
@@ -70,9 +74,9 @@ export default function Select({
 
     const handleClickOutside = (event: any) => {
       if (
-        titleBoxRef.current &&
-        !titleBoxRef.current.contains(event.target) &&
-        event.target.closest(".reactivus-select-options-box") === null
+        titleBoxRef.current
+        && !titleBoxRef.current.contains(event.target) 
+        && event.target.closest(".reactivus-select-options-box") === null
       ) {
         setShowOptions(false);
       }
@@ -83,7 +87,7 @@ export default function Select({
       document.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [titleBoxRef, value]);
+  }, [titleBoxRef, value, options]);
 
   const handleOptionsFilter = (filterText: string) => {
     if (filterText != "" && filterBy) {
@@ -110,7 +114,7 @@ export default function Select({
       >
         {optionLabelState}
         <span className="reactivus-select-title-icon-close">
-          <svg width="24" height="24">
+          <svg width="18" height="18">
             <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
           </svg>
         </span>
