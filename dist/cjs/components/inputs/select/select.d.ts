@@ -1,0 +1,20 @@
+import React from "react";
+import "../../../styles/inputs/select.css";
+type SelectInputProps = {
+    icon?: any;
+    label?: string;
+    width?: string;
+    ref?: React.Ref<any>;
+    value: any;
+    options: Array<any>;
+    optionLabel: string;
+    defaultOptionLabel?: string;
+    filter?: boolean;
+    filterPlaceHolder?: string;
+    filterBy?: string;
+    placeholder?: string;
+    onKeyDown?: any;
+    onChange: (selectedOption: any) => void;
+};
+export default function Select({ icon, label, width, ref, value, options, optionLabel, defaultOptionLabel, filter, filterPlaceHolder, filterBy, placeholder, onKeyDown, onChange, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
+export {};
