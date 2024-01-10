@@ -72,22 +72,35 @@ export default function Select({
       }
     };
 
-    const handleClickOutside = (event: any) => {
-      if (
-        titleBoxRef.current
-        && !titleBoxRef.current.contains(event.target)
-        && event.target.closest(".reactivus-select-options-box") === null
-      ) {
-        setShowOptions(false);
-      }
-    };
     document.addEventListener("scroll", handleScroll);
-    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [titleBoxRef, value, options]);
+
+  const handleClickOutside = (event: any) => {
+    if (
+      titleBoxRef.current &&
+      !titleBoxRef.current.contains(event.target) &&
+      event.target.closest(".reactivus-select-options-box") === null
+    ) {
+      setShowOptions(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleClick = (event: any) => {
+      if (titleBoxRef.current && !titleBoxRef.current.contains(event.target)) {
+        handleClickOutside(event);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [titleBoxRef, showOptions]);
 
   const handleOptionsFilter = (filterText: string) => {
     if (filterText != "" && filterBy) {
@@ -110,7 +123,9 @@ export default function Select({
       <div
         className={`reactivus-select-title-box`}
         ref={titleBoxRef}
-        onClick={() => {setShowOptions(!showOptions);}}
+        onClick={() => {
+          setShowOptions(!showOptions);
+        }}
       >
         {optionLabelState}
         <span className="reactivus-select-title-icon-close">

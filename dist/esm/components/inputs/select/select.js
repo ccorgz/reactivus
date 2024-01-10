@@ -72,20 +72,29 @@ function Select(_a) {
                 setIsClosestToTop(rect.top < window.innerHeight - rect.bottom);
             }
         };
-        var handleClickOutside = function (event) {
-            if (titleBoxRef.current
-                && !titleBoxRef.current.contains(event.target)
-                && event.target.closest(".reactivus-select-options-box") === null) {
-                setShowOptions(false);
-            }
-        };
         document.addEventListener("scroll", handleScroll);
-        document.addEventListener("mousedown", handleClickOutside);
         return function () {
             document.removeEventListener("scroll", handleScroll);
-            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [titleBoxRef, value, options]);
+    var handleClickOutside = function (event) {
+        if (titleBoxRef.current &&
+            !titleBoxRef.current.contains(event.target) &&
+            event.target.closest(".reactivus-select-options-box") === null) {
+            setShowOptions(false);
+        }
+    };
+    (0, react_1.useEffect)(function () {
+        var handleClick = function (event) {
+            if (titleBoxRef.current && !titleBoxRef.current.contains(event.target)) {
+                handleClickOutside(event);
+            }
+        };
+        document.addEventListener("click", handleClick);
+        return function () {
+            document.removeEventListener("click", handleClick);
+        };
+    }, [titleBoxRef, showOptions]);
     var handleOptionsFilter = function (filterText) {
         if (filterText != "" && filterBy) {
             var newFilter = options === null || options === void 0 ? void 0 : options.filter(function (op) {
@@ -99,7 +108,9 @@ function Select(_a) {
     };
     return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box", style: { width: width } }),
         label && react_1.default.createElement("label", null, label),
-        react_1.default.createElement("div", { className: "reactivus-select-title-box", ref: titleBoxRef, onClick: function () { return setShowOptions(!showOptions); } },
+        react_1.default.createElement("div", { className: "reactivus-select-title-box", ref: titleBoxRef, onClick: function () {
+                setShowOptions(!showOptions);
+            } },
             optionLabelState,
             react_1.default.createElement("span", { className: "reactivus-select-title-icon-close" },
                 react_1.default.createElement("svg", { width: "18", height: "18" },
