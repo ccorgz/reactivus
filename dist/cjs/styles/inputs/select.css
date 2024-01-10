@@ -23,6 +23,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 .reactivus-select-title-icon-close {
   display: flex;
@@ -65,6 +66,7 @@
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
   transition: all 0.2s ease;
   z-index: 10;
+  max-height: 50dvh;
 }
 
 .reactivus-select-options-box-top {

@@ -58,6 +58,9 @@ function Select(_a) {
     var _e = (0, react_1.useState)(true), isClosestToTop = _e[0], setIsClosestToTop = _e[1];
     var titleBoxRef = (0, react_1.useRef)(null);
     (0, react_1.useEffect)(function () {
+        if (options == optionsList) {
+            return;
+        }
         setOptionsList(options !== null && options !== void 0 ? options : []);
         var valueOptionLabel = optionsList === null || optionsList === void 0 ? void 0 : optionsList.filter(function (op) { return value && op[optionLabel] == value[optionLabel]; });
         if (valueOptionLabel.length > 0 && valueOptionLabel[0][optionLabel]) {
@@ -70,9 +73,9 @@ function Select(_a) {
             }
         };
         var handleClickOutside = function (event) {
-            if (titleBoxRef.current &&
-                !titleBoxRef.current.contains(event.target) &&
-                event.target.closest(".reactivus-select-options-box") === null) {
+            if (titleBoxRef.current
+                && !titleBoxRef.current.contains(event.target)
+                && event.target.closest(".reactivus-select-options-box") === null) {
                 setShowOptions(false);
             }
         };
@@ -82,7 +85,7 @@ function Select(_a) {
             document.removeEventListener("scroll", handleScroll);
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [titleBoxRef, value]);
+    }, [titleBoxRef, value, options]);
     var handleOptionsFilter = function (filterText) {
         if (filterText != "" && filterBy) {
             var newFilter = options === null || options === void 0 ? void 0 : options.filter(function (op) {
@@ -99,7 +102,7 @@ function Select(_a) {
         react_1.default.createElement("div", { className: "reactivus-select-title-box", ref: titleBoxRef, onClick: function () { return setShowOptions(!showOptions); } },
             optionLabelState,
             react_1.default.createElement("span", { className: "reactivus-select-title-icon-close" },
-                react_1.default.createElement("svg", { width: "24", height: "24" },
+                react_1.default.createElement("svg", { width: "18", height: "18" },
                     react_1.default.createElement("path", { d: "M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" })))),
         react_1.default.createElement("div", { className: "reactivus-select-options-box reactivus-select-options-box-".concat(showOptions ? "show" : "hide", " reactivus-select-options-box-").concat(isClosestToTop ? "bottom" : "top"), ref: ref !== null && ref !== void 0 ? ref : null },
             filter && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box" },

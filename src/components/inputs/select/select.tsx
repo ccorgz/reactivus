@@ -75,7 +75,7 @@ export default function Select({
     const handleClickOutside = (event: any) => {
       if (
         titleBoxRef.current
-        && !titleBoxRef.current.contains(event.target) 
+        && !titleBoxRef.current.contains(event.target)
         && event.target.closest(".reactivus-select-options-box") === null
       ) {
         setShowOptions(false);
@@ -110,7 +110,7 @@ export default function Select({
       <div
         className={`reactivus-select-title-box`}
         ref={titleBoxRef}
-        onClick={() => setShowOptions(!showOptions)}
+        onClick={() => {setShowOptions(!showOptions);}}
       >
         {optionLabelState}
         <span className="reactivus-select-title-icon-close">
