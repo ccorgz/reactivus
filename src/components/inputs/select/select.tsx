@@ -52,6 +52,25 @@ export default function Select({
   const titleBoxRef = useRef<any>(null);
 
   useEffect(() => {
+    // if (options == optionsList) {
+    //   return;
+    // }
+    console.log("value :", value);
+    const valueOptionLabel: any = optionsList?.filter(
+      (op: any) => value && op[optionLabel] == value[optionLabel]
+    );
+
+    if (value && value[optionLabel]) {
+      setOptionLabelState(value[optionLabel]);
+    } else if (
+      valueOptionLabel.length > 0 &&
+      valueOptionLabel[0][optionLabel]
+    ) {
+      setOptionLabelState(valueOptionLabel[0][optionLabel]);
+    }
+  }, [value]);
+
+  useEffect(() => {
     if (options == optionsList) {
       return;
     }
@@ -127,10 +146,23 @@ export default function Select({
           setShowOptions(!showOptions);
         }}
       >
-        {optionLabelState}
+        <span className="reactivus-select-title-label">{optionLabelState}</span>
         <span className="reactivus-select-title-icon-close">
-          <svg width="18" height="18">
+          {/* <svg width="18" height="18">
             <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
+          </svg> */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M6 9l6 6 6-6" />
           </svg>
         </span>
       </div>
