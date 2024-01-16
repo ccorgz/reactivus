@@ -52,10 +52,6 @@ export default function Select({
   const titleBoxRef = useRef<any>(null);
 
   useEffect(() => {
-    // if (options == optionsList) {
-    //   return;
-    // }
-    console.log("value :", value);
     const valueOptionLabel: any = optionsList?.filter(
       (op: any) => value && op[optionLabel] == value[optionLabel]
     );
@@ -148,9 +144,6 @@ export default function Select({
       >
         <span className="reactivus-select-title-label">{optionLabelState}</span>
         <span className="reactivus-select-title-icon-close">
-          {/* <svg width="18" height="18">
-            <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
-          </svg> */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
