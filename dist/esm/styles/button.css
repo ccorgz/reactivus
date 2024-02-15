@@ -22,6 +22,11 @@
   width: 100%;
   height: 100%;
 }
+.reactivus-button-label-icon-box span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .reactivus-text-button {
   background-color: transparent !important;
@@ -155,9 +160,13 @@
 }
 
 .reactivus-btn-rounded-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1.4rem;
   padding: 12px;
-  border-radius: 50%;
+  border-radius: 2.5rem !important;
+  width: 2.5rem !important;
 }
 
 .reactivus-btn-disabled {
