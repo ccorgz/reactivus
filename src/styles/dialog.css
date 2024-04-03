@@ -57,9 +57,9 @@
   position: absolute;
   background-color: #fff;
   border-radius: 10px;
-  /* width: clamp(200px, 30%, 95%); */
-  max-width: 95%;
-  min-width: 480px;
+  /* min-width: 480px;
+  max-width: 95dvw !important; */
+  width: clamp(350px, 480px, 95dvw);
   min-height: 200px;
   height: auto;
   padding: 15px;
