@@ -48,6 +48,14 @@ type AlertProps = {
      */
     htmlx?: HTMLElement | any;
     /**
+     * Defines a HTMLX object to be rendered as the header of the dialog.
+     */
+    customHeader?: HTMLElement | any;
+    /**
+     * Defines wether the dialog is mainly custom or not.
+     */
+    isCustomDialog?: boolean;
+    /**
      * Defines wich animated icons will be displayed.
      */
     icon?: icons;

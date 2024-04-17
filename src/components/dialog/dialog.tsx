@@ -99,6 +99,14 @@ type AlertProps = {
    */
   htmlx?: HTMLElement | any;
   /**
+   * Defines a HTMLX object to be rendered as the header of the dialog.
+   */
+  customHeader?: HTMLElement | any;
+  /**
+   * Defines wether the dialog is mainly custom or not.
+   */
+  isCustomDialog?: boolean;
+  /**
    * Defines wich animated icons will be displayed.
    */
   icon?: icons;
@@ -233,6 +241,10 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"
         }`}
         id={"reactivus-dialog-box"}
+        style={{
+          padding: alertProps?.isCustomDialog ? '0px' : '15px',
+          gap: alertProps?.isCustomDialog ? '0px' : '20px'
+        }}
       >
         {alertProps?.showCloseButton && (
           <div
@@ -253,6 +265,11 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
         <div className={"reactivus-alertBoxTitleContent"}>
           {alertProps?.text}
         </div>
+        {alertProps?.customHeader && (
+          <div className={"reactivus-alertBoxTitleContent"}>
+            {alertProps?.customHeader}
+          </div>
+        )}
         {alertProps?.htmlx && (
           <div className={"reactivus-alertBoxTitleContent"}>
             {alertProps?.htmlx}
