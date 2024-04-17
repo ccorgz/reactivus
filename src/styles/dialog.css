@@ -58,6 +58,8 @@
   background-color: #fff;
   border-radius: 10px;
   width: clamp(420px, 480px, 95%);
+  /* min-width: 480px;
+  max-width: 95dvw !important; */
   min-height: 200px;
   min-width: 420px;
   width: auto;
