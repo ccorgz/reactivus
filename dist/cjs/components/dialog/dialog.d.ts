@@ -8,6 +8,10 @@ type AlertProps = {
      */
     title?: string;
     /**
+     * Title to be displayed as a top-left header in the dialog.
+     */
+    cornerTitle?: string;
+    /**
      * Description text to be displayed right bellow the title.
      */
     text?: string;
@@ -39,6 +43,10 @@ type AlertProps = {
      * Controls wether the close button is visible or not.
      */
     showCloseButton?: boolean;
+    /**
+     * Controls wether the dialog closes when clicked outside or not.
+     */
+    allowClose?: boolean;
     /**
      * Defines a HTML string to be rendered right bellow the text.
      */

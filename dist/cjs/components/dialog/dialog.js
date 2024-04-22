@@ -129,6 +129,14 @@ var AlertBox = function (_a) {
             isAborted: true,
         });
     };
+    var handleOutsideAbort = function () {
+        if ((alertProps === null || alertProps === void 0 ? void 0 : alertProps.allowClose) == false) {
+            return;
+        }
+        else {
+            handleAbort();
+        }
+    };
     // DOM ELEMENT OF THE CLOSE BUTTON
     var CloseAlertSvg = function () {
         return (react_1.default.createElement("svg", { version: "1.1", viewBox: "0 0 130.2 130.2" },
@@ -138,18 +146,19 @@ var AlertBox = function (_a) {
     // RETURN THE CONTENT BOX DOM ELEMENT
     return (react_1.default.createElement("div", { className: "reactivus-alertMainBox ".concat(showAlert ? "reactivus-showAlertMainBox" : "reactivus-hideAlertMainBox", " reactivus-").concat((_b = alertProps === null || alertProps === void 0 ? void 0 : alertProps.position) !== null && _b !== void 0 ? _b : "reactivus-center") },
         react_1.default.createElement("div", { className: "reactivus-alertBackLayerBox", onClick: function () {
-                handleAbort();
+                handleOutsideAbort();
             } }),
         react_1.default.createElement("div", { className: "reactivus-alertBox ".concat(showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"), id: "reactivus-dialog-box", style: {
-                padding: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? '0px' : '15px',
-                gap: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? '0px' : '20px'
+                padding: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "0px" : "15px",
+                gap: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "0px" : "20px",
             } },
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCloseButton) && (react_1.default.createElement("div", { className: "reactivus-alertBoxCloseButton", onClick: function () {
                     handleAbort();
                 } },
                 react_1.default.createElement(CloseAlertSvg, null))),
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleIcon" }, iconsList[(_c = alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) !== null && _c !== void 0 ? _c : "success"])),
-            react_1.default.createElement("div", { className: "reactivus-alertBoxTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.title),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.title) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.title)),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.cornerTitle) && (react_1.default.createElement("div", { className: "reactivus-alertBoxCornerTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.cornerTitle)),
             react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.text),
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader)),
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx)),
