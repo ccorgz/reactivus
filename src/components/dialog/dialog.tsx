@@ -59,6 +59,10 @@ type AlertProps = {
    */
   title?: string;
   /**
+   * Title to be displayed as a top-left header in the dialog.
+   */
+  cornerTitle?: string;
+  /**
    * Description text to be displayed right bellow the title.
    */
   text?: string;
@@ -90,6 +94,10 @@ type AlertProps = {
    * Controls wether the close button is visible or not.
    */
   showCloseButton?: boolean;
+  /**
+   * Controls wether the dialog closes when clicked outside or not.
+   */
+  allowClose?: boolean;
   /**
    * Defines a HTML string to be rendered right bellow the text.
    */
@@ -193,6 +201,14 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
     });
   };
 
+  const handleOutsideAbort = () => {
+    if (alertProps?.allowClose == false) {
+      return;
+    } else {
+      handleAbort();
+    }
+  };
+
   // DOM ELEMENT OF THE CLOSE BUTTON
   const CloseAlertSvg = () => {
     return (
@@ -233,7 +249,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
       <div
         className={"reactivus-alertBackLayerBox"}
         onClick={() => {
-          handleAbort();
+          handleOutsideAbort();
         }}
       ></div>
       <div
@@ -242,8 +258,8 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
         }`}
         id={"reactivus-dialog-box"}
         style={{
-          padding: alertProps?.isCustomDialog ? '0px' : '15px',
-          gap: alertProps?.isCustomDialog ? '0px' : '20px'
+          padding: alertProps?.isCustomDialog ? "0px" : "15px",
+          gap: alertProps?.isCustomDialog ? "0px" : "20px",
         }}
       >
         {alertProps?.showCloseButton && (
@@ -261,7 +277,14 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
             {iconsList[alertProps?.icon ?? "success"]}
           </div>
         )}
-        <div className={"reactivus-alertBoxTitle"}>{alertProps?.title}</div>
+        {alertProps?.title && (
+          <div className={"reactivus-alertBoxTitle"}>{alertProps?.title}</div>
+        )}
+        {alertProps?.cornerTitle && (
+          <div className={"reactivus-alertBoxCornerTitle"}>
+            {alertProps?.cornerTitle}
+          </div>
+        )}
         <div className={"reactivus-alertBoxTitleContent"}>
           {alertProps?.text}
         </div>

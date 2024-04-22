@@ -56,6 +56,7 @@
 .reactivus-alertBox {
   position: absolute;
   background-color: #fff;
+  /* background-color: #00000010; */
   border-radius: 10px;
   width: clamp(420px, 480px, 95%);
   /* min-width: 480px;
@@ -97,6 +98,14 @@
   to {
     transform: scale(0.1);
   }
+}
+
+.reactivus-alertBoxCornerTitle {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
 .reactivus-alertBoxCloseButton {
