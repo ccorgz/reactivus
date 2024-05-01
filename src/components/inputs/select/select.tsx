@@ -7,17 +7,20 @@ import "../../../styles/inputs/select.css";
 type SelectInputProps = {
   icon?: any;
   label?: string;
+  floatLabel?: string;
   width?: string;
   ref?: React.Ref<any>;
   value: any;
   options: Array<any>;
   optionLabel: string;
   defaultOptionLabel?: string;
+  optionTemplate?: HTMLElement | any;
   filter?: boolean;
   filterPlaceHolder?: string;
   filterBy?: string;
   placeholder?: string;
   onKeyDown?: any;
+  multiSelect?: boolean;
   onChange: (selectedOption: any) => void;
 };
 
@@ -31,15 +34,18 @@ export default function Select({
   options,
   optionLabel,
   defaultOptionLabel,
+  optionTemplate,
   filter,
   filterPlaceHolder,
   filterBy,
   placeholder,
   onKeyDown,
+  multiSelect,
   onChange,
   ...rest
 }: SelectInputProps & Record<string, unknown>) {
   const [showOptions, setShowOptions] = useState(false);
+  console.log("RENDERED");
 
   const [optionsList, setOptionsList] = useState<Array<any>>(options ?? []);
 
@@ -183,12 +189,15 @@ export default function Select({
             <span
               className={`reactivus-select-item-box`}
               onClick={() => {
-                setShowOptions(false);
+                if (!multiSelect) {
+                  setShowOptions(false);
+                }
                 onChange && onChange({ value: option });
               }}
               key={index}
             >
-              {option[optionLabel]}
+              {multiSelect && <input type={"checkbox"} />}
+              {optionTemplate ? optionTemplate(option) : option[optionLabel]}
             </span>
           );
         })}
