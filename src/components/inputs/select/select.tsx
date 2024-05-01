@@ -45,13 +45,14 @@ export default function Select({
   ...rest
 }: SelectInputProps & Record<string, unknown>) {
   const [showOptions, setShowOptions] = useState(false);
-  console.log("RENDERED");
 
   const [optionsList, setOptionsList] = useState<Array<any>>(options ?? []);
 
   const [optionLabelState, setOptionLabelState] = useState<string>(
     defaultOptionLabel ?? ""
   );
+
+  const [selectionList, setSelectionList] = useState<any>([]);
 
   const [isClosestToTop, setIsClosestToTop] = useState<boolean>(true);
 
@@ -110,6 +111,9 @@ export default function Select({
   };
 
   useEffect(() => {
+    if (!showOptions && onChange && multiSelect) {
+      onChange({ value: selectionList });
+    }
     const handleClick = (event: any) => {
       if (titleBoxRef.current && !titleBoxRef.current.contains(event.target)) {
         handleClickOutside(event);
@@ -189,15 +193,30 @@ export default function Select({
             <span
               className={`reactivus-select-item-box`}
               onClick={() => {
-                if (!multiSelect) {
-                  setShowOptions(false);
+                if (multiSelect) {
+                  setSelectionList((prev: any) => {
+                    const isOptionInList = prev.some(
+                      (p: any) => JSON.stringify(p) === JSON.stringify(option)
+                    );
+
+                    if (isOptionInList) {
+                      return prev.filter(
+                        (p: any) => JSON.stringify(p) !== JSON.stringify(option)
+                      );
+                    } else {
+                      return [...prev, option];
+                    }
+                  });
+                } else {
+                  onChange && onChange({ value: option });
                 }
-                onChange && onChange({ value: option });
               }}
               key={index}
             >
               {multiSelect && <input type={"checkbox"} />}
-              {optionTemplate ? optionTemplate(option) : option[optionLabel]}
+              {optionTemplate
+                ? optionTemplate(option)
+                : option[optionLabel] ?? option}
             </span>
           );
         })}
