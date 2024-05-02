@@ -20,6 +20,7 @@ type SelectInputProps = {
   placeholder?: string;
   onKeyDown?: any;
   multiSelect?: boolean;
+  selectAll?: boolean;
   onChange: (selectedOption: any) => void;
 };
 
@@ -40,6 +41,7 @@ export default function Select({
   onKeyDown,
   multiSelect,
   onChange,
+  selectAll,
   ...rest
 }: SelectInputProps & Record<string, unknown>) {
   const [showOptions, setShowOptions] = useState(false);
@@ -137,7 +139,7 @@ export default function Select({
   const handleOptionsFilter = (filterText: string) => {
     if (filterText != "" && filterBy) {
       const newFilter: any = options?.filter((op: any) =>
-        op[filterBy].toUpperCase().includes(filterText.toUpperCase())
+        op[filterBy].toString().toUpperCase().includes(filterText.toUpperCase())
       );
       setOptionsList(newFilter);
     } else {
@@ -167,7 +169,7 @@ export default function Select({
         }}
       >
         <div className="reactivus-select-title-label">{optionLabelState}</div>
-        <span className="reactivus-select-title-icon-close">
+        <span className="reactivus-select-title-icon-open">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -189,19 +191,86 @@ export default function Select({
         } reactivus-select-options-box-${isClosestToTop ? "bottom" : "top"}`}
         ref={ref ?? null}
       >
-        {filter && (
-          <span
-            className={`reactivus-select-item-box reactivus-select-filter-box`}
-          >
-            <input
-              type="text"
-              placeholder={filterPlaceHolder ?? "Search"}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleOptionsFilter(e.target.value)
-              }
-            />
-          </span>
-        )}
+        {filter ||
+          (selectAll && (
+            <span
+              className={`reactivus-select-item-box reactivus-select-filter-box`}
+            >
+              {selectAll && (
+                <input
+                  type={"checkbox"}
+                  id={"reactivusSelectAllCheckbox"}
+                  className={`reactivus-select-filter-box-checkbox`}
+                  onClick={() => {
+                    if (selectionList.length == options.length) {
+                      setSelectionList([]);
+                    } else {
+                      setSelectionList(options);
+                    }
+                  }}
+                />
+              )}
+              {!filter && (
+                <span
+                  className={`reactivus-select-filter-box-label`}
+                  onClick={() => {
+                    if (selectionList.length == options.length) {
+                      setSelectionList([]);
+                    } else {
+                      setSelectionList(options);
+                    }
+                    const allCheck: any = document.getElementById(
+                      "reactivusSelectAllCheckbox"
+                    );
+                    if (allCheck && allCheck.checked) {
+                      allCheck.checked = false;
+                    } else if (allCheck) {
+                      allCheck.checked = true;
+                    }
+                  }}
+                >
+                  Todos
+                </span>
+              )}
+              {filter && (
+                <input
+                  type="text"
+                  className={`reactivus-select-filter-box-text`}
+                  placeholder={filterPlaceHolder ?? "Search"}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleOptionsFilter(e.target.value)
+                  }
+                />
+              )}
+              <span
+                className="reactivus-select-title-icon-close"
+                onClick={() => {
+                  setSelectionList([]);
+                  setShowOptions(!showOptions);
+                  const allCheck: any = document.getElementById(
+                    "reactivusSelectAllCheckbox"
+                  );
+                  if (allCheck && allCheck.checked) {
+                    allCheck.checked = false;
+                  }
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="-8 -8 48 48"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M2,2 L30,30 M2,30 L30,2" />
+                </svg>
+              </span>
+            </span>
+          ))}
         {optionsList?.map((option: any, index: any) => {
           return (
             <span
@@ -222,9 +291,9 @@ export default function Select({
                     }
                   });
                 } else {
-                console.log('MULTIPLE OFF');
+                  console.log("MULTIPLE OFF");
                   onChange && onChange({ value: option });
-                  setShowOptions(false)
+                  setShowOptions(false);
                 }
               }}
               key={index}

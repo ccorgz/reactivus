@@ -16,7 +16,8 @@ type SelectInputProps = {
     placeholder?: string;
     onKeyDown?: any;
     multiSelect?: boolean;
+    selectAll?: boolean;
     onChange: (selectedOption: any) => void;
 };
-export default function Select({ icon, label, width, ref, value, options, optionLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, onKeyDown, multiSelect, onChange, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
+export default function Select({ icon, label, width, ref, value, options, optionLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, onKeyDown, multiSelect, onChange, selectAll, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
 export {};

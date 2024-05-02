@@ -60,7 +60,7 @@ var react_1 = __importStar(require("react"));
 require("../../../styles/inputs/select.css");
 // EXPORTA COMPONENTE POR PADRÃO
 function Select(_a) {
-    var icon = _a.icon, label = _a.label, width = _a.width, ref = _a.ref, value = _a.value, options = _a.options, optionLabel = _a.optionLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, onKeyDown = _a.onKeyDown, multiSelect = _a.multiSelect, onChange = _a.onChange, rest = __rest(_a, ["icon", "label", "width", "ref", "value", "options", "optionLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "onKeyDown", "multiSelect", "onChange"]);
+    var icon = _a.icon, label = _a.label, width = _a.width, ref = _a.ref, value = _a.value, options = _a.options, optionLabel = _a.optionLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, onKeyDown = _a.onKeyDown, multiSelect = _a.multiSelect, onChange = _a.onChange, selectAll = _a.selectAll, rest = __rest(_a, ["icon", "label", "width", "ref", "value", "options", "optionLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "onKeyDown", "multiSelect", "onChange", "selectAll"]);
     var _b = (0, react_1.useState)(false), showOptions = _b[0], setShowOptions = _b[1];
     var _c = (0, react_1.useState)(options !== null && options !== void 0 ? options : []), optionsList = _c[0], setOptionsList = _c[1];
     var _d = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _d[0], setOptionLabelState = _d[1];
@@ -137,7 +137,7 @@ function Select(_a) {
     var handleOptionsFilter = function (filterText) {
         if (filterText != "" && filterBy) {
             var newFilter = options === null || options === void 0 ? void 0 : options.filter(function (op) {
-                return op[filterBy].toUpperCase().includes(filterText.toUpperCase());
+                return op[filterBy].toString().toUpperCase().includes(filterText.toUpperCase());
             });
             setOptionsList(newFilter);
         }
@@ -155,14 +155,48 @@ function Select(_a) {
                 setShowOptions(!showOptions);
             } },
             react_1.default.createElement("div", { className: "reactivus-select-title-label" }, optionLabelState),
-            react_1.default.createElement("span", { className: "reactivus-select-title-icon-close" },
+            react_1.default.createElement("span", { className: "reactivus-select-title-icon-open" },
                 react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
                     react_1.default.createElement("path", { d: "M6 9l6 6 6-6" })))),
         react_1.default.createElement("div", { className: "reactivus-select-options-box reactivus-select-options-box-".concat(showOptions ? "show" : "hide", " reactivus-select-options-box-").concat(isClosestToTop ? "bottom" : "top"), ref: ref !== null && ref !== void 0 ? ref : null },
-            filter && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box" },
-                react_1.default.createElement("input", { type: "text", placeholder: filterPlaceHolder !== null && filterPlaceHolder !== void 0 ? filterPlaceHolder : "Search", onChange: function (e) {
-                        return handleOptionsFilter(e.target.value);
-                    } }))), optionsList === null || optionsList === void 0 ? void 0 :
+            filter ||
+                (selectAll && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box" },
+                    selectAll && (react_1.default.createElement("input", { type: "checkbox", id: "reactivusSelectAllCheckbox", className: "reactivus-select-filter-box-checkbox", onClick: function () {
+                            if (selectionList.length == options.length) {
+                                setSelectionList([]);
+                            }
+                            else {
+                                setSelectionList(options);
+                            }
+                        } })),
+                    !filter && (react_1.default.createElement("span", { className: "reactivus-select-filter-box-label", onClick: function () {
+                            if (selectionList.length == options.length) {
+                                setSelectionList([]);
+                            }
+                            else {
+                                setSelectionList(options);
+                            }
+                            var allCheck = document.getElementById("reactivusSelectAllCheckbox");
+                            if (allCheck && allCheck.checked) {
+                                allCheck.checked = false;
+                            }
+                            else if (allCheck) {
+                                allCheck.checked = true;
+                            }
+                        } }, "Todos")),
+                    filter && (react_1.default.createElement("input", { type: "text", className: "reactivus-select-filter-box-text", placeholder: filterPlaceHolder !== null && filterPlaceHolder !== void 0 ? filterPlaceHolder : "Search", onChange: function (e) {
+                            return handleOptionsFilter(e.target.value);
+                        } })),
+                    react_1.default.createElement("span", { className: "reactivus-select-title-icon-close", onClick: function () {
+                            setSelectionList([]);
+                            setShowOptions(!showOptions);
+                            var allCheck = document.getElementById("reactivusSelectAllCheckbox");
+                            if (allCheck && allCheck.checked) {
+                                allCheck.checked = false;
+                            }
+                        } },
+                        react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "-8 -8 48 48", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" },
+                            react_1.default.createElement("path", { d: "M2,2 L30,30 M2,30 L30,2" })))))), optionsList === null || optionsList === void 0 ? void 0 :
             optionsList.map(function (option, index) {
                 var _a;
                 return (react_1.default.createElement("span", { className: "reactivus-select-item-box", onClick: function () {
@@ -178,7 +212,7 @@ function Select(_a) {
                             });
                         }
                         else {
-                            console.log('MULTIPLE OFF');
+                            console.log("MULTIPLE OFF");
                             onChange && onChange({ value: option });
                             setShowOptions(false);
                         }
