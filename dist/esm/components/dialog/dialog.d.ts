@@ -10,7 +10,7 @@ type AlertProps = {
     /**
      * Title to be displayed as a top-left header in the dialog.
      */
-    cornerTitle?: string;
+    headerTitle?: string;
     /**
      * Description text to be displayed right bellow the title.
      */

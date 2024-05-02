@@ -61,7 +61,7 @@ type AlertProps = {
   /**
    * Title to be displayed as a top-left header in the dialog.
    */
-  cornerTitle?: string;
+  headerTitle?: string;
   /**
    * Description text to be displayed right bellow the title.
    */
@@ -262,6 +262,11 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           gap: alertProps?.isCustomDialog ? "0px" : "20px",
         }}
       >
+        {alertProps?.headerTitle && (
+          <div className={"reactivus-alertBoxHeaderTitle"}>
+            {alertProps?.headerTitle}
+          </div>
+        )}
         {alertProps?.showCloseButton && (
           <div
             className={"reactivus-alertBoxCloseButton"}
@@ -279,11 +284,6 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
         )}
         {alertProps?.title && (
           <div className={"reactivus-alertBoxTitle"}>{alertProps?.title}</div>
-        )}
-        {alertProps?.cornerTitle && (
-          <div className={"reactivus-alertBoxCornerTitle"}>
-            {alertProps?.cornerTitle}
-          </div>
         )}
         <div className={"reactivus-alertBoxTitleContent"}>
           {alertProps?.text}

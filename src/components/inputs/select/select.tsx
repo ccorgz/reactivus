@@ -13,7 +13,6 @@ type SelectInputProps = {
   value: any;
   options: Array<any>;
   optionLabel: string;
-  defaultOptionLabel?: string;
   optionTemplate?: HTMLElement | any;
   filter?: boolean;
   filterPlaceHolder?: string;
@@ -33,7 +32,6 @@ export default function Select({
   value,
   options,
   optionLabel,
-  defaultOptionLabel,
   optionTemplate,
   filter,
   filterPlaceHolder,
@@ -49,7 +47,7 @@ export default function Select({
   const [optionsList, setOptionsList] = useState<Array<any>>(options ?? []);
 
   const [optionLabelState, setOptionLabelState] = useState<string>(
-    defaultOptionLabel ?? ""
+    placeholder ?? ""
   );
 
   const [selectionList, setSelectionList] = useState<any>([]);
@@ -59,33 +57,11 @@ export default function Select({
   const titleBoxRef = useRef<any>(null);
 
   useEffect(() => {
-    const valueOptionLabel: any = optionsList?.filter(
-      (op: any) => value && op[optionLabel] == value[optionLabel]
-    );
-
-    if (value && value[optionLabel]) {
-      setOptionLabelState(value[optionLabel]);
-    } else if (
-      valueOptionLabel.length > 0 &&
-      valueOptionLabel[0][optionLabel]
-    ) {
-      setOptionLabelState(valueOptionLabel[0][optionLabel]);
-    }
-  }, [value]);
-
-  useEffect(() => {
     if (options == optionsList) {
       return;
     }
 
     setOptionsList(options ?? []);
-
-    const valueOptionLabel: any = optionsList?.filter(
-      (op: any) => value && op[optionLabel] == value[optionLabel]
-    );
-    if (valueOptionLabel.length > 0 && valueOptionLabel[0][optionLabel]) {
-      setOptionLabelState(valueOptionLabel[0][optionLabel]);
-    }
 
     const handleScroll = () => {
       if (titleBoxRef.current) {
@@ -100,6 +76,37 @@ export default function Select({
     };
   }, [titleBoxRef, value, options]);
 
+  useEffect(() => {
+    setSelectionList(value);
+  }, [value]);
+
+  useEffect(() => {
+    handleOptionLabelStateDefinition(selectionList);
+  }, [selectionList]);
+
+  const handleOptionLabelStateDefinition = (values: any) => {
+    let valueToSet = "";
+    if (multiSelect) {
+      valueToSet = values
+        ?.map((v: any) => {
+          return v[optionLabel] ?? "";
+        })
+        .join(", ");
+    } else {
+      valueToSet = values[0] ? values.join(", ") : "";
+    }
+    valueToSet =
+      valueToSet.slice(-2) == ", " ? valueToSet.slice(0, -2) : valueToSet;
+    if (valueToSet == "" && !placeholder) {
+      valueToSet = optionLabel;
+    } else if (valueToSet == "" && placeholder) {
+      valueToSet = placeholder;
+    }
+    if (value && value[optionLabel]) {
+      valueToSet = value[optionLabel];
+    }
+    setOptionLabelState(valueToSet);
+  };
   const handleClickOutside = (event: any) => {
     if (
       titleBoxRef.current &&
@@ -138,6 +145,13 @@ export default function Select({
     }
   };
 
+  const isChecked = (option: any) => {
+    const isOptionInList = selectionList.some(
+      (p: any) => JSON.stringify(p) === JSON.stringify(option)
+    );
+    return isOptionInList;
+  };
+
   return (
     <div
       {...rest}
@@ -152,7 +166,7 @@ export default function Select({
           setShowOptions(!showOptions);
         }}
       >
-        <span className="reactivus-select-title-label">{optionLabelState}</span>
+        <div className="reactivus-select-title-label">{optionLabelState}</div>
         <span className="reactivus-select-title-icon-close">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -161,9 +175,9 @@ export default function Select({
             height="18"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path d="M6 9l6 6 6-6" />
           </svg>
@@ -208,12 +222,20 @@ export default function Select({
                     }
                   });
                 } else {
+                console.log('MULTIPLE OFF');
                   onChange && onChange({ value: option });
+                  setShowOptions(false)
                 }
               }}
               key={index}
             >
-              {multiSelect && <input type={"checkbox"} />}
+              {multiSelect && (
+                <input
+                  type={"checkbox"}
+                  checked={isChecked(option)}
+                  onChange={() => {}}
+                />
+              )}
               {optionTemplate
                 ? optionTemplate(option)
                 : option[optionLabel] ?? option}
