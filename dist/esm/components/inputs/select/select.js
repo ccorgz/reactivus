@@ -54,13 +54,13 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// IMPORTA HOOKS DO REACT
+// IMPORT REACT HOOKS
 var react_1 = __importStar(require("react"));
-// IMPORTA FOLHA DE ESTILOS DO COMPONENTE
+// IMPORT STYLESHEET FILE FOR THE SELECT COMPONENT
 require("../../../styles/inputs/select.css");
-// EXPORTA COMPONENTE POR PADRÃO
+// EXPORTS COMPONENT BY DEFAULT
 function Select(_a) {
-    var icon = _a.icon, label = _a.label, width = _a.width, ref = _a.ref, value = _a.value, options = _a.options, optionLabel = _a.optionLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, onKeyDown = _a.onKeyDown, multiSelect = _a.multiSelect, onChange = _a.onChange, selectAll = _a.selectAll, rest = __rest(_a, ["icon", "label", "width", "ref", "value", "options", "optionLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "onKeyDown", "multiSelect", "onChange", "selectAll"]);
+    var label = _a.label, width = _a.width, ref = _a.ref, value = _a.value, options = _a.options, optionLabel = _a.optionLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, multiSelect = _a.multiSelect, onChange = _a.onChange, selectAll = _a.selectAll, rest = __rest(_a, ["label", "width", "ref", "value", "options", "optionLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll"]);
     var _b = (0, react_1.useState)(false), showOptions = _b[0], setShowOptions = _b[1];
     var _c = (0, react_1.useState)(options !== null && options !== void 0 ? options : []), optionsList = _c[0], setOptionsList = _c[1];
     var _d = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _d[0], setOptionLabelState = _d[1];
@@ -212,7 +212,6 @@ function Select(_a) {
                             });
                         }
                         else {
-                            console.log("MULTIPLE OFF");
                             onChange && onChange({ value: option });
                             setShowOptions(false);
                         }

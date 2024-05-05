@@ -16,7 +16,7 @@ type AlertProps = {
      */
     text?: string;
     /**
-     * Controls wether the cancel button is visible or not.
+     * Controls if the cancel button is visible or not.
      */
     showCancelButton?: boolean;
     /**
@@ -28,7 +28,7 @@ type AlertProps = {
      */
     cancelButtonText?: string;
     /**
-     * Controls wether the confirm button is visible or not.
+     * Controls if the confirm button is visible or not.
      */
     showConfirmButton?: boolean;
     /**
@@ -40,11 +40,11 @@ type AlertProps = {
      */
     confirmButtonText?: string;
     /**
-     * Controls wether the close button is visible or not.
+     * Controls if the close button is visible or not.
      */
     showCloseButton?: boolean;
     /**
-     * Controls wether the dialog closes when clicked outside or not.
+     * Controls if the dialog closes when clicked outside or not.
      */
     allowClose?: boolean;
     /**
@@ -60,7 +60,7 @@ type AlertProps = {
      */
     customHeader?: HTMLElement | any;
     /**
-     * Defines wether the dialog is mainly custom or not.
+     * Defines if the dialog is mainly custom or not.
      */
     isCustomDialog?: boolean;
     /**
@@ -74,15 +74,15 @@ type AlertProps = {
 };
 type DialogReturn = {
     /**
-     * Indicates wether the user confirmed the dialog at the confirm button.
+     * Indicates if the user confirmed the dialog at the confirm button.
      */
     isConfirmed: boolean;
     /**
-     * Indicates wether the user canceled the dialog at the cancel button.
+     * Indicates if the user canceled the dialog at the cancel button.
      */
     isCanceled: boolean;
     /**
-     * Indicates wether the user aborted the dialog at the close button or the backLayer box.
+     * Indicates if the user aborted the dialog at the close button or the backLayer box.
      */
     isAborted: boolean;
 };
