@@ -117,7 +117,7 @@ export default function Select({
   }, [titleBoxRef, value, options]);
 
   useEffect(() => {
-    setSelectionList(value);
+    setSelectionList(typeof(value) == 'string' ? [value] : value);
   }, [value]);
 
   useEffect(() => {
@@ -133,7 +133,8 @@ export default function Select({
         })
         .join(", ");
     } else {
-      valueToSet = values[0] ? values.join(", ") : "";
+      valueToSet =
+        values[0] && typeof values != "string" ? values.join(", ") : "";
     }
     valueToSet =
       valueToSet.slice(-2) == ", " ? valueToSet.slice(0, -2) : valueToSet;
@@ -196,7 +197,7 @@ export default function Select({
     <div
       {...rest}
       className={`reactivus-select-input-box`}
-      style={{ width: width }}
+      style={{ width: width ? width : label ? (label.length*9+20)+'px' : '50px' }}
     >
       {label && <label>{label}</label>}
       <div

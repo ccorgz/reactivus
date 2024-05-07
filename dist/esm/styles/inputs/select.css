@@ -44,6 +44,7 @@
   width: 80% !important;
   padding: 0px 0 0 10px;
   overflow: hidden;
+  text-align: left;
 }
 .reactivus-select-title-icon-open {
   height: 100%;

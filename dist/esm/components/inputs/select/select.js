@@ -84,7 +84,7 @@ function Select(_a) {
         };
     }, [titleBoxRef, value, options]);
     (0, react_1.useEffect)(function () {
-        setSelectionList(value);
+        setSelectionList(typeof (value) == 'string' ? [value] : value);
     }, [value]);
     (0, react_1.useEffect)(function () {
         handleOptionLabelStateDefinition(selectionList);
@@ -98,7 +98,8 @@ function Select(_a) {
             }).join(", ");
         }
         else {
-            valueToSet = values[0] ? values.join(", ") : "";
+            valueToSet =
+                values[0] && typeof values != "string" ? values.join(", ") : "";
         }
         valueToSet =
             valueToSet.slice(-2) == ", " ? valueToSet.slice(0, -2) : valueToSet;
@@ -149,7 +150,7 @@ function Select(_a) {
         var isOptionInList = selectionList.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
         return isOptionInList;
     };
-    return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box", style: { width: width } }),
+    return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box", style: { width: width ? width : label ? (label.length * 9 + 20) + 'px' : '50px' } }),
         label && react_1.default.createElement("label", null, label),
         react_1.default.createElement("div", { className: "reactivus-select-title-box", ref: titleBoxRef, onClick: function () {
                 setShowOptions(!showOptions);
