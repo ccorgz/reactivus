@@ -1,5 +1,4 @@
 "use strict";
-"use client";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -46,42 +45,21 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// IMPORTA HOOKS DO REACT
 var react_1 = __importStar(require("react"));
-// IMPORTA FOLHA DE ESTILOS DO COMPONENTE
 require("../../styles/input.css");
 // EXPORTA COMPONENTE POR PADRÃO
 function Input(_a) {
-    var _b, _c, _d, _e, _f, _g, _h;
-    var options = _a.options, children = _a.children, onKeyDown = _a.onKeyDown, rest = __rest(_a, ["options", "children", "onKeyDown"]);
-    // DEFINE STATE PARA CONTROLE DA EXIBIÇÃO DO ÍCONE DE VISUALIZAÇÃO DA SENHA
-    var _j = (0, react_1.useState)(false), seePwd = _j[0], setSeePwd = _j[1];
-    // DEFINE STATE DE CONTROLE DO TIPO DO INPUT
-    var _k = (0, react_1.useState)(options.type), type = _k[0], setType = _k[1];
-    // USEEFFECT DE CONTROLE DA EXIBIÇÃO DA SENHA DO COMPONENTE
-    (0, react_1.useEffect)(function () {
-        if (seePwd) {
-            setType("text");
-        }
-        else if (type !== options.type) {
-            setType(options.type);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [seePwd]);
-    if (options.type === "select") {
-        return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-inputBox reactivus-".concat((_b = options.status) !== null && _b !== void 0 ? _b : "light"), style: { width: options.width } }),
-            options.label && react_1.default.createElement("label", null, options.label),
-            react_1.default.createElement("select", { className: "reactivus-selectInputBox", ref: (_c = options.ref) !== null && _c !== void 0 ? _c : null }, children)));
-    }
-    else {
-        return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-inputBox reactivus-".concat((_d = options.status) !== null && _d !== void 0 ? _d : "light"), style: { width: options.width } }),
-            options.label && react_1.default.createElement("label", null, options.label),
-            options.icon && react_1.default.createElement("span", null, options.icon),
-            react_1.default.createElement("input", __assign({ type: type, placeholder: options === null || options === void 0 ? void 0 : options.placeholder }, rest, { ref: (_e = options.ref) !== null && _e !== void 0 ? _e : null, onChange: function (e) { return e.preventDefault(); }, onKeyDown: options.onKeyDown })),
-            ((_f = options.password) === null || _f === void 0 ? void 0 : _f.seePwd) && (react_1.default.createElement("span", { onClick: function (e) { return setSeePwd(!seePwd); }, style: { cursor: "pointer" } },
-                seePwd ? (_g = options.password) === null || _g === void 0 ? void 0 : _g.onIcon : (_h = options.password) === null || _h === void 0 ? void 0 : _h.offIcon,
-                " "))));
-    }
+    var _b;
+    var options = _a.options, onKeyDown = _a.onKeyDown, type = _a.type, icon = _a.icon, iconPosition = _a.iconPosition, label = _a.label, width = _a.width, ref = _a.ref, placeholder = _a.placeholder, password = _a.password, size = _a.size, rest = __rest(_a, ["options", "onKeyDown", "type", "icon", "iconPosition", "label", "width", "ref", "placeholder", "password", "size"]);
+    var _c = (0, react_1.useState)(false), seePwd = _c[0], setSeePwd = _c[1];
+    return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-input-box " + ((_b = "reactivus-input-" + size) !== null && _b !== void 0 ? _b : "md"), style: { width: width } }),
+        label && react_1.default.createElement("label", null, label),
+        icon && (!iconPosition || (iconPosition && iconPosition == "left")) && (react_1.default.createElement("span", null, icon)),
+        react_1.default.createElement("input", __assign({ type: type == "password" && seePwd ? "text" : type, placeholder: placeholder !== null && placeholder !== void 0 ? placeholder : "" }, rest, { ref: ref !== null && ref !== void 0 ? ref : null, onChange: function (e) { return e.preventDefault(); }, onKeyDown: onKeyDown })),
+        (password === null || password === void 0 ? void 0 : password.seePwd) && (react_1.default.createElement("span", { onClick: function (e) { return setSeePwd(!seePwd); }, style: { cursor: "pointer" } },
+            seePwd ? password === null || password === void 0 ? void 0 : password.onIcon : password === null || password === void 0 ? void 0 : password.offIcon,
+            " ")),
+        icon && iconPosition && iconPosition == "right" && react_1.default.createElement("span", null, icon)));
 }
 exports.default = Input;
 //# sourceMappingURL=input.js.map

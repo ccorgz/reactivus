@@ -1,35 +1,35 @@
-.reactivus-inputBox {
+.reactivus-input-box {
   position: relative;
   margin: 10px 0;
   text-align: left;
   background: rgba(255, 255, 255, 0.8);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
   display: flex;
   border-radius: 5px;
   transition: all 0.4s ease;
   height: 2.5rem;
   color: #00000080;
-  border: 1px solid #60606070;
 }
 
-.reactivus-danger {
-  background: #cb2a2915;
-  box-shadow: #cb2a2999 0px 1px 2px 0px;
+.reactivus-input-sm {
+  font-size: 0.9rem !important;
+  padding: 0 !important;
+  height: 2rem !important;
 }
 
-.reactivus-danger input {
-  color: #cb2a29 !important;
+.reactivus-input-sm .selectInputBox {
+  height: 2rem !important;
+}
+.reactivus-input-sm input,
+.reactivus-input-sm select {
+  font-size: 1rem !important;
+  margin-left: 0 !important;
+}
+.reactivus-input-sm label {
+  font-size: 0.8rem !important;
 }
 
-.reactivus-success {
-  background: #227e4110;
-  box-shadow: #227e4190 0px 2px 4px 0px;
-}
-
-.reactivus-success input {
-  color: #227e41 !important;
-}
-
-.reactivus-inputBox input {
+.reactivus-input-box input {
   padding: 5px;
   font-size: 1.15rem;
   color: #000000;
@@ -42,12 +42,12 @@
   margin-left: 5px;
 }
 
-.reactivus-inputBox input:focus {
+.reactivus-input-box input:focus {
   border: none;
   outline: none;
 }
 
-.reactivus-inputBox label {
+.reactivus-input-box label {
   position: absolute;
   font-size: 0.9rem;
   transition: all 0.4s ease;
@@ -57,7 +57,7 @@
   white-space: nowrap;
 }
 
-.reactivus-inputBox svg {
+.reactivus-input-box svg {
   width: 2.25rem;
   height: 100%;
   padding: 7px;
@@ -65,11 +65,11 @@
 }
 
 @media only screen and (max-width: 780px) {
-  .reactivus-inputBox input {
+  .reactivus-input-box input {
     font-size: 1rem;
     padding-left: 0px;
   }
-  .reactivus-inputBox label {
+  .reactivus-input-box label {
     font-size: 0.8rem;
   }
 }
