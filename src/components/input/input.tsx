@@ -56,6 +56,10 @@ interface InputProps {
    * Defines a custom size for the component. (md is set by default)
    */
   size?: "sm" | "md";
+  /**
+   * Defines a custom className object to be set as the input box styles.
+   */
+  className?: any;
 }
 
 // EXPORTA COMPONENTE POR PADRÃO
@@ -71,6 +75,7 @@ export default function Input({
   placeholder,
   password,
   size,
+  className,
   ...rest
 }: InputProps & Record<string, unknown>) {
   const [seePwd, setSeePwd] = useState(false);
@@ -78,7 +83,11 @@ export default function Input({
   return (
     <div
       {...rest}
-      className={"reactivus-input-box " + ("reactivus-input-" + size ?? "md")}
+      className={
+        "reactivus-input-box " +
+        ("reactivus-input-" + size ?? "md") + " "+
+        (className ? className : "")
+      }
       style={{ width: width }}
     >
       {label && <label>{label}</label>}

@@ -11,24 +11,6 @@
   color: #00000080;
 }
 
-.reactivus-input-sm {
-  font-size: 0.9rem !important;
-  padding: 0 !important;
-  height: 2rem !important;
-}
-
-.reactivus-input-sm .selectInputBox {
-  height: 2rem !important;
-}
-.reactivus-input-sm input,
-.reactivus-input-sm select {
-  font-size: 1rem !important;
-  margin-left: 0 !important;
-}
-.reactivus-input-sm label {
-  font-size: 0.8rem !important;
-}
-
 .reactivus-input-box input {
   padding: 5px;
   font-size: 1.15rem;
@@ -62,6 +44,23 @@
   height: 100%;
   padding: 7px;
   color: #464646;
+}
+.reactivus-input-sm {
+  font-size: 0.9rem !important;
+  padding: 0 !important;
+  height: 2rem !important;
+}
+
+.reactivus-input-sm .selectInputBox {
+  height: 2rem !important;
+}
+.reactivus-input-sm input,
+.reactivus-input-sm select {
+  font-size: 1rem !important;
+  margin-left: 0 !important;
+}
+.reactivus-input-sm label {
+  font-size: 0.8rem !important;
 }
 
 @media only screen and (max-width: 780px) {

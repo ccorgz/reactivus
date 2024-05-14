@@ -54,6 +54,10 @@ interface InputProps {
      * Defines a custom size for the component. (md is set by default)
      */
     size?: "sm" | "md";
+    /**
+     * Defines a custom className object to be set as the input box styles.
+     */
+    className?: any;
 }
-export default function Input({ options, onKeyDown, type, icon, iconPosition, label, width, ref, placeholder, password, size, ...rest }: InputProps & Record<string, unknown>): React.JSX.Element;
+export default function Input({ options, onKeyDown, type, icon, iconPosition, label, width, ref, placeholder, password, size, className, ...rest }: InputProps & Record<string, unknown>): React.JSX.Element;
 export {};
