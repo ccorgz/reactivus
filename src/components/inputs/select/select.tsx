@@ -21,7 +21,11 @@ type SelectInputProps = {
   /**
    * React state with value to be set to the component.
    */
-  value: any;
+  value?: any;
+  /**
+   * Array containing the defualt value to be dispayed in the component.
+   */
+  defaultValue?: any;
   /**
    * Array with the options to be listed in the component.
    */
@@ -62,7 +66,7 @@ type SelectInputProps = {
    * Function that returns the value of the component.
    */
   onChange: (selectedOption: any) => void;
-};
+} & ({} extends { multiSelect: boolean } ? { value: any } : {});
 
 // EXPORTS COMPONENT BY DEFAULT
 export default function Select({
@@ -70,6 +74,7 @@ export default function Select({
   width,
   ref,
   value,
+  defaultValue,
   options,
   optionLabel,
   optionTemplate,
@@ -94,6 +99,8 @@ export default function Select({
 
   const [isClosestToTop, setIsClosestToTop] = useState<boolean>(true);
 
+  const [higherLengthString, setHigherLengthString] = useState(0);
+
   const titleBoxRef = useRef<any>(null);
 
   useEffect(() => {
@@ -117,11 +124,33 @@ export default function Select({
   }, [titleBoxRef, value, options]);
 
   useEffect(() => {
-    setSelectionList(typeof(value) == 'string' ? [value] : value);
+    if (optionsList.length > 0) {
+      let higgherValueString = 0;
+      for (let i = 0; i < options.length; i++) {
+        const option = options[i][optionLabel];
+        higgherValueString =
+          option.length >= higgherValueString
+            ? option.length
+            : higgherValueString;
+      }
+      setHigherLengthString(
+        higgherValueString > optionLabel.length
+          ? higgherValueString
+          : optionLabel.length
+      );
+    }
+  }, [optionsList]);
+
+  useEffect(() => {
+    setSelectionList(typeof value == "string" ? [value] : value);
   }, [value]);
 
   useEffect(() => {
-    handleOptionLabelStateDefinition(selectionList);
+    if (defaultValue[optionLabel] && !value) {
+      setOptionLabelState(defaultValue[optionLabel]);
+    } else {
+      handleOptionLabelStateDefinition(selectionList);
+    }
   }, [selectionList]);
 
   const handleOptionLabelStateDefinition = (values: any) => {
@@ -134,7 +163,9 @@ export default function Select({
         .join(", ");
     } else {
       valueToSet =
-        values[0] && typeof values != "string" ? values.join(", ") : "";
+        values && values[0] && typeof values != "string"
+          ? values.join(", ")
+          : "";
     }
     valueToSet =
       valueToSet.slice(-2) == ", " ? valueToSet.slice(0, -2) : valueToSet;
@@ -197,7 +228,13 @@ export default function Select({
     <div
       {...rest}
       className={`reactivus-select-input-box`}
-      style={{ width: width ? width : label ? (label.length*9+20)+'px' : '50px' }}
+      style={{
+        width: width
+          ? width
+          : higherLengthString
+          ? higherLengthString * 9 + "px"
+          : "50px",
+      }}
     >
       {label && <label>{label}</label>}
       <div
@@ -331,6 +368,10 @@ export default function Select({
                   });
                 } else {
                   onChange && onChange({ value: option });
+                  if (!value) {
+                    value = option;
+                    handleOptionLabelStateDefinition([option]);
+                  }
                   setShowOptions(false);
                 }
               }}
