@@ -16,7 +16,11 @@ type SelectInputProps = {
     /**
      * React state with value to be set to the component.
      */
-    value: any;
+    value?: any;
+    /**
+     * Array containing the defualt value to be dispayed in the component.
+     */
+    defaultValue?: any;
     /**
      * Array with the options to be listed in the component.
      */
@@ -57,6 +61,10 @@ type SelectInputProps = {
      * Function that returns the value of the component.
      */
     onChange: (selectedOption: any) => void;
-};
-export default function Select({ label, width, ref, value, options, optionLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, multiSelect, onChange, selectAll, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
+} & ({} extends {
+    multiSelect: boolean;
+} ? {
+    value: any;
+} : {});
+export default function Select({ label, width, ref, value, defaultValue, options, optionLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, multiSelect, onChange, selectAll, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
 export {};
