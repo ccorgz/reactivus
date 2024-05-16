@@ -65,9 +65,10 @@
   justify-content: center;
   font-size: 1rem;
   margin-right: 10px;
-  background-color: #fff;
+  /* background-color: #fff; */
   position: relative;
   transition: all 0.4s ease;
+  background-color: transparent;
 }
 .reactivus-select-title-icon-close svg {
   background-color: transparent;
@@ -84,8 +85,9 @@
 .reactivus-select-filter-box-text{
   border: none;
   border-radius: 2.5px;
-  outline: 1px solid #60606070;
-  font-size: 1rem;
+  /* outline: 1px solid #60606070; */
+  outline: none;
+  font-size: .8rem;
   color: #606060;
   caret-color: auto;
   padding: 2.5px 5px !important;
@@ -96,13 +98,8 @@
   text-align: left;
 }
 
-.reactivus-select-title-icon-open svg {
-  /* transform: rotate(90deg); */
-  /* fill: #606060; */
-  /* background-color: #00000010; */
-}
 .reactivus-select-filter-box {
-  padding: 5px 5px 5px 7.5px;
+  padding: 5px 2px 5px 2px !important;
   white-space: nowrap;
   display: flex;
   flex-direction: row;
@@ -159,7 +156,7 @@
   padding: 5px 0;
 }
 .reactivus-select-item-box {
-  padding: 10px 7.5px;
+  padding: 5px 7.5px;
   white-space: nowrap;
   display: flex;
   align-items: center;

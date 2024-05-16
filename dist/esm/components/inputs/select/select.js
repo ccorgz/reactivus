@@ -228,46 +228,45 @@ function Select(_a) {
                     ? inputProps.bottom - 5
                     : inputProps.top - 10,
             } },
-            filter ||
-                (selectAll && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box", style: {
-                        zIndex: 9999, // Set a high z-index value
-                    } },
-                    selectAll && (react_1.default.createElement("input", { type: "checkbox", id: "reactivusSelectAllCheckbox", className: "reactivus-select-filter-box-checkbox", onClick: function () {
-                            if (selectionList.length == options.length) {
-                                setSelectionList([]);
-                            }
-                            else {
-                                setSelectionList(options);
-                            }
-                        } })),
-                    !filter && (react_1.default.createElement("span", { className: "reactivus-select-filter-box-label", onClick: function () {
-                            if (selectionList.length == options.length) {
-                                setSelectionList([]);
-                            }
-                            else {
-                                setSelectionList(options);
-                            }
-                            var allCheck = document.getElementById("reactivusSelectAllCheckbox");
-                            if (allCheck && allCheck.checked) {
-                                allCheck.checked = false;
-                            }
-                            else if (allCheck) {
-                                allCheck.checked = true;
-                            }
-                        } }, "Todos")),
-                    filter && (react_1.default.createElement("input", { type: "text", className: "reactivus-select-filter-box-text", placeholder: filterPlaceHolder !== null && filterPlaceHolder !== void 0 ? filterPlaceHolder : "Search", onChange: function (e) {
-                            return handleOptionsFilter(e.target.value);
-                        } })),
-                    react_1.default.createElement("span", { className: "reactivus-select-title-icon-close", onClick: function () {
+            (filter || selectAll) && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box", style: {
+                    zIndex: 9999, // Set a high z-index value
+                } },
+                selectAll && (react_1.default.createElement("input", { type: "checkbox", id: "reactivusSelectAllCheckbox", className: "reactivus-select-filter-box-checkbox", onClick: function () {
+                        if (selectionList.length == options.length) {
                             setSelectionList([]);
-                            setShowOptions(!showOptions);
-                            var allCheck = document.getElementById("reactivusSelectAllCheckbox");
-                            if (allCheck && allCheck.checked) {
-                                allCheck.checked = false;
-                            }
-                        } },
-                        react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "-8 -8 48 48", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" },
-                            react_1.default.createElement("path", { d: "M2,2 L30,30 M2,30 L30,2" })))))), optionsList === null || optionsList === void 0 ? void 0 :
+                        }
+                        else {
+                            setSelectionList(options);
+                        }
+                    } })),
+                !filter && (react_1.default.createElement("span", { className: "reactivus-select-filter-box-label", onClick: function () {
+                        if (selectionList.length == options.length) {
+                            setSelectionList([]);
+                        }
+                        else {
+                            setSelectionList(options);
+                        }
+                        var allCheck = document.getElementById("reactivusSelectAllCheckbox");
+                        if (allCheck && allCheck.checked) {
+                            allCheck.checked = false;
+                        }
+                        else if (allCheck) {
+                            allCheck.checked = true;
+                        }
+                    } }, "Todos")),
+                filter && (react_1.default.createElement("input", { type: "text", className: "reactivus-select-filter-box-text", placeholder: filterPlaceHolder !== null && filterPlaceHolder !== void 0 ? filterPlaceHolder : "Search", onChange: function (e) {
+                        return handleOptionsFilter(e.target.value);
+                    } })),
+                react_1.default.createElement("span", { className: "reactivus-select-title-icon-close", onClick: function () {
+                        setSelectionList([]);
+                        setShowOptions(!showOptions);
+                        var allCheck = document.getElementById("reactivusSelectAllCheckbox");
+                        if (allCheck && allCheck.checked) {
+                            allCheck.checked = false;
+                        }
+                    } },
+                    react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "-8 -8 48 48", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" },
+                        react_1.default.createElement("path", { d: "M2,2 L30,30 M2,30 L30,2" }))))), optionsList === null || optionsList === void 0 ? void 0 :
             optionsList.map(function (option, index) {
                 var _a;
                 return (react_1.default.createElement("span", { className: "reactivus-select-item-box", onClick: function () {

@@ -322,89 +322,88 @@ export default function Select({
             : inputProps.top - 10,
         }}
       >
-        {filter ||
-          (selectAll && (
-            <span
-              className={`reactivus-select-item-box reactivus-select-filter-box`}
-              style={{
-                zIndex: 9999, // Set a high z-index value
-              }}
-            >
-              {selectAll && (
-                <input
-                  type={"checkbox"}
-                  id={"reactivusSelectAllCheckbox"}
-                  className={`reactivus-select-filter-box-checkbox`}
-                  onClick={() => {
-                    if (selectionList.length == options.length) {
-                      setSelectionList([]);
-                    } else {
-                      setSelectionList(options);
-                    }
-                  }}
-                />
-              )}
-              {!filter && (
-                <span
-                  className={`reactivus-select-filter-box-label`}
-                  onClick={() => {
-                    if (selectionList.length == options.length) {
-                      setSelectionList([]);
-                    } else {
-                      setSelectionList(options);
-                    }
-                    const allCheck: any = document.getElementById(
-                      "reactivusSelectAllCheckbox"
-                    );
-                    if (allCheck && allCheck.checked) {
-                      allCheck.checked = false;
-                    } else if (allCheck) {
-                      allCheck.checked = true;
-                    }
-                  }}
-                >
-                  Todos
-                </span>
-              )}
-              {filter && (
-                <input
-                  type="text"
-                  className={`reactivus-select-filter-box-text`}
-                  placeholder={filterPlaceHolder ?? "Search"}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleOptionsFilter(e.target.value)
-                  }
-                />
-              )}
-              <span
-                className="reactivus-select-title-icon-close"
+        {(filter || selectAll) && (
+          <span
+            className={`reactivus-select-item-box reactivus-select-filter-box`}
+            style={{
+              zIndex: 9999, // Set a high z-index value
+            }}
+          >
+            {selectAll && (
+              <input
+                type={"checkbox"}
+                id={"reactivusSelectAllCheckbox"}
+                className={`reactivus-select-filter-box-checkbox`}
                 onClick={() => {
-                  setSelectionList([]);
-                  setShowOptions(!showOptions);
+                  if (selectionList.length == options.length) {
+                    setSelectionList([]);
+                  } else {
+                    setSelectionList(options);
+                  }
+                }}
+              />
+            )}
+            {!filter && (
+              <span
+                className={`reactivus-select-filter-box-label`}
+                onClick={() => {
+                  if (selectionList.length == options.length) {
+                    setSelectionList([]);
+                  } else {
+                    setSelectionList(options);
+                  }
                   const allCheck: any = document.getElementById(
                     "reactivusSelectAllCheckbox"
                   );
                   if (allCheck && allCheck.checked) {
                     allCheck.checked = false;
+                  } else if (allCheck) {
+                    allCheck.checked = true;
                   }
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="-8 -8 48 48"
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M2,2 L30,30 M2,30 L30,2" />
-                </svg>
+                Todos
               </span>
+            )}
+            {filter && (
+              <input
+                type="text"
+                className={`reactivus-select-filter-box-text`}
+                placeholder={filterPlaceHolder ?? "Search"}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleOptionsFilter(e.target.value)
+                }
+              />
+            )}
+            <span
+              className="reactivus-select-title-icon-close"
+              onClick={() => {
+                setSelectionList([]);
+                setShowOptions(!showOptions);
+                const allCheck: any = document.getElementById(
+                  "reactivusSelectAllCheckbox"
+                );
+                if (allCheck && allCheck.checked) {
+                  allCheck.checked = false;
+                }
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="-8 -8 48 48"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M2,2 L30,30 M2,30 L30,2" />
+              </svg>
             </span>
-          ))}
+          </span>
+        )}
         {optionsList?.map((option: any, index: any) => {
           return (
             <span
