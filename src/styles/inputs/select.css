@@ -112,7 +112,8 @@
 }
 
 .reactivus-select-options-box {
-  position: absolute;
+  position: fixed !important;
+  top: 0;
   left: 0;
   background-color: #fff;
   border-radius: 5px;
@@ -121,19 +122,32 @@
   flex-direction: column;
   overflow-x: hidden;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
-  transition: all 0.2s ease;
-  z-index: 10;
+  transition: height 0.2s ease, width 0.2s ease;
+  z-index: 9999999999 !important;
   max-height: 50dvh;
+  scrollbar-width: thin;
+  scrollbar-color: #8f8f8f #60606040;
+}
+.reactivus-select-options-box::-webkit-scrollbar {
+  width: 12px;
+}
+.reactivus-select-options-box::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 6px;
+}
+.reactivus-select-options-box::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 6px !important;
 }
 
-.reactivus-select-options-box-top {
+/* .reactivus-select-options-box-top {
   bottom: calc(100% + 2.5px);
   flex-direction: column-reverse;
 }
 
 .reactivus-select-options-box-bottom {
   top: calc(100% + 2.5px);
-}
+} */
 
 .reactivus-select-options-box-hide {
   max-height: 0px;

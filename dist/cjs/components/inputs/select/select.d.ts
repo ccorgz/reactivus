@@ -10,15 +10,11 @@ type SelectInputProps = {
      */
     width?: string;
     /**
-     * React Ref reference to be set to the component.
-     */
-    ref?: React.Ref<any>;
-    /**
      * React state with value to be set to the component.
      */
     value?: any;
     /**
-     * Array containing the defualt value to be dispayed in the component.
+     * Array containing the defualt value to be displayed in the component.
      */
     defaultValue?: any;
     /**
@@ -61,10 +57,14 @@ type SelectInputProps = {
      * Function that returns the value of the component.
      */
     onChange: (selectedOption: any) => void;
+    /**
+     * Defines a custom className object to be set as the input box styles.
+     */
+    className?: any;
 } & ({} extends {
     multiSelect: boolean;
 } ? {
     value: any;
 } : {});
-export default function Select({ label, width, ref, value, defaultValue, options, optionLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, multiSelect, onChange, selectAll, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
+export default function Select({ label, width, value, defaultValue, options, optionLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, multiSelect, onChange, selectAll, className, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
 export {};

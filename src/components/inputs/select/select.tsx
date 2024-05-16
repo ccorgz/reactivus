@@ -15,15 +15,11 @@ type SelectInputProps = {
    */
   width?: string;
   /**
-   * React Ref reference to be set to the component.
-   */
-  ref?: React.Ref<any>;
-  /**
    * React state with value to be set to the component.
    */
   value?: any;
   /**
-   * Array containing the defualt value to be dispayed in the component.
+   * Array containing the defualt value to be displayed in the component.
    */
   defaultValue?: any;
   /**
@@ -66,13 +62,16 @@ type SelectInputProps = {
    * Function that returns the value of the component.
    */
   onChange: (selectedOption: any) => void;
+  /**
+   * Defines a custom className object to be set as the input box styles.
+   */
+  className?: any;
 } & ({} extends { multiSelect: boolean } ? { value: any } : {});
 
 // EXPORTS COMPONENT BY DEFAULT
 export default function Select({
   label,
   width,
-  ref,
   value,
   defaultValue,
   options,
@@ -85,6 +84,7 @@ export default function Select({
   multiSelect,
   onChange,
   selectAll,
+  className,
   ...rest
 }: SelectInputProps & Record<string, unknown>) {
   const [showOptions, setShowOptions] = useState(false);
@@ -97,9 +97,31 @@ export default function Select({
 
   const [selectionList, setSelectionList] = useState<any>([]);
 
-  const [isClosestToTop, setIsClosestToTop] = useState<boolean>(true);
+  // const [isClosestToTop, setIsClosestToTop] = useState<boolean>(true);
 
   const [higherLengthString, setHigherLengthString] = useState(0);
+
+  const [inputProps, setInputProps] = useState<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    top: number;
+    bottom: number;
+    isClosestToTop: boolean;
+    topDistance: number;
+    bottomDistance: number;
+  }>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+    top: 0,
+    bottom: 0,
+    isClosestToTop: false,
+    topDistance: 0,
+    bottomDistance: 0,
+  });
 
   const titleBoxRef = useRef<any>(null);
 
@@ -110,16 +132,9 @@ export default function Select({
 
     setOptionsList(options ?? []);
 
-    const handleScroll = () => {
-      if (titleBoxRef.current) {
-        const rect = titleBoxRef.current.getBoundingClientRect();
-        setIsClosestToTop(rect.top < window.innerHeight - rect.bottom);
-      }
-    };
-
-    document.addEventListener("scroll", handleScroll);
+    document.addEventListener("scroll", handleGetInputCoordinates);
     return () => {
-      document.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("scroll", handleGetInputCoordinates);
     };
   }, [titleBoxRef, value, options]);
 
@@ -146,7 +161,7 @@ export default function Select({
   }, [value]);
 
   useEffect(() => {
-    if (defaultValue[optionLabel] && !value) {
+    if (defaultValue && defaultValue[optionLabel] && !value) {
       setOptionLabelState(defaultValue[optionLabel]);
     } else {
       handleOptionLabelStateDefinition(selectionList);
@@ -198,6 +213,9 @@ export default function Select({
         handleClickOutside(event);
       }
     };
+    if (showOptions) {
+      handleGetInputCoordinates();
+    }
 
     document.addEventListener("click", handleClick);
 
@@ -205,6 +223,24 @@ export default function Select({
       document.removeEventListener("click", handleClick);
     };
   }, [titleBoxRef, showOptions]);
+
+  const handleGetInputCoordinates = () => {
+    const titleBoxRect = titleBoxRef.current.getBoundingClientRect();
+    const { x, y, height, width, top, bottom } = titleBoxRect;
+    const isClosestToTop = top < window.innerHeight - bottom;
+
+    setInputProps({
+      x: x,
+      y: y,
+      height: height,
+      width: width,
+      top: top,
+      bottom: bottom,
+      isClosestToTop: isClosestToTop,
+      topDistance: height + y + 10,
+      bottomDistance: window.innerHeight - y + 5,
+    });
+  };
 
   const handleOptionsFilter = (filterText: string) => {
     if (filterText != "" && filterBy) {
@@ -225,52 +261,74 @@ export default function Select({
   };
 
   return (
-    <div
-      {...rest}
-      className={`reactivus-select-input-box`}
-      style={{
-        width: width
-          ? width
-          : higherLengthString
-          ? higherLengthString * 9 + "px"
-          : "50px",
-      }}
-    >
-      {label && <label>{label}</label>}
+    <>
       <div
-        className={`reactivus-select-title-box`}
-        ref={titleBoxRef}
-        onClick={() => {
-          setShowOptions(!showOptions);
+        {...rest}
+        className={
+          `reactivus-select-input-box` + " " + (className ? className : "")
+        }
+        style={{
+          width: width
+            ? width
+            : higherLengthString
+            ? higherLengthString * 9 + "px"
+            : "50px",
         }}
       >
-        <div className="reactivus-select-title-label">{optionLabelState}</div>
-        <span className="reactivus-select-title-icon-open">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="18"
-            height="18"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
+        {label && <label>{label}</label>}
+        <div
+          className={`reactivus-select-title-box`}
+          ref={titleBoxRef}
+          onClick={() => {
+            setShowOptions(!showOptions);
+          }}
+        >
+          <div className="reactivus-select-title-label">{optionLabelState}</div>
+          <span className="reactivus-select-title-icon-open">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </span>
+        </div>
       </div>
+
       <div
         className={`reactivus-select-options-box reactivus-select-options-box-${
           showOptions ? "show" : "hide"
-        } reactivus-select-options-box-${isClosestToTop ? "bottom" : "top"}`}
-        ref={ref ?? null}
+        }`}
+        style={{
+          top: inputProps.isClosestToTop ? inputProps.topDistance : undefined,
+          bottom: inputProps.isClosestToTop
+            ? undefined
+            : inputProps.bottomDistance,
+          left: inputProps.x,
+          width: inputProps.width,
+          display: showOptions ? "" : "none",
+          flexDirection: inputProps.isClosestToTop
+            ? "column"
+            : "column-reverse",
+          maxHeight: inputProps.isClosestToTop
+            ? inputProps.bottom - 5
+            : inputProps.top - 10,
+        }}
       >
         {filter ||
           (selectAll && (
             <span
               className={`reactivus-select-item-box reactivus-select-filter-box`}
+              style={{
+                zIndex: 9999, // Set a high z-index value
+              }}
             >
               {selectAll && (
                 <input
@@ -391,6 +449,6 @@ export default function Select({
           );
         })}
       </div>
-    </div>
+    </>
   );
 }

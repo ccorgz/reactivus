@@ -60,28 +60,33 @@ var react_1 = __importStar(require("react"));
 require("../../../styles/inputs/select.css");
 // EXPORTS COMPONENT BY DEFAULT
 function Select(_a) {
-    var label = _a.label, width = _a.width, ref = _a.ref, value = _a.value, defaultValue = _a.defaultValue, options = _a.options, optionLabel = _a.optionLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, multiSelect = _a.multiSelect, onChange = _a.onChange, selectAll = _a.selectAll, rest = __rest(_a, ["label", "width", "ref", "value", "defaultValue", "options", "optionLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll"]);
+    var label = _a.label, width = _a.width, value = _a.value, defaultValue = _a.defaultValue, options = _a.options, optionLabel = _a.optionLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, multiSelect = _a.multiSelect, onChange = _a.onChange, selectAll = _a.selectAll, className = _a.className, rest = __rest(_a, ["label", "width", "value", "defaultValue", "options", "optionLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll", "className"]);
     var _b = (0, react_1.useState)(false), showOptions = _b[0], setShowOptions = _b[1];
     var _c = (0, react_1.useState)(options !== null && options !== void 0 ? options : []), optionsList = _c[0], setOptionsList = _c[1];
     var _d = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _d[0], setOptionLabelState = _d[1];
     var _e = (0, react_1.useState)([]), selectionList = _e[0], setSelectionList = _e[1];
-    var _f = (0, react_1.useState)(true), isClosestToTop = _f[0], setIsClosestToTop = _f[1];
-    var _g = (0, react_1.useState)(0), higherLengthString = _g[0], setHigherLengthString = _g[1];
+    // const [isClosestToTop, setIsClosestToTop] = useState<boolean>(true);
+    var _f = (0, react_1.useState)(0), higherLengthString = _f[0], setHigherLengthString = _f[1];
+    var _g = (0, react_1.useState)({
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+        top: 0,
+        bottom: 0,
+        isClosestToTop: false,
+        topDistance: 0,
+        bottomDistance: 0,
+    }), inputProps = _g[0], setInputProps = _g[1];
     var titleBoxRef = (0, react_1.useRef)(null);
     (0, react_1.useEffect)(function () {
         if (options == optionsList) {
             return;
         }
         setOptionsList(options !== null && options !== void 0 ? options : []);
-        var handleScroll = function () {
-            if (titleBoxRef.current) {
-                var rect = titleBoxRef.current.getBoundingClientRect();
-                setIsClosestToTop(rect.top < window.innerHeight - rect.bottom);
-            }
-        };
-        document.addEventListener("scroll", handleScroll);
+        document.addEventListener("scroll", handleGetInputCoordinates);
         return function () {
-            document.removeEventListener("scroll", handleScroll);
+            document.removeEventListener("scroll", handleGetInputCoordinates);
         };
     }, [titleBoxRef, value, options]);
     (0, react_1.useEffect)(function () {
@@ -103,7 +108,7 @@ function Select(_a) {
         setSelectionList(typeof value == "string" ? [value] : value);
     }, [value]);
     (0, react_1.useEffect)(function () {
-        if (defaultValue[optionLabel] && !value) {
+        if (defaultValue && defaultValue[optionLabel] && !value) {
             setOptionLabelState(defaultValue[optionLabel]);
         }
         else {
@@ -153,11 +158,30 @@ function Select(_a) {
                 handleClickOutside(event);
             }
         };
+        if (showOptions) {
+            handleGetInputCoordinates();
+        }
         document.addEventListener("click", handleClick);
         return function () {
             document.removeEventListener("click", handleClick);
         };
     }, [titleBoxRef, showOptions]);
+    var handleGetInputCoordinates = function () {
+        var titleBoxRect = titleBoxRef.current.getBoundingClientRect();
+        var x = titleBoxRect.x, y = titleBoxRect.y, height = titleBoxRect.height, width = titleBoxRect.width, top = titleBoxRect.top, bottom = titleBoxRect.bottom;
+        var isClosestToTop = top < window.innerHeight - bottom;
+        setInputProps({
+            x: x,
+            y: y,
+            height: height,
+            width: width,
+            top: top,
+            bottom: bottom,
+            isClosestToTop: isClosestToTop,
+            topDistance: height + y + 10,
+            bottomDistance: window.innerHeight - y + 5,
+        });
+    };
     var handleOptionsFilter = function (filterText) {
         if (filterText != "" && filterBy) {
             var newFilter = options === null || options === void 0 ? void 0 : options.filter(function (op) {
@@ -173,24 +197,41 @@ function Select(_a) {
         var isOptionInList = selectionList.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
         return isOptionInList;
     };
-    return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box", style: {
-            width: width
-                ? width
-                : higherLengthString
-                    ? higherLengthString * 9 + "px"
-                    : "50px",
-        } }),
-        label && react_1.default.createElement("label", null, label),
-        react_1.default.createElement("div", { className: "reactivus-select-title-box", ref: titleBoxRef, onClick: function () {
-                setShowOptions(!showOptions);
+    return (react_1.default.createElement(react_1.default.Fragment, null,
+        react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box" + " " + (className ? className : ""), style: {
+                width: width
+                    ? width
+                    : higherLengthString
+                        ? higherLengthString * 9 + "px"
+                        : "50px",
+            } }),
+            label && react_1.default.createElement("label", null, label),
+            react_1.default.createElement("div", { className: "reactivus-select-title-box", ref: titleBoxRef, onClick: function () {
+                    setShowOptions(!showOptions);
+                } },
+                react_1.default.createElement("div", { className: "reactivus-select-title-label" }, optionLabelState),
+                react_1.default.createElement("span", { className: "reactivus-select-title-icon-open" },
+                    react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
+                        react_1.default.createElement("path", { d: "M6 9l6 6 6-6" }))))),
+        react_1.default.createElement("div", { className: "reactivus-select-options-box reactivus-select-options-box-".concat(showOptions ? "show" : "hide"), style: {
+                top: inputProps.isClosestToTop ? inputProps.topDistance : undefined,
+                bottom: inputProps.isClosestToTop
+                    ? undefined
+                    : inputProps.bottomDistance,
+                left: inputProps.x,
+                width: inputProps.width,
+                display: showOptions ? "" : "none",
+                flexDirection: inputProps.isClosestToTop
+                    ? "column"
+                    : "column-reverse",
+                maxHeight: inputProps.isClosestToTop
+                    ? inputProps.bottom - 5
+                    : inputProps.top - 10,
             } },
-            react_1.default.createElement("div", { className: "reactivus-select-title-label" }, optionLabelState),
-            react_1.default.createElement("span", { className: "reactivus-select-title-icon-open" },
-                react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
-                    react_1.default.createElement("path", { d: "M6 9l6 6 6-6" })))),
-        react_1.default.createElement("div", { className: "reactivus-select-options-box reactivus-select-options-box-".concat(showOptions ? "show" : "hide", " reactivus-select-options-box-").concat(isClosestToTop ? "bottom" : "top"), ref: ref !== null && ref !== void 0 ? ref : null },
             filter ||
-                (selectAll && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box" },
+                (selectAll && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box", style: {
+                        zIndex: 9999, // Set a high z-index value
+                    } },
                     selectAll && (react_1.default.createElement("input", { type: "checkbox", id: "reactivusSelectAllCheckbox", className: "reactivus-select-filter-box-checkbox", onClick: function () {
                             if (selectionList.length == options.length) {
                                 setSelectionList([]);
