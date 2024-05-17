@@ -30,6 +30,10 @@ type SelectInputProps = {
      */
     optionTemplate?: HTMLElement | any;
     /**
+     * Custom data label string that defines wich field will be displayed at the selected fields.
+     */
+    selectedLabel?: string;
+    /**
      * Boolean to control if must be rendered a filter option in the component.
      */
     filter?: boolean;
@@ -66,5 +70,5 @@ type SelectInputProps = {
 } ? {
     value: any;
 } : {});
-export default function Select({ label, width, value, defaultValue, options, optionLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, multiSelect, onChange, selectAll, className, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
+export default function Select({ label, width, value, defaultValue, options, optionLabel, selectedLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, multiSelect, onChange, selectAll, className, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
 export {};

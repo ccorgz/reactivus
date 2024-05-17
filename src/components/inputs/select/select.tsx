@@ -114,6 +114,7 @@ export default function Select({
     isClosestToTop: boolean;
     topDistance: number;
     bottomDistance: number;
+    maxHeight: number;
   }>({
     x: 0,
     y: 0,
@@ -124,6 +125,7 @@ export default function Select({
     isClosestToTop: false,
     topDistance: 0,
     bottomDistance: 0,
+    maxHeight: 0,
   });
 
   const titleBoxRef = useRef<any>(null);
@@ -231,7 +233,7 @@ export default function Select({
     const titleBoxRect = titleBoxRef.current.getBoundingClientRect();
     const { x, y, height, width, top, bottom } = titleBoxRect;
     const isClosestToTop = top < window.innerHeight - bottom;
-
+    const maxHeight = isClosestToTop ? (window.innerHeight - y) / 2 : y / 2;
     setInputProps({
       x: x,
       y: y,
@@ -240,17 +242,30 @@ export default function Select({
       top: top,
       bottom: bottom,
       isClosestToTop: isClosestToTop,
-      topDistance: height + y + 10,
-      bottomDistance: window.innerHeight - y + 5,
+      topDistance: y + height + 10,
+      bottomDistance: window.innerHeight - y + height / 2,
+      maxHeight: maxHeight,
     });
   };
 
   const handleOptionsFilter = (filterText: string) => {
     if (filterText != "" && filterBy) {
-      const newFilter: any = options?.filter((op: any) =>
-        op[filterBy].toString().toUpperCase().includes(filterText.toUpperCase())
-      );
-      setOptionsList(newFilter);
+      let filteredList = [];
+      let filterFields = filterBy?.split(",") ?? [];
+      for (let i = 0; i < options.length; i++) {
+        let optionValue = options[i];
+        for (let j = 0; j < filterFields.length; j++) {
+          if (
+            optionValue[filterFields[j]]
+              .toString()
+              .toUpperCase()
+              .includes(filterText.toUpperCase())
+          ) {
+            filteredList.push(optionValue);
+          }
+        }
+      }
+      setOptionsList(filteredList ?? []);
     } else {
       setOptionsList(options ?? []);
     }
@@ -319,9 +334,7 @@ export default function Select({
           flexDirection: inputProps.isClosestToTop
             ? "column"
             : "column-reverse",
-          maxHeight: showOptions ? (inputProps.isClosestToTop
-            ? inputProps.bottom * 1.5
-            : inputProps.top - 10) : 0,
+          maxHeight: showOptions ? inputProps.maxHeight : 0,
         }}
       >
         {(filter || selectAll) && (

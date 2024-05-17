@@ -113,8 +113,6 @@
 
 .reactivus-select-options-box {
   position: fixed !important;
-  top: 0;
-  left: 0;
   background-color: #fff;
   border-radius: 5px;
   width: 100%;

@@ -60,12 +60,11 @@ var react_1 = __importStar(require("react"));
 require("../../../styles/inputs/select.css");
 // EXPORTS COMPONENT BY DEFAULT
 function Select(_a) {
-    var label = _a.label, width = _a.width, value = _a.value, defaultValue = _a.defaultValue, options = _a.options, optionLabel = _a.optionLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, multiSelect = _a.multiSelect, onChange = _a.onChange, selectAll = _a.selectAll, className = _a.className, rest = __rest(_a, ["label", "width", "value", "defaultValue", "options", "optionLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll", "className"]);
+    var label = _a.label, width = _a.width, value = _a.value, defaultValue = _a.defaultValue, options = _a.options, optionLabel = _a.optionLabel, selectedLabel = _a.selectedLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, multiSelect = _a.multiSelect, onChange = _a.onChange, selectAll = _a.selectAll, className = _a.className, rest = __rest(_a, ["label", "width", "value", "defaultValue", "options", "optionLabel", "selectedLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll", "className"]);
     var _b = (0, react_1.useState)(false), showOptions = _b[0], setShowOptions = _b[1];
     var _c = (0, react_1.useState)(options !== null && options !== void 0 ? options : []), optionsList = _c[0], setOptionsList = _c[1];
     var _d = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _d[0], setOptionLabelState = _d[1];
     var _e = (0, react_1.useState)([]), selectionList = _e[0], setSelectionList = _e[1];
-    // const [isClosestToTop, setIsClosestToTop] = useState<boolean>(true);
     var _f = (0, react_1.useState)(0), higherLengthString = _f[0], setHigherLengthString = _f[1];
     var _g = (0, react_1.useState)({
         x: 0,
@@ -77,6 +76,7 @@ function Select(_a) {
         isClosestToTop: false,
         topDistance: 0,
         bottomDistance: 0,
+        maxHeight: 0,
     }), inputProps = _g[0], setInputProps = _g[1];
     var titleBoxRef = (0, react_1.useRef)(null);
     (0, react_1.useEffect)(function () {
@@ -120,7 +120,7 @@ function Select(_a) {
         if (multiSelect) {
             valueToSet = values === null || values === void 0 ? void 0 : values.map(function (v) {
                 var _a;
-                return (_a = v[optionLabel]) !== null && _a !== void 0 ? _a : "";
+                return selectedLabel ? v[selectedLabel] : (_a = v[optionLabel]) !== null && _a !== void 0 ? _a : "";
             }).join(", ");
         }
         else {
@@ -132,13 +132,13 @@ function Select(_a) {
         valueToSet =
             valueToSet.slice(-2) == ", " ? valueToSet.slice(0, -2) : valueToSet;
         if (valueToSet == "" && !placeholder) {
-            valueToSet = optionLabel;
+            valueToSet = selectedLabel ? selectedLabel : optionLabel;
         }
         else if (valueToSet == "" && placeholder) {
             valueToSet = placeholder;
         }
         if (value && value[optionLabel]) {
-            valueToSet = value[optionLabel];
+            valueToSet = selectedLabel ? value[selectedLabel] : value[optionLabel];
         }
         setOptionLabelState(valueToSet);
     };
@@ -170,6 +170,7 @@ function Select(_a) {
         var titleBoxRect = titleBoxRef.current.getBoundingClientRect();
         var x = titleBoxRect.x, y = titleBoxRect.y, height = titleBoxRect.height, width = titleBoxRect.width, top = titleBoxRect.top, bottom = titleBoxRect.bottom;
         var isClosestToTop = top < window.innerHeight - bottom;
+        var maxHeight = isClosestToTop ? (window.innerHeight - y) / 2 : y / 2;
         setInputProps({
             x: x,
             y: y,
@@ -178,16 +179,28 @@ function Select(_a) {
             top: top,
             bottom: bottom,
             isClosestToTop: isClosestToTop,
-            topDistance: height + y + 10,
-            bottomDistance: window.innerHeight - y + 5,
+            topDistance: y + height + 10,
+            bottomDistance: window.innerHeight - y + height / 2,
+            maxHeight: maxHeight,
         });
     };
     var handleOptionsFilter = function (filterText) {
+        var _a;
         if (filterText != "" && filterBy) {
-            var newFilter = options === null || options === void 0 ? void 0 : options.filter(function (op) {
-                return op[filterBy].toString().toUpperCase().includes(filterText.toUpperCase());
-            });
-            setOptionsList(newFilter);
+            var filteredList = [];
+            var filterFields = (_a = filterBy === null || filterBy === void 0 ? void 0 : filterBy.split(",")) !== null && _a !== void 0 ? _a : [];
+            for (var i = 0; i < options.length; i++) {
+                var optionValue = options[i];
+                for (var j = 0; j < filterFields.length; j++) {
+                    if (optionValue[filterFields[j]]
+                        .toString()
+                        .toUpperCase()
+                        .includes(filterText.toUpperCase())) {
+                        filteredList.push(optionValue);
+                    }
+                }
+            }
+            setOptionsList(filteredList !== null && filteredList !== void 0 ? filteredList : []);
         }
         else {
             setOptionsList(options !== null && options !== void 0 ? options : []);
@@ -220,13 +233,10 @@ function Select(_a) {
                     : inputProps.bottomDistance,
                 left: inputProps.x,
                 width: inputProps.width,
-                display: showOptions ? "" : "none",
                 flexDirection: inputProps.isClosestToTop
                     ? "column"
                     : "column-reverse",
-                maxHeight: inputProps.isClosestToTop
-                    ? inputProps.bottom - 5
-                    : inputProps.top - 10,
+                maxHeight: showOptions ? inputProps.maxHeight : 0,
             } },
             (filter || selectAll) && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box", style: {
                     zIndex: 9999, // Set a high z-index value
