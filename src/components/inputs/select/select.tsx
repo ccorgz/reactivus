@@ -35,6 +35,10 @@ type SelectInputProps = {
    */
   optionTemplate?: HTMLElement | any;
   /**
+   * Custom data label string that defines wich field will be displayed at the selected fields.
+   */
+  selectedLabel?: string;
+  /**
    * Boolean to control if must be rendered a filter option in the component.
    */
   filter?: boolean;
@@ -76,6 +80,7 @@ export default function Select({
   defaultValue,
   options,
   optionLabel,
+  selectedLabel,
   optionTemplate,
   filter,
   filterPlaceHolder,
@@ -96,8 +101,6 @@ export default function Select({
   );
 
   const [selectionList, setSelectionList] = useState<any>([]);
-
-  // const [isClosestToTop, setIsClosestToTop] = useState<boolean>(true);
 
   const [higherLengthString, setHigherLengthString] = useState(0);
 
@@ -173,7 +176,7 @@ export default function Select({
     if (multiSelect) {
       valueToSet = values
         ?.map((v: any) => {
-          return v[optionLabel] ?? "";
+          return selectedLabel ? v[selectedLabel] : v[optionLabel] ?? "";
         })
         .join(", ");
     } else {
@@ -185,12 +188,12 @@ export default function Select({
     valueToSet =
       valueToSet.slice(-2) == ", " ? valueToSet.slice(0, -2) : valueToSet;
     if (valueToSet == "" && !placeholder) {
-      valueToSet = optionLabel;
+      valueToSet = selectedLabel ? selectedLabel : optionLabel;
     } else if (valueToSet == "" && placeholder) {
       valueToSet = placeholder;
     }
     if (value && value[optionLabel]) {
-      valueToSet = value[optionLabel];
+      valueToSet = selectedLabel ? value[selectedLabel] : value[optionLabel];
     }
     setOptionLabelState(valueToSet);
   };
@@ -313,13 +316,12 @@ export default function Select({
             : inputProps.bottomDistance,
           left: inputProps.x,
           width: inputProps.width,
-          display: showOptions ? "" : "none",
           flexDirection: inputProps.isClosestToTop
             ? "column"
             : "column-reverse",
-          maxHeight: inputProps.isClosestToTop
-            ? inputProps.bottom - 5
-            : inputProps.top - 10,
+          maxHeight: showOptions ? (inputProps.isClosestToTop
+            ? inputProps.bottom * 1.5
+            : inputProps.top - 10) : 0,
         }}
       >
         {(filter || selectAll) && (
