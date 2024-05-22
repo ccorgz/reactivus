@@ -104,30 +104,6 @@ export default function Select({
 
   const [higherLengthString, setHigherLengthString] = useState(0);
 
-  const [inputProps, setInputProps] = useState<{
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    top: number;
-    bottom: number;
-    isClosestToTop: boolean;
-    topDistance: number;
-    bottomDistance: number;
-    maxHeight: number;
-  }>({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-    top: 0,
-    bottom: 0,
-    isClosestToTop: false,
-    topDistance: 0,
-    bottomDistance: 0,
-    maxHeight: 0,
-  });
-
   const titleBoxRef = useRef<any>(null);
 
   useEffect(() => {
@@ -220,6 +196,11 @@ export default function Select({
     };
     if (showOptions) {
       handleGetInputCoordinates();
+    } else {
+      const element = document.querySelector(".reactivus-select-options-box");
+      if (element && element.parentNode) {
+        element.parentNode.removeChild(element);
+      }
     }
 
     document.addEventListener("click", handleClick);
@@ -231,10 +212,11 @@ export default function Select({
 
   const handleGetInputCoordinates = () => {
     const titleBoxRect = titleBoxRef.current.getBoundingClientRect();
-    const { x, y, height, width, top, bottom } = titleBoxRect;
+    const { x, y, height, width, top, bottom, left, right } = titleBoxRect;
+    console.log("titleBoxRect :", titleBoxRect);
     const isClosestToTop = top < window.innerHeight - bottom;
     const maxHeight = isClosestToTop ? (window.innerHeight - y) / 2 : y / 2;
-    setInputProps({
+    const inputProps = {
       x: x,
       y: y,
       height: height,
@@ -242,10 +224,13 @@ export default function Select({
       top: top,
       bottom: bottom,
       isClosestToTop: isClosestToTop,
-      topDistance: y + height + 10,
+      topDistance: y + height + 15,
       bottomDistance: window.innerHeight - y + height / 2,
       maxHeight: maxHeight,
-    });
+      left: left,
+      right: right,
+    };
+    appendOptionsBoxToBody(inputProps);
   };
 
   const handleOptionsFilter = (filterText: string) => {
@@ -277,6 +262,161 @@ export default function Select({
     );
     return isOptionInList;
   };
+
+  function appendOptionsBoxToBody(inputProps: any) {
+    const div = document.createElement("div");
+    div.className = `reactivus-select-options-box reactivus-select-options-box-${
+      showOptions ? "show" : "hide"
+    }`;
+    div.style.top = inputProps.isClosestToTop
+      ? inputProps.topDistance + "px"
+      : "";
+    div.style.bottom = inputProps.isClosestToTop
+      ? ""
+      : inputProps.bottomDistance + "px";
+    div.style.left = inputProps.left + "px";
+    div.style.width = inputProps.width + "px";
+    div.style.flexDirection = inputProps.isClosestToTop
+      ? "column"
+      : "column-reverse";
+    div.style.maxHeight = showOptions ? inputProps.maxHeight + "px" : "0";
+
+    const filterCheckbox = filter || selectAll;
+    if (filterCheckbox) {
+      const span = document.createElement("span");
+      span.className = `reactivus-select-item-box reactivus-select-filter-box`;
+      span.style.zIndex = "9999";
+
+      if (selectAll) {
+        const selectAllCheckbox = document.createElement("input");
+        selectAllCheckbox.type = "checkbox";
+        selectAllCheckbox.id = "reactivusSelectAllCheckbox";
+        selectAllCheckbox.className = "reactivus-select-filter-box-checkbox";
+        selectAllCheckbox.onclick = () => {
+          if (selectionList.length === optionsList.length) {
+            setSelectionList([]);
+          } else {
+            setSelectionList(optionsList);
+          }
+        };
+        span.appendChild(selectAllCheckbox);
+      }
+
+      if (!filter) {
+        const filterBoxLabel = document.createElement("span");
+        filterBoxLabel.className = "reactivus-select-filter-box-label";
+        filterBoxLabel.textContent = "Todos";
+        filterBoxLabel.onclick = () => {
+          if (selectionList.length === optionsList.length) {
+            setSelectionList([]);
+          } else {
+            setSelectionList(optionsList);
+          }
+          const allCheck = document.getElementById(
+            "reactivusSelectAllCheckbox"
+          ) as HTMLInputElement;
+          if (allCheck && allCheck.checked) {
+            allCheck.checked = false;
+          } else if (allCheck) {
+            allCheck.checked = true;
+          }
+        };
+        span.appendChild(filterBoxLabel);
+      }
+
+      if (filter) {
+        const filterBoxText = document.createElement("input");
+        filterBoxText.type = "text";
+        filterBoxText.className = "reactivus-select-filter-box-text";
+        filterBoxText.placeholder = filterPlaceHolder ?? "Search";
+        filterBoxText.onchange = (e: Event) => {
+          const target = e.target as HTMLInputElement;
+          handleOptionsFilter(target.value);
+        };
+        span.appendChild(filterBoxText);
+      }
+
+      const closeIconSpan = document.createElement("span");
+      closeIconSpan.className = "reactivus-select-title-icon-close";
+      closeIconSpan.onclick = () => {
+        setSelectionList([]);
+        setShowOptions(!showOptions);
+        const allCheck = document.getElementById(
+          "reactivusSelectAllCheckbox"
+        ) as HTMLInputElement;
+        if (allCheck && allCheck.checked) {
+          allCheck.checked = false;
+        }
+      };
+
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      svg.setAttribute("viewBox", "-8 -8 48 48");
+      svg.setAttribute("width", "18");
+      svg.setAttribute("height", "18");
+      svg.setAttribute("fill", "none");
+      svg.setAttribute("stroke", "currentColor");
+      svg.setAttribute("strokeWidth", "4");
+      svg.setAttribute("strokeLinecap", "round");
+      svg.setAttribute("strokeLinejoin", "round");
+
+      const path = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+      path.setAttribute("d", "M2,2 L30,30 M2,30 L30,2");
+      svg.appendChild(path);
+
+      closeIconSpan.appendChild(svg);
+      span.appendChild(closeIconSpan);
+
+      div.appendChild(span);
+    }
+
+    optionsList?.forEach((option, index) => {
+      const span = document.createElement("span");
+      span.className = `reactivus-select-item-box`;
+      span.onclick = () => {
+        if (multiSelect) {
+          setSelectionList((prev: any) => {
+            const isOptionInList = prev.some(
+              (p: any) => JSON.stringify(p) === JSON.stringify(option)
+            );
+            if (isOptionInList) {
+              return prev.filter(
+                (p: any) => JSON.stringify(p) !== JSON.stringify(option)
+              );
+            } else {
+              return [...prev, option];
+            }
+          });
+        } else {
+          onChange && onChange({ value: option });
+          if (!value) {
+            value = option;
+            handleOptionLabelStateDefinition([option]);
+          }
+          setShowOptions(false);
+        }
+      };
+
+      if (multiSelect) {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = isChecked(option);
+        checkbox.onchange = () => {}; // Placeholder function, as onchange handler required for input[type="checkbox"]
+        span.appendChild(checkbox);
+      }
+
+      const optionText = optionTemplate
+        ? optionTemplate(option)
+        : option[optionLabel ?? ""] ?? option;
+      span.textContent = optionText;
+      div.appendChild(span);
+    });
+
+    document.body.appendChild(div);
+  }
 
   return (
     <>
@@ -320,7 +460,7 @@ export default function Select({
         </div>
       </div>
 
-      <div
+      {/* <div
         className={`reactivus-select-options-box reactivus-select-options-box-${
           showOptions ? "show" : "hide"
         }`}
@@ -329,7 +469,7 @@ export default function Select({
           bottom: inputProps.isClosestToTop
             ? undefined
             : inputProps.bottomDistance,
-          left: inputProps.x,
+          left: inputProps.left,
           width: inputProps.width,
           flexDirection: inputProps.isClosestToTop
             ? "column"
@@ -462,7 +602,7 @@ export default function Select({
             </span>
           );
         })}
-      </div>
+      </div> */}
     </>
   );
 }

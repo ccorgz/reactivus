@@ -112,7 +112,7 @@
 }
 
 .reactivus-select-options-box {
-  position: fixed !important;
+  position: absolute !important;
   background-color: #fff;
   border-radius: 5px;
   width: 100%;
@@ -137,15 +137,6 @@
   background-color: #f0f0f0;
   border-radius: 6px !important;
 }
-
-/* .reactivus-select-options-box-top {
-  bottom: calc(100% + 2.5px);
-  flex-direction: column-reverse;
-}
-
-.reactivus-select-options-box-bottom {
-  top: calc(100% + 2.5px);
-} */
 
 .reactivus-select-options-box-hide {
   max-height: 0px;
