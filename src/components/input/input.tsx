@@ -16,6 +16,10 @@ interface InputProps {
    */
   iconPosition?: "left" | "right";
   /**
+   * Defines a function to be called when clicked in the input icon.
+   */
+  iconAction?: any;
+  /**
    * Defines the text label to be displayed as a description outisde the input box.
    */
   label?: string;
@@ -60,6 +64,10 @@ interface InputProps {
    * Defines a custom className object to be set as the input box styles.
    */
   className?: any;
+  /**
+   * Defines a custom string value to be displayed bellow the input as a description of it.
+   */
+  description?: string;
 }
 
 // EXPORTA COMPONENTE POR PADRÃO
@@ -69,6 +77,7 @@ export default function Input({
   type,
   icon,
   iconPosition,
+  iconAction,
   label,
   width,
   ref,
@@ -76,38 +85,51 @@ export default function Input({
   password,
   size,
   className,
+  description,
   ...rest
 }: InputProps & Record<string, unknown>) {
   const [seePwd, setSeePwd] = useState(false);
 
   return (
-    <div
-      {...rest}
-      className={
-        "reactivus-input-box " +
-        ("reactivus-input-" + size ?? "md") + " "+
-        (className ? className : "")
-      }
-      style={{ width: width }}
-    >
-      {label && <label>{label}</label>}
-      {icon && (!iconPosition || (iconPosition && iconPosition == "left")) && (
-        <span>{icon}</span>
-      )}
-      <input
-        type={type == "password" && seePwd ? "text" : type}
-        placeholder={placeholder ?? ""}
+    <div style={{ width: width }} className="reactivus-input-main-box">
+      <div
         {...rest}
-        ref={ref ?? null}
-        onChange={(e: any) => e.preventDefault()}
-        onKeyDown={onKeyDown}
-      />
-      {password?.seePwd && (
-        <span onClick={(e) => setSeePwd(!seePwd)} style={{ cursor: "pointer" }}>
-          {seePwd ? password?.onIcon : password?.offIcon}{" "}
-        </span>
+        className={
+          "reactivus-input-box " +
+          ("reactivus-input-" + size ?? "md") +
+          " " +
+          (className ? className : "")
+        }
+        style={{ width: width }}
+      >
+        {label && <label>{label}</label>}
+        {icon &&
+          (!iconPosition || (iconPosition && iconPosition == "left")) && (
+            <span onClick={() => iconAction && iconAction()}>{icon}</span>
+          )}
+        <input
+          type={type == "password" && seePwd ? "text" : type}
+          placeholder={placeholder ?? ""}
+          {...rest}
+          ref={ref ?? null}
+          onChange={(e: any) => e.preventDefault()}
+          onKeyDown={onKeyDown}
+        />
+        {password?.seePwd && (
+          <span
+            onClick={(e) => setSeePwd(!seePwd)}
+            style={{ cursor: "pointer" }}
+          >
+            {seePwd ? password?.onIcon : password?.offIcon}{" "}
+          </span>
+        )}
+        {icon && iconPosition && iconPosition == "right" && (
+          <span onClick={() => iconAction && iconAction()}>{icon}</span>
+        )}
+      </div>
+      {description && description.length > 0 && (
+        <span className="reactivus-input-box-description">{description}</span>
       )}
-      {icon && iconPosition && iconPosition == "right" && <span>{icon}</span>}
     </div>
   );
 }

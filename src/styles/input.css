@@ -45,6 +45,23 @@
   padding: 7px;
   color: #464646;
 }
+
+.reactivus-input-box svg:hover {
+  cursor: pointer;
+}
+
+.reactivus-input-main-box{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.reactivus-input-box-description{
+  width: 100%;
+  text-align: left;
+  font-size: .8rem;
+}
+
 .reactivus-input-sm {
   font-size: 0.9rem !important;
   padding: 0 !important;

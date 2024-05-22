@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 // IMPORT STYLESHEET FILE FOR THE SELECT COMPONENT
 import "../../../styles/inputs/select.css";
+import ReactDOM from "react-dom";
 
 // DEFINE THE SELECT PROPERTIES TYPES
 type SelectInputProps = {
@@ -213,7 +214,6 @@ export default function Select({
   const handleGetInputCoordinates = () => {
     const titleBoxRect = titleBoxRef.current.getBoundingClientRect();
     const { x, y, height, width, top, bottom, left, right } = titleBoxRect;
-    console.log("titleBoxRect :", titleBoxRect);
     const isClosestToTop = top < window.innerHeight - bottom;
     const maxHeight = isClosestToTop ? (window.innerHeight - y) / 2 : y / 2;
     const inputProps = {
@@ -411,7 +411,14 @@ export default function Select({
       const optionText = optionTemplate
         ? optionTemplate(option)
         : option[optionLabel ?? ""] ?? option;
-      span.textContent = optionText;
+
+      if (React.isValidElement(optionText)) {
+        // ReactDOM.render(optionText, span);
+        const root = (ReactDOM as any).createRoot(span);
+        root.render(optionText);
+      } else {
+        span.textContent = optionText;
+      }
       div.appendChild(span);
     });
 
@@ -419,48 +426,50 @@ export default function Select({
   }
 
   return (
-    <>
+    <div
+      {...rest}
+      className={
+        `reactivus-select-input-box` + " " + (className ? className : "")
+      }
+      style={{
+        width: width
+          ? width
+          : higherLengthString
+          ? higherLengthString * 9 + "px"
+          : "50px",
+      }}
+    >
+      {label && <label>{label}</label>}
       <div
-        {...rest}
-        className={
-          `reactivus-select-input-box` + " " + (className ? className : "")
-        }
-        style={{
-          width: width
-            ? width
-            : higherLengthString
-            ? higherLengthString * 9 + "px"
-            : "50px",
+        className={`reactivus-select-title-box`}
+        ref={titleBoxRef}
+        onClick={() => {
+          setShowOptions(!showOptions);
         }}
       >
-        {label && <label>{label}</label>}
-        <div
-          className={`reactivus-select-title-box`}
-          ref={titleBoxRef}
-          onClick={() => {
-            setShowOptions(!showOptions);
-          }}
-        >
-          <div className="reactivus-select-title-label">{optionLabelState}</div>
-          <span className="reactivus-select-title-icon-open">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="18"
-              height="18"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </span>
-        </div>
+        <div className="reactivus-select-title-label">{optionLabelState}</div>
+        <span className="reactivus-select-title-icon-open">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
       </div>
+    </div>
+  );
+}
 
-      {/* <div
+{
+  /* <div
         className={`reactivus-select-options-box reactivus-select-options-box-${
           showOptions ? "show" : "hide"
         }`}
@@ -602,7 +611,5 @@ export default function Select({
             </span>
           );
         })}
-      </div> */}
-    </>
-  );
+      </div> */
 }

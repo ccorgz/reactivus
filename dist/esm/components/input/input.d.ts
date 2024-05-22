@@ -14,6 +14,10 @@ interface InputProps {
      */
     iconPosition?: "left" | "right";
     /**
+     * Defines a function to be called when clicked in the input icon.
+     */
+    iconAction?: any;
+    /**
      * Defines the text label to be displayed as a description outisde the input box.
      */
     label?: string;
@@ -58,6 +62,10 @@ interface InputProps {
      * Defines a custom className object to be set as the input box styles.
      */
     className?: any;
+    /**
+     * Defines a custom string value to be displayed bellow the input as a description of it.
+     */
+    description?: string;
 }
-export default function Input({ options, onKeyDown, type, icon, iconPosition, label, width, ref, placeholder, password, size, className, ...rest }: InputProps & Record<string, unknown>): React.JSX.Element;
+export default function Input({ options, onKeyDown, type, icon, iconPosition, iconAction, label, width, ref, placeholder, password, size, className, description, ...rest }: InputProps & Record<string, unknown>): React.JSX.Element;
 export {};

@@ -1,11 +1,11 @@
 /* DIALOG MAIN BOX */
 
 .reactivus-alertMainBox {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   z-index: 10000000 !important;
   display: flex;
   align-items: center;
@@ -56,11 +56,10 @@
 .reactivus-alertBox {
   position: absolute;
   background-color: #fff;
-  /* background-color: #00000010; */
   border-radius: 10px;
   width: clamp(420px, 480px, 95%);
-  /* min-width: 480px;
-  max-width: 95dvw !important; */
+  min-width: 480px;
+  max-width: 95dvw !important;
   min-height: 200px;
   min-width: 420px;
   width: auto;
