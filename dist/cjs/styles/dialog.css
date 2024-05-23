@@ -6,7 +6,7 @@
   left: 0;
   width: 100dvw;
   height: 100dvh;
-  z-index: 10000000 !important;
+  z-index: 9997 !important;
   display: flex;
   align-items: center;
   justify-content: center;
