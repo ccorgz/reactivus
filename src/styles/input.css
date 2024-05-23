@@ -37,6 +37,7 @@
   left: 0.5rem !important;
   color: #000000;
   white-space: nowrap;
+  font-size: 0.8rem !important;
 }
 
 .reactivus-input-box svg {
@@ -60,6 +61,7 @@
   width: 100%;
   text-align: left;
   font-size: .8rem;
+  padding: 0px 5px;
 }
 
 .reactivus-input-sm {
