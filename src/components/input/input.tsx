@@ -100,7 +100,6 @@ export default function Input({
           " " +
           (className ? className : "")
         }
-        style={{ width: width }}
       >
         {label && <label>{label}</label>}
         {icon &&

@@ -9,6 +9,7 @@
   transition: all 0.4s ease;
   height: 2.5rem;
   color: #00000080;
+  width: 100%;
 }
 
 .reactivus-input-box input {

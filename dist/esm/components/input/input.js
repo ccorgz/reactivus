@@ -56,7 +56,7 @@ function Input(_a) {
         react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-input-box " +
                 ((_b = "reactivus-input-" + size) !== null && _b !== void 0 ? _b : "md") +
                 " " +
-                (className ? className : ""), style: { width: width } }),
+                (className ? className : "") }),
             label && react_1.default.createElement("label", null, label),
             icon &&
                 (!iconPosition || (iconPosition && iconPosition == "left")) && (react_1.default.createElement("span", { onClick: function () { return iconAction && iconAction(); } }, icon)),
