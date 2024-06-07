@@ -258,7 +258,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
         }`}
         id={"reactivus-dialog-box"}
         style={{
-          padding: alertProps?.isCustomDialog ? "0px" : "15px",
+          padding: alertProps?.isCustomDialog ? "10px" : "15px",
           gap: alertProps?.isCustomDialog ? "0px" : "20px",
         }}
       >
@@ -304,7 +304,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
             dangerouslySetInnerHTML={{ __html: alertProps?.html }}
           ></div>
         )}
-        <div className={"reactivus-alertButtonsBox"}>
+        {!alertProps?.isCustomDialog && <div className={"reactivus-alertButtonsBox"}>
           {alertProps?.showConfirmButton && (
             <Button
               label={alertProps?.confirmButtonText ?? "Ok"}
@@ -323,7 +323,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
               }}
             />
           )}
-        </div>
+        </div>}
       </div>
     </div>
   );

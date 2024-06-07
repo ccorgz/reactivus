@@ -149,7 +149,7 @@ var AlertBox = function (_a) {
                 handleOutsideAbort();
             } }),
         react_1.default.createElement("div", { className: "reactivus-alertBox ".concat(showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"), id: "reactivus-dialog-box", style: {
-                padding: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "0px" : "15px",
+                padding: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "10px" : "15px",
                 gap: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "0px" : "20px",
             } },
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.headerTitle) && (react_1.default.createElement("div", { className: "reactivus-alertBoxHeaderTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.headerTitle)),
@@ -163,7 +163,7 @@ var AlertBox = function (_a) {
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader)),
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx)),
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.html) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent", dangerouslySetInnerHTML: { __html: alertProps === null || alertProps === void 0 ? void 0 : alertProps.html } })),
-            react_1.default.createElement("div", { className: "reactivus-alertButtonsBox" },
+            !(alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) && react_1.default.createElement("div", { className: "reactivus-alertButtonsBox" },
                 (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showConfirmButton) && (react_1.default.createElement(button_1.default, { label: (_d = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonText) !== null && _d !== void 0 ? _d : "Ok", style: (_e = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonStyle) !== null && _e !== void 0 ? _e : "btn-success", onClick: function () {
                         handleConfirm();
                     } })),
