@@ -30,7 +30,7 @@ interface InputProps {
   /**
    * Defines a custom React Ref variable to be set in the input.
    */
-  ref?: React.Ref<any>;
+  inputRef?: React.Ref<any>;
   /**
    * Defines a string to be displayed as a placeholder in the input.
    */
@@ -71,8 +71,7 @@ interface InputProps {
 }
 
 // EXPORTA COMPONENTE POR PADRÃO
-export default function Input({
-  options,
+const Input = ({
   onKeyDown,
   type,
   icon,
@@ -80,14 +79,14 @@ export default function Input({
   iconAction,
   label,
   width,
-  ref,
   placeholder,
   password,
   size,
   className,
   description,
+  inputRef,
   ...rest
-}: InputProps & Record<string, unknown>) {
+}: InputProps & Record<string, unknown>) => {
   const [seePwd, setSeePwd] = useState(false);
 
   return (
@@ -110,7 +109,7 @@ export default function Input({
           type={type == "password" && seePwd ? "text" : type}
           placeholder={placeholder ?? ""}
           {...rest}
-          ref={ref ?? null}
+          ref={inputRef ?? null}
           onChange={(e: any) => e.preventDefault()}
           onKeyDown={onKeyDown}
         />
@@ -131,4 +130,6 @@ export default function Input({
       )}
     </div>
   );
-}
+};
+
+export default Input;

@@ -48,9 +48,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 require("../../styles/input.css");
 // EXPORTA COMPONENTE POR PADRÃO
-function Input(_a) {
+var Input = function (_a) {
     var _b;
-    var options = _a.options, onKeyDown = _a.onKeyDown, type = _a.type, icon = _a.icon, iconPosition = _a.iconPosition, iconAction = _a.iconAction, label = _a.label, width = _a.width, ref = _a.ref, placeholder = _a.placeholder, password = _a.password, size = _a.size, className = _a.className, description = _a.description, rest = __rest(_a, ["options", "onKeyDown", "type", "icon", "iconPosition", "iconAction", "label", "width", "ref", "placeholder", "password", "size", "className", "description"]);
+    var onKeyDown = _a.onKeyDown, type = _a.type, icon = _a.icon, iconPosition = _a.iconPosition, iconAction = _a.iconAction, label = _a.label, width = _a.width, placeholder = _a.placeholder, password = _a.password, size = _a.size, className = _a.className, description = _a.description, inputRef = _a.inputRef, rest = __rest(_a, ["onKeyDown", "type", "icon", "iconPosition", "iconAction", "label", "width", "placeholder", "password", "size", "className", "description", "inputRef"]);
     var _c = (0, react_1.useState)(false), seePwd = _c[0], setSeePwd = _c[1];
     return (react_1.default.createElement("div", { style: { width: width }, className: "reactivus-input-main-box" },
         react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-input-box " +
@@ -60,12 +60,12 @@ function Input(_a) {
             label && react_1.default.createElement("label", null, label),
             icon &&
                 (!iconPosition || (iconPosition && iconPosition == "left")) && (react_1.default.createElement("span", { onClick: function () { return iconAction && iconAction(); } }, icon)),
-            react_1.default.createElement("input", __assign({ type: type == "password" && seePwd ? "text" : type, placeholder: placeholder !== null && placeholder !== void 0 ? placeholder : "" }, rest, { ref: ref !== null && ref !== void 0 ? ref : null, onChange: function (e) { return e.preventDefault(); }, onKeyDown: onKeyDown })),
+            react_1.default.createElement("input", __assign({ type: type == "password" && seePwd ? "text" : type, placeholder: placeholder !== null && placeholder !== void 0 ? placeholder : "" }, rest, { ref: inputRef !== null && inputRef !== void 0 ? inputRef : null, onChange: function (e) { return e.preventDefault(); }, onKeyDown: onKeyDown })),
             (password === null || password === void 0 ? void 0 : password.seePwd) && (react_1.default.createElement("span", { onClick: function (e) { return setSeePwd(!seePwd); }, style: { cursor: "pointer" } },
                 seePwd ? password === null || password === void 0 ? void 0 : password.onIcon : password === null || password === void 0 ? void 0 : password.offIcon,
                 " ")),
             icon && iconPosition && iconPosition == "right" && (react_1.default.createElement("span", { onClick: function () { return iconAction && iconAction(); } }, icon))),
         description && description.length > 0 && (react_1.default.createElement("span", { className: "reactivus-input-box-description" }, description))));
-}
+};
 exports.default = Input;
 //# sourceMappingURL=input.js.map

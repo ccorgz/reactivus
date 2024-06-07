@@ -28,7 +28,7 @@ interface InputProps {
     /**
      * Defines a custom React Ref variable to be set in the input.
      */
-    ref?: React.Ref<any>;
+    inputRef?: React.Ref<any>;
     /**
      * Defines a string to be displayed as a placeholder in the input.
      */
@@ -67,5 +67,5 @@ interface InputProps {
      */
     description?: string;
 }
-export default function Input({ options, onKeyDown, type, icon, iconPosition, iconAction, label, width, ref, placeholder, password, size, className, description, ...rest }: InputProps & Record<string, unknown>): React.JSX.Element;
-export {};
+declare const Input: ({ onKeyDown, type, icon, iconPosition, iconAction, label, width, placeholder, password, size, className, description, inputRef, ...rest }: InputProps & Record<string, unknown>) => React.JSX.Element;
+export default Input;
