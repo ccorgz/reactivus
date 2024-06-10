@@ -100,6 +100,7 @@
 }
 
 .reactivus-alertBoxHeaderTitle {
+  width: 100%;
   cursor: pointer;
   font-size: 1.2rem;
   position: absolute;
@@ -107,6 +108,13 @@
   left: 7.5px;
   cursor: pointer;
   margin-bottom: 10px;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.reactivus-htmlx-content{
+  margin-top: calc(1.2rem + 10px);
 }
 
 .reactivus-alertBoxCloseButton {

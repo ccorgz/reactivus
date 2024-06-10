@@ -294,7 +294,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           </div>
         )}
         {alertProps?.htmlx && (
-          <div className={"reactivus-alertBoxTitleContent"}>
+          <div className={"reactivus-htmlx-content"}>
             {alertProps?.htmlx}
           </div>
         )}
