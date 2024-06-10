@@ -100,12 +100,12 @@
 }
 
 .reactivus-alertBoxHeaderTitle {
-  position: relative;
-  top: 5px;
-  left: 10px;
   cursor: pointer;
   font-size: 1.2rem;
-  width: 100%;
+  position: absolute;
+  top: 5px;
+  left: 7.5px;
+  cursor: pointer;
   margin-bottom: 10px;
 }
 
