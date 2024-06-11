@@ -5,8 +5,8 @@
   transition: all 1s ease;
   position: absolute;
   top: 0;
-  width: clamp(320px, 320px, 100%);
-  background-color: #00000020;
+  width: clamp(320px, 340px, 100%);
+  background-color: #00000070;
 }
 
 .reactivus-toast-container-toasts-box {
@@ -15,7 +15,7 @@
 }
 
 .reactivus-toast-box {
-  width: clamp(300px, 300px, 100%);
+  width: clamp(300px, 320px, 100%);
   height: auto;
   border-radius: 5px;
   position: relative;
@@ -26,11 +26,13 @@
   padding: 20px 10px;
   overflow: hidden;
   background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  /* position: fixed; */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   top: 0;
   margin: 10px;
-  color: #000;
+  color: #393939;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .reactivus-toast-content-box {
@@ -41,12 +43,150 @@
   width: 100%;
 }
 
+.reactivus-toast-icon-box {
+  width: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.reactivus-toast-content-box div {
+  width: 85%;
+}
+
 .reactivus-toast-show-left {
   animation: toastBounce 1s ease-in-out, showFromLeft 0.2s ease;
 }
 
 .reactivus-toast-show-right {
   animation: toastBounce 1s ease-in-out, showFromRight 0.2s ease;
+}
+
+.reactivus-toast-success .reactivus-toast-time-bar {
+  background-color: #3f7d54;
+}
+
+.reactivus-toast-danger .reactivus-toast-time-bar {
+  background-color: #cb2a29;
+}
+
+.reactivus-toast-warning .reactivus-toast-time-bar {
+  background-color: #ffa500;
+}
+.reactivus-toast-info .reactivus-toast-time-bar {
+  background-color: #2e86c1;
+}
+
+.reactivus-toast-time-bar {
+  height: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.reactivus-toast-top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.reactivus-toast-top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.reactivus-toast-bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.reactivus-toast-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+/* ---------- ICONS ---------- */
+
+.reactivus-toast-icon-success {
+  width: 80%;
+  background-color: #3f7d54;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.reactivus-toast-icon-danger {
+  display: inline-block;
+  width: 80%;
+  background-color: #cb2a29;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.reactivus-toast-icon-warning {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+}
+.reactivus-toast-icon-warning:before {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  transform: translate(7.5%, -40%);
+  z-index: 1;
+  content: "!";
+}
+.reactivus-toast-icon-warning:after {
+  display: inline-block;
+  margin-left: 3px;
+  font-size: 5px;
+  border: solid 3em transparent;
+  border-top-width: 0;
+  border-bottom-width: 5em;
+  border-bottom-color: #ffa500;
+  width: 0;
+  margin-left: 0px;
+  clip-path: circle(54% at 50% 69%);
+  vertical-align: bottom;
+  content: "";
+}
+
+.reactivus-toast-icon-info {
+  width: 80%;
+  background-color: #2e86c1;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 620px) {
+  .reactivus-toast-box {
+    width: clamp(300px, 95%, 100%);
+  }
+
+  .reactivus-toast-icon-warning:before {
+    transform: translate(5%, -35%) !important;
+    content: "!";
+  }
 }
 
 @keyframes toastBounce {
@@ -100,28 +240,6 @@
   }
 }
 
-.reactivus-toast-success .reactivus-toast-time-bar {
-  background-color: #3f7d54;
-}
-
-.reactivus-toast-danger .reactivus-toast-time-bar {
-  background-color: #cb2a29;
-}
-
-.reactivus-toast-warning .reactivus-toast-time-bar {
-  background-color: #ffa500;
-}
-.reactivus-toast-info .reactivus-toast-time-bar {
-  background-color: #2e86c1;
-}
-
-.reactivus-toast-time-bar {
-  height: 5px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
 @keyframes toastTimeBar {
   from {
     width: 100%;
@@ -129,112 +247,4 @@
   to {
     width: 0%;
   }
-}
-
-.reactivus-toast-top-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.reactivus-toast-top-left {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.reactivus-toast-bottom-left {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-.reactivus-toast-bottom-right {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
-/* ---------- ICONS ---------- */
-
-.reactivus-toast-icon-success {
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  -ms-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  background-color: #3f7d54;
-  border-radius: 50%;
-}
-
-.reactivus-checkmark-stem {
-  position: absolute;
-  width: 3px;
-  height: 9px;
-  background-color: #fff;
-  left: 11px;
-  top: 6px;
-}
-
-.reactivus-checkmark-kick {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background-color: #fff;
-  left: 8px;
-  top: 12px;
-}
-
-.reactivus-toast-icon-danger {
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  background-color: #cb2a29;
-  border-radius: 50%;
-  color: #fff;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.reactivus-toast-icon-warning {
-  position: relative;
-  display: inline-block;
-  font-weight: bold;
-  color: #ffa500;
-}
-.reactivus-toast-icon-warning:before {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #ffffff;
-  transform: translateY(-36%);
-  z-index: 1;
-  content: "!";
-}
-.reactivus-toast-icon-warning:after {
-  display: inline-block;
-  margin-left: 3px;
-  font-size: 5px;
-  border: solid 3em transparent;
-  border-top-width: 0;
-  border-bottom-width: 5em;
-  border-bottom-color: #ffa500;
-  clip-path: circle(54% at 50% 69%);
-  vertical-align: bottom;
-  content: "";
-}
-
-.reactivus-toast-icon-info {
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  background-color: #2e86c1;
-  border-radius: 50%;
-  color: #fff;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

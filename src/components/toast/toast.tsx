@@ -9,12 +9,7 @@ const icons = {
   success: () => {
     const successIcon = document.createElement("span");
     successIcon.className = "reactivus-toast-icon-success";
-    const successIconStem = document.createElement("span");
-    successIconStem.className = "reactivus-checkmark-stem";
-    const successIconKick = document.createElement("span");
-    successIconKick.className = "reactivus-checkmark-kick";
-    successIcon.appendChild(successIconStem);
-    successIcon.appendChild(successIconKick);
+    successIcon.innerHTML = "✓";
     return successIcon;
   },
   danger: () => {
@@ -150,12 +145,16 @@ const createToast = (style: styles, text: string, props?: ContainerProps) => {
 
   const toastContentElement = document.createElement("div");
   toastContentElement.className = `reactivus-toast-content-box`;
+
+  const toastContentIconBoxElement = document.createElement("span");
+  toastContentIconBoxElement.className = `reactivus-toast-icon-box`;
   const toastContentIconElement = icons[style]();
+  toastContentIconBoxElement.appendChild(toastContentIconElement);
 
   const toastContentTextElement = document.createElement("div");
   toastContentTextElement.innerText = text;
 
-  toastContentElement.appendChild(toastContentIconElement);
+  toastContentElement.appendChild(toastContentIconBoxElement);
   toastContentElement.appendChild(toastContentTextElement);
 
   const timeBarElement = document.createElement("div");

@@ -122,6 +122,7 @@
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
   transition: height 0.2s ease, max-height 0.2s ease;
   z-index: 9999999999 !important;
+  max-height: 50vh;
   max-height: 50dvh;
   scrollbar-width: thin;
   scrollbar-color: #8f8f8f #60606040;
