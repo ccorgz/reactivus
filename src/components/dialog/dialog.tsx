@@ -260,6 +260,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
         style={{
           padding: alertProps?.isCustomDialog ? "10px" : "15px",
           gap: alertProps?.isCustomDialog ? "0px" : "20px",
+          justifyContent: alertProps?.isCustomDialog ? "flex-start" : "center",
         }}
       >
         {alertProps?.headerTitle && (
