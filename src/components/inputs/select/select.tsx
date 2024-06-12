@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 // IMPORT STYLESHEET FILE FOR THE SELECT COMPONENT
 import "../../../styles/inputs/select.css";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
 // DEFINE THE SELECT PROPERTIES TYPES
 type SelectInputProps = {
@@ -263,234 +263,33 @@ export default function Select({
     return isOptionInList;
   };
 
-  function appendOptionsBoxToBody(inputProps: any) {
-    const div = document.createElement("div");
-    div.className = `reactivus-select-options-box reactivus-select-options-box-${
-      showOptions ? "show" : "hide"
-    }`;
-    div.style.top = inputProps.isClosestToTop
-      ? inputProps.topDistance + "px"
-      : "";
-    div.style.bottom = inputProps.isClosestToTop
-      ? ""
-      : inputProps.bottomDistance + "px";
-    div.style.left = inputProps.left + "px";
-    div.style.width = inputProps.width + "px";
-    div.style.flexDirection = inputProps.isClosestToTop
-      ? "column"
-      : "column-reverse";
-    div.style.maxHeight = showOptions ? inputProps.maxHeight + "px" : "0";
-
-    const filterCheckbox = filter || selectAll;
-    if (filterCheckbox) {
-      const span = document.createElement("span");
-      span.className = `reactivus-select-item-box reactivus-select-filter-box`;
-      span.style.zIndex = "9999";
-
-      if (selectAll) {
-        const selectAllCheckbox = document.createElement("input");
-        selectAllCheckbox.type = "checkbox";
-        selectAllCheckbox.id = "reactivusSelectAllCheckbox";
-        selectAllCheckbox.className = "reactivus-select-filter-box-checkbox";
-        selectAllCheckbox.onclick = () => {
-          if (selectionList.length === optionsList.length) {
-            setSelectionList([]);
-          } else {
-            setSelectionList(optionsList);
-          }
-        };
-        span.appendChild(selectAllCheckbox);
-      }
-
-      if (!filter) {
-        const filterBoxLabel = document.createElement("span");
-        filterBoxLabel.className = "reactivus-select-filter-box-label";
-        filterBoxLabel.textContent = "Todos";
-        filterBoxLabel.onclick = () => {
-          if (selectionList.length === optionsList.length) {
-            setSelectionList([]);
-          } else {
-            setSelectionList(optionsList);
-          }
-          const allCheck = document.getElementById(
-            "reactivusSelectAllCheckbox"
-          ) as HTMLInputElement;
-          if (allCheck && allCheck.checked) {
-            allCheck.checked = false;
-          } else if (allCheck) {
-            allCheck.checked = true;
-          }
-        };
-        span.appendChild(filterBoxLabel);
-      }
-
-      if (filter) {
-        const filterBoxText = document.createElement("input");
-        filterBoxText.type = "text";
-        filterBoxText.className = "reactivus-select-filter-box-text";
-        filterBoxText.placeholder = filterPlaceHolder ?? "Search";
-        filterBoxText.onchange = (e: Event) => {
-          const target = e.target as HTMLInputElement;
-          handleOptionsFilter(target.value);
-        };
-        span.appendChild(filterBoxText);
-      }
-
-      const closeIconSpan = document.createElement("span");
-      closeIconSpan.className = "reactivus-select-title-icon-close";
-      closeIconSpan.onclick = () => {
-        setSelectionList([]);
-        setShowOptions(!showOptions);
-        const allCheck = document.getElementById(
-          "reactivusSelectAllCheckbox"
-        ) as HTMLInputElement;
-        if (allCheck && allCheck.checked) {
-          allCheck.checked = false;
-        }
-      };
-
-      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-      svg.setAttribute("viewBox", "-8 -8 48 48");
-      svg.setAttribute("width", "18");
-      svg.setAttribute("height", "18");
-      svg.setAttribute("fill", "none");
-      svg.setAttribute("stroke", "currentColor");
-      svg.setAttribute("strokeWidth", "4");
-      svg.setAttribute("strokeLinecap", "round");
-      svg.setAttribute("strokeLinejoin", "round");
-
-      const path = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "path"
-      );
-      path.setAttribute("d", "M2,2 L30,30 M2,30 L30,2");
-      svg.appendChild(path);
-
-      closeIconSpan.appendChild(svg);
-      span.appendChild(closeIconSpan);
-
-      div.appendChild(span);
-    }
-
-    optionsList?.forEach((option, index) => {
-      const span = document.createElement("span");
-      span.className = `reactivus-select-item-box`;
-      span.onclick = () => {
-        if (multiSelect) {
-          setSelectionList((prev: any) => {
-            const isOptionInList = prev.some(
-              (p: any) => JSON.stringify(p) === JSON.stringify(option)
-            );
-            if (isOptionInList) {
-              return prev.filter(
-                (p: any) => JSON.stringify(p) !== JSON.stringify(option)
-              );
-            } else {
-              return [...prev, option];
-            }
-          });
-        } else {
-          onChange && onChange({ value: option });
-          if (!value) {
-            value = option;
-            handleOptionLabelStateDefinition([option]);
-          }
-          setShowOptions(false);
-        }
-      };
-
-      if (multiSelect) {
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = isChecked(option);
-        checkbox.onchange = () => {}; // Placeholder function, as onchange handler required for input[type="checkbox"]
-        span.appendChild(checkbox);
-      }
-
-      const optionText = optionTemplate
-        ? optionTemplate(option)
-        : option[optionLabel ?? ""] ?? option;
-
-      if (React.isValidElement(optionText)) {
-        // ReactDOM.render(optionText, span);
-        const root = (ReactDOM as any).createRoot(span);
-        root.render(optionText);
-      } else {
-        span.textContent = optionText;
-      }
-      div.appendChild(span);
-    });
-
-    document.body.appendChild(div);
-  }
-
-  return (
-    <div
-      {...rest}
-      className={
-        `reactivus-select-input-box` + " " + (className ? className : "")
-      }
-      style={{
-        width: width
-          ? width
-          : higherLengthString
-          ? higherLengthString * 9 + "px"
-          : "50px",
-      }}
-    >
-      {label && <label>{label}</label>}
+  const SelectOptionsBox = (inputProps: any) => {
+    const [optionsSelectionList, setOptionsSelectionList] = useState<any>(selectionList ?? []);
+    return (
       <div
-        className={`reactivus-select-title-box`}
-        ref={titleBoxRef}
-        onClick={() => {
-          setShowOptions(!showOptions);
-        }}
-      >
-        <div className="reactivus-select-title-label">{optionLabelState}</div>
-        <span className="reactivus-select-title-icon-open">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="18"
-            height="18"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </div>
-    </div>
-  );
-}
-
-{
-  /* <div
-        className={`reactivus-select-options-box reactivus-select-options-box-${
-          showOptions ? "show" : "hide"
-        }`}
-        style={{
-          top: inputProps.isClosestToTop ? inputProps.topDistance : undefined,
-          bottom: inputProps.isClosestToTop
-            ? undefined
-            : inputProps.bottomDistance,
-          left: inputProps.left,
-          width: inputProps.width,
-          flexDirection: inputProps.isClosestToTop
-            ? "column"
-            : "column-reverse",
-          maxHeight: showOptions ? inputProps.maxHeight : 0,
-        }}
+        // className={`reactivus-select-options-box reactivus-select-options-box-${
+        //   showOptions ? "show" : "hide"
+        // }`}
+        // style={{
+        //   top: inputProps.isClosestToTop
+        //   ? inputProps.topDistance + "px"
+        //   : "",
+        //   bottom: inputProps.isClosestToTop
+        //   ? ""
+        //   : inputProps.bottomDistance + "px",
+        //   left: inputProps.left + "px",
+        //   width: inputProps.width + "px",
+        //   flexDirection: inputProps.isClosestToTop
+        //     ? "column"
+        //     : "column-reverse",
+        //   maxHeight: showOptions ? inputProps.maxHeight + "px" : "0",
+        // }}
       >
         {(filter || selectAll) && (
           <span
             className={`reactivus-select-item-box reactivus-select-filter-box`}
             style={{
-              zIndex: 9999, // Set a high z-index value
+              zIndex: 9999,
             }}
           >
             {selectAll && (
@@ -499,10 +298,12 @@ export default function Select({
                 id={"reactivusSelectAllCheckbox"}
                 className={`reactivus-select-filter-box-checkbox`}
                 onClick={() => {
-                  if (selectionList.length == options.length) {
+                  if (selectionList.length == options.length || optionsSelectionList.length == options.length) {
                     setSelectionList([]);
+                    setOptionsSelectionList([]);
                   } else {
                     setSelectionList(options);
+                    setOptionsSelectionList(options);
                   }
                 }}
               />
@@ -511,10 +312,12 @@ export default function Select({
               <span
                 className={`reactivus-select-filter-box-label`}
                 onClick={() => {
-                  if (selectionList.length == options.length) {
+                  if (selectionList.length == options.length || optionsSelectionList.length == options.length) {
                     setSelectionList([]);
+                    setOptionsSelectionList([]);
                   } else {
                     setSelectionList(options);
+                    setOptionsSelectionList(options);
                   }
                   const allCheck: any = document.getElementById(
                     "reactivusSelectAllCheckbox"
@@ -543,6 +346,7 @@ export default function Select({
               className="reactivus-select-title-icon-close"
               onClick={() => {
                 setSelectionList([]);
+                setOptionsSelectionList([]);
                 setShowOptions(!showOptions);
                 const allCheck: any = document.getElementById(
                   "reactivusSelectAllCheckbox"
@@ -587,6 +391,19 @@ export default function Select({
                       return [...prev, option];
                     }
                   });
+                  setOptionsSelectionList((prev: any) => {
+                    const isOptionInList = prev.some(
+                      (p: any) => JSON.stringify(p) === JSON.stringify(option)
+                    );
+
+                    if (isOptionInList) {
+                      return prev.filter(
+                        (p: any) => JSON.stringify(p) !== JSON.stringify(option)
+                      );
+                    } else {
+                      return [...prev, option];
+                    }
+                  });
                 } else {
                   onChange && onChange({ value: option });
                   if (!value) {
@@ -601,7 +418,8 @@ export default function Select({
               {multiSelect && (
                 <input
                   type={"checkbox"}
-                  checked={isChecked(option)}
+                  // defaultChecked={optionsSelectionList.includes(option)}
+                  checked={optionsSelectionList.includes(option)}
                   onChange={() => {}}
                 />
               )}
@@ -611,5 +429,73 @@ export default function Select({
             </span>
           );
         })}
-      </div> */
+      </div>
+    );
+  };
+
+  function appendOptionsBoxToBody(inputProps: any) {
+    const div = document.createElement("div");
+    div.className = `reactivus-select-options-box reactivus-select-options-box-${
+      showOptions ? "show" : "hide"
+    }`;
+    div.style.top = inputProps.isClosestToTop
+      ? inputProps.topDistance + "px"
+      : "";
+    div.style.bottom = inputProps.isClosestToTop
+      ? ""
+      : inputProps.bottomDistance + "px";
+    div.style.left = inputProps.left + "px";
+    div.style.width = inputProps.width + "px";
+    div.style.flexDirection = inputProps.isClosestToTop
+      ? "column"
+      : "column-reverse";
+    div.style.maxHeight = showOptions ? inputProps.maxHeight + "px" : "0";
+
+    document.body.appendChild(div);
+
+    const root = (ReactDOM as any).createRoot(div);
+    root.render(<SelectOptionsBox inputProps={inputProps} />);
+  }
+
+  return (
+    <div
+      {...rest}
+      className={
+        `reactivus-select-input-box` + " " + (className ? className : "")
+      }
+      style={{
+        width: width
+          ? width
+          : higherLengthString
+          ? higherLengthString * 9 + "px"
+          : "50px",
+      }}
+    >
+      {label && <label>{label}</label>}
+      <div
+        className={`reactivus-select-title-box`}
+        ref={titleBoxRef}
+        onClick={() => {
+          setShowOptions(!showOptions);
+        }}
+      >
+        <div className="reactivus-select-title-label">{optionLabelState}</div>
+        <span className="reactivus-select-title-icon-open">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </div>
+    </div>
+  );
 }
