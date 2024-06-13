@@ -151,6 +151,7 @@ var AlertBox = function (_a) {
         react_1.default.createElement("div", { className: "reactivus-alertBox ".concat(showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"), id: "reactivus-dialog-box", style: {
                 padding: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "10px" : "15px",
                 gap: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "0px" : "20px",
+                justifyContent: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "flex-start" : "center",
             } },
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.headerTitle) && (react_1.default.createElement("div", { className: "reactivus-alertBoxHeaderTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.headerTitle)),
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCloseButton) && (react_1.default.createElement("div", { className: "reactivus-alertBoxCloseButton", onClick: function () {

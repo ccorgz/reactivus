@@ -61,7 +61,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 // IMPORT STYLESHEET FILE FOR THE SELECT COMPONENT
 require("../../../styles/inputs/select.css");
-var react_dom_1 = __importDefault(require("react-dom"));
+var client_1 = __importDefault(require("react-dom/client"));
 // EXPORTS COMPONENT BY DEFAULT
 function Select(_a) {
     var label = _a.label, width = _a.width, value = _a.value, defaultValue = _a.defaultValue, options = _a.options, optionLabel = _a.optionLabel, selectedLabel = _a.selectedLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, multiSelect = _a.multiSelect, onChange = _a.onChange, selectAll = _a.selectAll, className = _a.className, rest = __rest(_a, ["label", "width", "value", "defaultValue", "options", "optionLabel", "selectedLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll", "className"]);
@@ -71,6 +71,15 @@ function Select(_a) {
     var _e = (0, react_1.useState)([]), selectionList = _e[0], setSelectionList = _e[1];
     var _f = (0, react_1.useState)(0), higherLengthString = _f[0], setHigherLengthString = _f[1];
     var titleBoxRef = (0, react_1.useRef)(null);
+    (0, react_1.useEffect)(function () {
+        var handleResize = function () {
+            setShowOptions(false);
+        };
+        window.addEventListener("resize", handleResize);
+        return function () {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
     (0, react_1.useEffect)(function () {
         if (options == optionsList) {
             return;
@@ -185,31 +194,118 @@ function Select(_a) {
         };
         appendOptionsBoxToBody(inputProps);
     };
-    var handleOptionsFilter = function (filterText) {
-        var _a;
-        if (filterText != "" && filterBy) {
-            var filteredList = [];
-            var filterFields = (_a = filterBy === null || filterBy === void 0 ? void 0 : filterBy.split(",")) !== null && _a !== void 0 ? _a : [];
-            for (var i = 0; i < options.length; i++) {
-                var optionValue = options[i];
-                for (var j = 0; j < filterFields.length; j++) {
-                    if (optionValue[filterFields[j]]
-                        .toString()
-                        .toUpperCase()
-                        .includes(filterText.toUpperCase())) {
-                        filteredList.push(optionValue);
+    var SelectOptionsBox = function () {
+        var _a = (0, react_1.useState)(selectionList !== null && selectionList !== void 0 ? selectionList : []), optionsSelectionList = _a[0], setOptionsSelectionList = _a[1];
+        var _b = (0, react_1.useState)(optionsList !== null && optionsList !== void 0 ? optionsList : []), optionsFilterList = _b[0], setOptionsFilterList = _b[1];
+        (0, react_1.useEffect)(function () {
+            var allCheck = document.getElementById("reactivusSelectAllCheckbox");
+            if (optionsSelectionList.length == options.length && allCheck) {
+                allCheck.checked = true;
+            }
+            else if (allCheck) {
+                allCheck.checked = false;
+            }
+            // setOptionsFilterList(optionsSelectionList);
+        }, [optionsSelectionList]);
+        var handleAllOptionsSelection = function () {
+            var allCheck = document.getElementById("reactivusSelectAllCheckbox");
+            if (selectionList.length == options.length ||
+                optionsSelectionList.length == options.length) {
+                setSelectionList([]);
+                setOptionsSelectionList([]);
+                if (allCheck)
+                    allCheck.checked = false;
+            }
+            else {
+                setSelectionList(options);
+                setOptionsSelectionList(options);
+                if (allCheck)
+                    allCheck.checked = true;
+            }
+        };
+        var handleOptionsFilter = function (filterText) {
+            var _a;
+            if (filterText != "" && filterBy) {
+                var filteredList = [];
+                var filterFields = (_a = filterBy === null || filterBy === void 0 ? void 0 : filterBy.split(",")) !== null && _a !== void 0 ? _a : [];
+                for (var i = 0; i < options.length; i++) {
+                    var optionValue = options[i];
+                    for (var j = 0; j < filterFields.length; j++) {
+                        if (optionValue[filterFields[j]]
+                            .toString()
+                            .toUpperCase()
+                            .includes(filterText.toUpperCase())) {
+                            filteredList.push(optionValue);
+                        }
                     }
                 }
+                setOptionsFilterList(filteredList !== null && filteredList !== void 0 ? filteredList : []);
             }
-            setOptionsList(filteredList !== null && filteredList !== void 0 ? filteredList : []);
-        }
-        else {
-            setOptionsList(options !== null && options !== void 0 ? options : []);
-        }
-    };
-    var isChecked = function (option) {
-        var isOptionInList = selectionList.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
-        return isOptionInList;
+            else {
+                setOptionsFilterList(options !== null && options !== void 0 ? options : []);
+            }
+        };
+        return (react_1.default.createElement("div", null,
+            (filter || selectAll) && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box", style: {
+                    zIndex: 9999,
+                } },
+                selectAll && (react_1.default.createElement("input", { type: "checkbox", id: "reactivusSelectAllCheckbox", className: "reactivus-select-filter-box-checkbox", onClick: function () {
+                        handleAllOptionsSelection();
+                    } })),
+                !filter && (react_1.default.createElement("span", { className: "reactivus-select-filter-box-label", onClick: function () {
+                        handleAllOptionsSelection();
+                    } }, "Todos")),
+                filter && (react_1.default.createElement("input", { type: "text", className: "reactivus-select-filter-box-text", placeholder: filterPlaceHolder !== null && filterPlaceHolder !== void 0 ? filterPlaceHolder : "Search", onChange: function (e) {
+                        return handleOptionsFilter(e.target.value);
+                    } })),
+                react_1.default.createElement("span", { className: "reactivus-select-title-icon-close", onClick: function () {
+                        setSelectionList([]);
+                        setOptionsSelectionList([]);
+                        setShowOptions(!showOptions);
+                        var allCheck = document.getElementById("reactivusSelectAllCheckbox");
+                        if (allCheck && allCheck.checked) {
+                            allCheck.checked = false;
+                        }
+                    } },
+                    react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "-8 -8 48 48", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" },
+                        react_1.default.createElement("path", { d: "M2,2 L30,30 M2,30 L30,2" }))))), optionsFilterList === null || optionsFilterList === void 0 ? void 0 :
+            optionsFilterList.map(function (option, index) {
+                var _a;
+                return (react_1.default.createElement("span", { className: "reactivus-select-item-box", onClick: function () {
+                        if (multiSelect) {
+                            setSelectionList(function (prev) {
+                                var isOptionInList = prev.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
+                                if (isOptionInList) {
+                                    return prev.filter(function (p) { return JSON.stringify(p) !== JSON.stringify(option); });
+                                }
+                                else {
+                                    return __spreadArray(__spreadArray([], prev, true), [option], false);
+                                }
+                            });
+                            setOptionsSelectionList(function (prev) {
+                                var isOptionInList = prev.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
+                                if (isOptionInList) {
+                                    return prev.filter(function (p) { return JSON.stringify(p) !== JSON.stringify(option); });
+                                }
+                                else {
+                                    return __spreadArray(__spreadArray([], prev, true), [option], false);
+                                }
+                            });
+                        }
+                        else {
+                            onChange && onChange({ value: option });
+                            if (!value) {
+                                value = option;
+                                handleOptionLabelStateDefinition([option]);
+                            }
+                            setShowOptions(false);
+                        }
+                    }, key: index },
+                    multiSelect && (react_1.default.createElement("input", { className: "reactivus-select-item-box-checkbox", type: "checkbox", checked: optionsSelectionList.includes(option), onChange: function () { } })),
+                    optionTemplate
+                        ? optionTemplate(option)
+                        : (_a = option[optionLabel]) !== null && _a !== void 0 ? _a : option));
+            })));
     };
     function appendOptionsBoxToBody(inputProps) {
         var div = document.createElement("div");
@@ -226,131 +322,9 @@ function Select(_a) {
             ? "column"
             : "column-reverse";
         div.style.maxHeight = showOptions ? inputProps.maxHeight + "px" : "0";
-        var filterCheckbox = filter || selectAll;
-        if (filterCheckbox) {
-            var span = document.createElement("span");
-            span.className = "reactivus-select-item-box reactivus-select-filter-box";
-            span.style.zIndex = "9999";
-            if (selectAll) {
-                var selectAllCheckbox = document.createElement("input");
-                selectAllCheckbox.type = "checkbox";
-                selectAllCheckbox.id = "reactivusSelectAllCheckbox";
-                selectAllCheckbox.className = "reactivus-select-filter-box-checkbox";
-                selectAllCheckbox.onclick = function () {
-                    if (selectionList.length === optionsList.length) {
-                        setSelectionList([]);
-                    }
-                    else {
-                        setSelectionList(optionsList);
-                    }
-                };
-                span.appendChild(selectAllCheckbox);
-            }
-            if (!filter) {
-                var filterBoxLabel = document.createElement("span");
-                filterBoxLabel.className = "reactivus-select-filter-box-label";
-                filterBoxLabel.textContent = "Todos";
-                filterBoxLabel.onclick = function () {
-                    if (selectionList.length === optionsList.length) {
-                        setSelectionList([]);
-                    }
-                    else {
-                        setSelectionList(optionsList);
-                    }
-                    var allCheck = document.getElementById("reactivusSelectAllCheckbox");
-                    if (allCheck && allCheck.checked) {
-                        allCheck.checked = false;
-                    }
-                    else if (allCheck) {
-                        allCheck.checked = true;
-                    }
-                };
-                span.appendChild(filterBoxLabel);
-            }
-            if (filter) {
-                var filterBoxText = document.createElement("input");
-                filterBoxText.type = "text";
-                filterBoxText.className = "reactivus-select-filter-box-text";
-                filterBoxText.placeholder = filterPlaceHolder !== null && filterPlaceHolder !== void 0 ? filterPlaceHolder : "Search";
-                filterBoxText.onchange = function (e) {
-                    var target = e.target;
-                    handleOptionsFilter(target.value);
-                };
-                span.appendChild(filterBoxText);
-            }
-            var closeIconSpan = document.createElement("span");
-            closeIconSpan.className = "reactivus-select-title-icon-close";
-            closeIconSpan.onclick = function () {
-                setSelectionList([]);
-                setShowOptions(!showOptions);
-                var allCheck = document.getElementById("reactivusSelectAllCheckbox");
-                if (allCheck && allCheck.checked) {
-                    allCheck.checked = false;
-                }
-            };
-            var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            svg.setAttribute("viewBox", "-8 -8 48 48");
-            svg.setAttribute("width", "18");
-            svg.setAttribute("height", "18");
-            svg.setAttribute("fill", "none");
-            svg.setAttribute("stroke", "currentColor");
-            svg.setAttribute("strokeWidth", "4");
-            svg.setAttribute("strokeLinecap", "round");
-            svg.setAttribute("strokeLinejoin", "round");
-            var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path.setAttribute("d", "M2,2 L30,30 M2,30 L30,2");
-            svg.appendChild(path);
-            closeIconSpan.appendChild(svg);
-            span.appendChild(closeIconSpan);
-            div.appendChild(span);
-        }
-        optionsList === null || optionsList === void 0 ? void 0 : optionsList.forEach(function (option, index) {
-            var _a;
-            var span = document.createElement("span");
-            span.className = "reactivus-select-item-box";
-            span.onclick = function () {
-                if (multiSelect) {
-                    setSelectionList(function (prev) {
-                        var isOptionInList = prev.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
-                        if (isOptionInList) {
-                            return prev.filter(function (p) { return JSON.stringify(p) !== JSON.stringify(option); });
-                        }
-                        else {
-                            return __spreadArray(__spreadArray([], prev, true), [option], false);
-                        }
-                    });
-                }
-                else {
-                    onChange && onChange({ value: option });
-                    if (!value) {
-                        value = option;
-                        handleOptionLabelStateDefinition([option]);
-                    }
-                    setShowOptions(false);
-                }
-            };
-            if (multiSelect) {
-                var checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.checked = isChecked(option);
-                checkbox.onchange = function () { }; // Placeholder function, as onchange handler required for input[type="checkbox"]
-                span.appendChild(checkbox);
-            }
-            var optionText = optionTemplate
-                ? optionTemplate(option)
-                : (_a = option[optionLabel !== null && optionLabel !== void 0 ? optionLabel : ""]) !== null && _a !== void 0 ? _a : option;
-            if (react_1.default.isValidElement(optionText)) {
-                // ReactDOM.render(optionText, span);
-                var root = react_dom_1.default.createRoot(span);
-                root.render(optionText);
-            }
-            else {
-                span.textContent = optionText;
-            }
-            div.appendChild(span);
-        });
         document.body.appendChild(div);
+        var root = client_1.default.createRoot(div);
+        root.render(react_1.default.createElement(SelectOptionsBox, null));
     }
     return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box" + " " + (className ? className : ""), style: {
             width: width
@@ -369,149 +343,4 @@ function Select(_a) {
                     react_1.default.createElement("path", { d: "M6 9l6 6 6-6" }))))));
 }
 exports.default = Select;
-{
-    /* <div
-          className={`reactivus-select-options-box reactivus-select-options-box-${
-            showOptions ? "show" : "hide"
-          }`}
-          style={{
-            top: inputProps.isClosestToTop ? inputProps.topDistance : undefined,
-            bottom: inputProps.isClosestToTop
-              ? undefined
-              : inputProps.bottomDistance,
-            left: inputProps.left,
-            width: inputProps.width,
-            flexDirection: inputProps.isClosestToTop
-              ? "column"
-              : "column-reverse",
-            maxHeight: showOptions ? inputProps.maxHeight : 0,
-          }}
-        >
-          {(filter || selectAll) && (
-            <span
-              className={`reactivus-select-item-box reactivus-select-filter-box`}
-              style={{
-                zIndex: 9999, // Set a high z-index value
-              }}
-            >
-              {selectAll && (
-                <input
-                  type={"checkbox"}
-                  id={"reactivusSelectAllCheckbox"}
-                  className={`reactivus-select-filter-box-checkbox`}
-                  onClick={() => {
-                    if (selectionList.length == options.length) {
-                      setSelectionList([]);
-                    } else {
-                      setSelectionList(options);
-                    }
-                  }}
-                />
-              )}
-              {!filter && (
-                <span
-                  className={`reactivus-select-filter-box-label`}
-                  onClick={() => {
-                    if (selectionList.length == options.length) {
-                      setSelectionList([]);
-                    } else {
-                      setSelectionList(options);
-                    }
-                    const allCheck: any = document.getElementById(
-                      "reactivusSelectAllCheckbox"
-                    );
-                    if (allCheck && allCheck.checked) {
-                      allCheck.checked = false;
-                    } else if (allCheck) {
-                      allCheck.checked = true;
-                    }
-                  }}
-                >
-                  Todos
-                </span>
-              )}
-              {filter && (
-                <input
-                  type="text"
-                  className={`reactivus-select-filter-box-text`}
-                  placeholder={filterPlaceHolder ?? "Search"}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleOptionsFilter(e.target.value)
-                  }
-                />
-              )}
-              <span
-                className="reactivus-select-title-icon-close"
-                onClick={() => {
-                  setSelectionList([]);
-                  setShowOptions(!showOptions);
-                  const allCheck: any = document.getElementById(
-                    "reactivusSelectAllCheckbox"
-                  );
-                  if (allCheck && allCheck.checked) {
-                    allCheck.checked = false;
-                  }
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="-8 -8 48 48"
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M2,2 L30,30 M2,30 L30,2" />
-                </svg>
-              </span>
-            </span>
-          )}
-          {optionsList?.map((option: any, index: any) => {
-            return (
-              <span
-                className={`reactivus-select-item-box`}
-                onClick={() => {
-                  if (multiSelect) {
-                    setSelectionList((prev: any) => {
-                      const isOptionInList = prev.some(
-                        (p: any) => JSON.stringify(p) === JSON.stringify(option)
-                      );
-  
-                      if (isOptionInList) {
-                        return prev.filter(
-                          (p: any) => JSON.stringify(p) !== JSON.stringify(option)
-                        );
-                      } else {
-                        return [...prev, option];
-                      }
-                    });
-                  } else {
-                    onChange && onChange({ value: option });
-                    if (!value) {
-                      value = option;
-                      handleOptionLabelStateDefinition([option]);
-                    }
-                    setShowOptions(false);
-                  }
-                }}
-                key={index}
-              >
-                {multiSelect && (
-                  <input
-                    type={"checkbox"}
-                    checked={isChecked(option)}
-                    onChange={() => {}}
-                  />
-                )}
-                {optionTemplate
-                  ? optionTemplate(option)
-                  : option[optionLabel] ?? option}
-              </span>
-            );
-          })}
-        </div> */
-}
 //# sourceMappingURL=select.js.map

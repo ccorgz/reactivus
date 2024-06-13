@@ -108,6 +108,17 @@ export default function Select({
   const titleBoxRef = useRef<any>(null);
 
   useEffect(() => {
+    const handleResize = () => {
+      setShowOptions(false);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     if (options == optionsList) {
       return;
     }
@@ -233,58 +244,69 @@ export default function Select({
     appendOptionsBoxToBody(inputProps);
   };
 
-  const handleOptionsFilter = (filterText: string) => {
-    if (filterText != "" && filterBy) {
-      let filteredList = [];
-      let filterFields = filterBy?.split(",") ?? [];
-      for (let i = 0; i < options.length; i++) {
-        let optionValue = options[i];
-        for (let j = 0; j < filterFields.length; j++) {
-          if (
-            optionValue[filterFields[j]]
-              .toString()
-              .toUpperCase()
-              .includes(filterText.toUpperCase())
-          ) {
-            filteredList.push(optionValue);
+  const SelectOptionsBox = () => {
+    const [optionsSelectionList, setOptionsSelectionList] = useState<any>(
+      selectionList ?? []
+    );
+    const [optionsFilterList, setOptionsFilterList] = useState<any>(
+      optionsList ?? []
+    );
+
+    useEffect(() => {
+      const allCheck: any = document.getElementById(
+        "reactivusSelectAllCheckbox"
+      );
+      if (optionsSelectionList.length == options.length && allCheck) {
+        allCheck.checked = true;
+      } else if (allCheck) {
+        allCheck.checked = false;
+      }
+      // setOptionsFilterList(optionsSelectionList);
+    }, [optionsSelectionList]);
+
+    const handleAllOptionsSelection = () => {
+      const allCheck: any = document.getElementById(
+        "reactivusSelectAllCheckbox"
+      );
+      if (
+        selectionList.length == options.length ||
+        optionsSelectionList.length == options.length
+      ) {
+        setSelectionList([]);
+        setOptionsSelectionList([]);
+        if (allCheck) allCheck.checked = false;
+      } else {
+        setSelectionList(options);
+        setOptionsSelectionList(options);
+        if (allCheck) allCheck.checked = true;
+      }
+    };
+
+    const handleOptionsFilter = (filterText: string) => {
+      if (filterText != "" && filterBy) {
+        let filteredList = [];
+        let filterFields = filterBy?.split(",") ?? [];
+        for (let i = 0; i < options.length; i++) {
+          let optionValue = options[i];
+          for (let j = 0; j < filterFields.length; j++) {
+            if (
+              optionValue[filterFields[j]]
+                .toString()
+                .toUpperCase()
+                .includes(filterText.toUpperCase())
+            ) {
+              filteredList.push(optionValue);
+            }
           }
         }
+        setOptionsFilterList(filteredList ?? []);
+      } else {
+        setOptionsFilterList(options ?? []);
       }
-      setOptionsList(filteredList ?? []);
-    } else {
-      setOptionsList(options ?? []);
-    }
-  };
+    };
 
-  const isChecked = (option: any) => {
-    const isOptionInList = selectionList.some(
-      (p: any) => JSON.stringify(p) === JSON.stringify(option)
-    );
-    return isOptionInList;
-  };
-
-  const SelectOptionsBox = (inputProps: any) => {
-    const [optionsSelectionList, setOptionsSelectionList] = useState<any>(selectionList ?? []);
     return (
-      <div
-        // className={`reactivus-select-options-box reactivus-select-options-box-${
-        //   showOptions ? "show" : "hide"
-        // }`}
-        // style={{
-        //   top: inputProps.isClosestToTop
-        //   ? inputProps.topDistance + "px"
-        //   : "",
-        //   bottom: inputProps.isClosestToTop
-        //   ? ""
-        //   : inputProps.bottomDistance + "px",
-        //   left: inputProps.left + "px",
-        //   width: inputProps.width + "px",
-        //   flexDirection: inputProps.isClosestToTop
-        //     ? "column"
-        //     : "column-reverse",
-        //   maxHeight: showOptions ? inputProps.maxHeight + "px" : "0",
-        // }}
-      >
+      <div>
         {(filter || selectAll) && (
           <span
             className={`reactivus-select-item-box reactivus-select-filter-box`}
@@ -298,13 +320,7 @@ export default function Select({
                 id={"reactivusSelectAllCheckbox"}
                 className={`reactivus-select-filter-box-checkbox`}
                 onClick={() => {
-                  if (selectionList.length == options.length || optionsSelectionList.length == options.length) {
-                    setSelectionList([]);
-                    setOptionsSelectionList([]);
-                  } else {
-                    setSelectionList(options);
-                    setOptionsSelectionList(options);
-                  }
+                  handleAllOptionsSelection();
                 }}
               />
             )}
@@ -312,21 +328,7 @@ export default function Select({
               <span
                 className={`reactivus-select-filter-box-label`}
                 onClick={() => {
-                  if (selectionList.length == options.length || optionsSelectionList.length == options.length) {
-                    setSelectionList([]);
-                    setOptionsSelectionList([]);
-                  } else {
-                    setSelectionList(options);
-                    setOptionsSelectionList(options);
-                  }
-                  const allCheck: any = document.getElementById(
-                    "reactivusSelectAllCheckbox"
-                  );
-                  if (allCheck && allCheck.checked) {
-                    allCheck.checked = false;
-                  } else if (allCheck) {
-                    allCheck.checked = true;
-                  }
+                  handleAllOptionsSelection();
                 }}
               >
                 Todos
@@ -372,7 +374,7 @@ export default function Select({
             </span>
           </span>
         )}
-        {optionsList?.map((option: any, index: any) => {
+        {optionsFilterList?.map((option: any, index: any) => {
           return (
             <span
               className={`reactivus-select-item-box`}
@@ -417,8 +419,8 @@ export default function Select({
             >
               {multiSelect && (
                 <input
+                  className="reactivus-select-item-box-checkbox"
                   type={"checkbox"}
-                  // defaultChecked={optionsSelectionList.includes(option)}
                   checked={optionsSelectionList.includes(option)}
                   onChange={() => {}}
                 />
@@ -454,7 +456,7 @@ export default function Select({
     document.body.appendChild(div);
 
     const root = (ReactDOM as any).createRoot(div);
-    root.render(<SelectOptionsBox inputProps={inputProps} />);
+    root.render(<SelectOptionsBox />);
   }
 
   return (
