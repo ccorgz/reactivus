@@ -69,7 +69,7 @@ function Select(_a) {
     var _c = (0, react_1.useState)(options !== null && options !== void 0 ? options : []), optionsList = _c[0], setOptionsList = _c[1];
     var _d = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _d[0], setOptionLabelState = _d[1];
     var _e = (0, react_1.useState)([]), selectionList = _e[0], setSelectionList = _e[1];
-    var _f = (0, react_1.useState)(0), higherLengthString = _f[0], setHigherLengthString = _f[1];
+    // const [higherLengthString, setHigherLengthString] = useState(0);
     var titleBoxRef = (0, react_1.useRef)(null);
     (0, react_1.useEffect)(function () {
         var handleResize = function () {
@@ -100,9 +100,6 @@ function Select(_a) {
                         ? option.length
                         : higgherValueString;
             }
-            setHigherLengthString(higgherValueString > optionLabel.length
-                ? higgherValueString
-                : optionLabel.length);
         }
     }, [optionsList]);
     (0, react_1.useEffect)(function () {
@@ -205,22 +202,20 @@ function Select(_a) {
             else if (allCheck) {
                 allCheck.checked = false;
             }
-            // setOptionsFilterList(optionsSelectionList);
         }, [optionsSelectionList]);
         var handleAllOptionsSelection = function () {
             var allCheck = document.getElementById("reactivusSelectAllCheckbox");
-            if (selectionList.length == options.length ||
-                optionsSelectionList.length == options.length) {
+            if (
+            // selectionList.length == options.length ||
+            // optionsSelectionList.length == options.length
+            allCheck &&
+                !allCheck.checked) {
                 setSelectionList([]);
                 setOptionsSelectionList([]);
-                if (allCheck)
-                    allCheck.checked = false;
             }
-            else {
+            else if (allCheck && allCheck.checked) {
                 setSelectionList(options);
                 setOptionsSelectionList(options);
-                if (allCheck)
-                    allCheck.checked = true;
             }
         };
         var handleOptionsFilter = function (filterText) {
@@ -247,7 +242,7 @@ function Select(_a) {
         };
         return (react_1.default.createElement("div", null,
             (filter || selectAll) && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box", style: {
-                    zIndex: 9999,
+                    zIndex: 9998,
                 } },
                 selectAll && (react_1.default.createElement("input", { type: "checkbox", id: "reactivusSelectAllCheckbox", className: "reactivus-select-filter-box-checkbox", onClick: function () {
                         handleAllOptionsSelection();
@@ -301,7 +296,7 @@ function Select(_a) {
                             setShowOptions(false);
                         }
                     }, key: index },
-                    multiSelect && (react_1.default.createElement("input", { className: "reactivus-select-item-box-checkbox", type: "checkbox", checked: optionsSelectionList.includes(option), onChange: function () { } })),
+                    multiSelect && (react_1.default.createElement("input", { className: "reactivus-select-item-box-checkbox", type: "checkbox", checked: JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)), onChange: function () { } })),
                     optionTemplate
                         ? optionTemplate(option)
                         : (_a = option[optionLabel]) !== null && _a !== void 0 ? _a : option));
@@ -327,11 +322,7 @@ function Select(_a) {
         root.render(react_1.default.createElement(SelectOptionsBox, null));
     }
     return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box" + " " + (className ? className : ""), style: {
-            width: width
-                ? width
-                : higherLengthString
-                    ? higherLengthString * 9 + "px"
-                    : "50px",
+            minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
         } }),
         label && react_1.default.createElement("label", null, label),
         react_1.default.createElement("div", { className: "reactivus-select-title-box", ref: titleBoxRef, onClick: function () {

@@ -103,7 +103,7 @@ export default function Select({
 
   const [selectionList, setSelectionList] = useState<any>([]);
 
-  const [higherLengthString, setHigherLengthString] = useState(0);
+  // const [higherLengthString, setHigherLengthString] = useState(0);
 
   const titleBoxRef = useRef<any>(null);
 
@@ -141,11 +141,6 @@ export default function Select({
             ? option.length
             : higgherValueString;
       }
-      setHigherLengthString(
-        higgherValueString > optionLabel.length
-          ? higgherValueString
-          : optionLabel.length
-      );
     }
   }, [optionsList]);
 
@@ -261,7 +256,6 @@ export default function Select({
       } else if (allCheck) {
         allCheck.checked = false;
       }
-      // setOptionsFilterList(optionsSelectionList);
     }, [optionsSelectionList]);
 
     const handleAllOptionsSelection = () => {
@@ -269,16 +263,16 @@ export default function Select({
         "reactivusSelectAllCheckbox"
       );
       if (
-        selectionList.length == options.length ||
-        optionsSelectionList.length == options.length
+        // selectionList.length == options.length ||
+        // optionsSelectionList.length == options.length
+        allCheck &&
+        !allCheck.checked
       ) {
         setSelectionList([]);
         setOptionsSelectionList([]);
-        if (allCheck) allCheck.checked = false;
-      } else {
+      } else if (allCheck && allCheck.checked) {
         setSelectionList(options);
         setOptionsSelectionList(options);
-        if (allCheck) allCheck.checked = true;
       }
     };
 
@@ -311,7 +305,7 @@ export default function Select({
           <span
             className={`reactivus-select-item-box reactivus-select-filter-box`}
             style={{
-              zIndex: 9999,
+              zIndex: 9998,
             }}
           >
             {selectAll && (
@@ -421,7 +415,9 @@ export default function Select({
                 <input
                   className="reactivus-select-item-box-checkbox"
                   type={"checkbox"}
-                  checked={optionsSelectionList.includes(option)}
+                  checked={JSON.stringify(optionsSelectionList).includes(
+                    JSON.stringify(option)
+                  )}
                   onChange={() => {}}
                 />
               )}
@@ -466,11 +462,7 @@ export default function Select({
         `reactivus-select-input-box` + " " + (className ? className : "")
       }
       style={{
-        width: width
-          ? width
-          : higherLengthString
-          ? higherLengthString * 9 + "px"
-          : "50px",
+        minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
       }}
     >
       {label && <label>{label}</label>}
