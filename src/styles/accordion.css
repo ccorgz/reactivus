@@ -1,0 +1,51 @@
+.reactivus-accordion-main-box {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #fff;
+  border-radius: 7.5px;
+  border: 1px solid #cccccc30;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: flex-start;
+}
+
+.reactivus-accordion-header-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.4s ease;
+  padding: 5px 5px 0px 5px;
+}
+
+.reactivus-accordion-header-box svg {
+  font-size: 1.5rem;
+  transition: all 0.4s ease;
+}
+.reactivus-accordion-rotate-svg-up {
+  transform: rotate(180deg);
+}
+.reactivus-accordion-rotate-svg-down {
+  transform: rotate(360deg);
+}
+
+.reactivus-accordion-header-box:hover {
+  background-color: #60606007;
+}
+.reactivus-accordion-header-title {
+  font-weight: 400;
+  height: 100%;
+}
+
+.reactivus-accordion-content-box {
+  font-weight: 400;
+  max-height: 100dvh;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}

@@ -10,4 +10,6 @@ import toast from "./components/toast/toast";
 
 import { ToastContainer } from "./components/toast/toast";
 
-export { dialog, Button, Input, Select, toast, ToastContainer };
+import Accordion from "./components/accordion/accordion";
+
+export { dialog, Button, Input, Select, toast, ToastContainer, Accordion };
