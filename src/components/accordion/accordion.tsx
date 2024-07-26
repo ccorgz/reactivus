@@ -8,6 +8,8 @@ type AccordionProps = {
   setIsOpenControl?: React.Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
   alwaysOpen?: boolean;
+  defaultOpen?: boolean;
+  headerTemplate?: HTMLElement | any;
 };
 
 export default function Accordion({
@@ -16,9 +18,15 @@ export default function Accordion({
   setIsOpenControl,
   children,
   alwaysOpen,
+  defaultOpen,
+  headerTemplate,
 }: AccordionProps) {
   const [isOpen, setIsOpen] = useState<boolean>(
-    isOpenControl ? isOpenControl : true
+    isOpenControl
+      ? isOpenControl
+      : defaultOpen != undefined && !alwaysOpen
+      ? defaultOpen
+      : true
   );
 
   useEffect(() => {
@@ -33,8 +41,14 @@ export default function Accordion({
     }
   }, [alwaysOpen]);
 
+  useEffect(() => {
+    if (defaultOpen != undefined) {
+      setIsOpen(defaultOpen);
+    }
+  }, [defaultOpen]);
+
   return (
-    <div className={"reactivus-accordion-main-box"}>
+    <div className={"reactivus-accordion-main-box reactivus-box-shadow"}>
       <div
         className="reactivus-accordion-header-box"
         onClick={() => {
@@ -45,7 +59,7 @@ export default function Accordion({
         }}
       >
         <div className={"reactivus-accordion-header-title"}>
-          {title ? title : ""}
+          {headerTemplate ? headerTemplate : title ? title : ""}
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -18,4 +18,5 @@ var toast_2 = require("./components/toast/toast");
 Object.defineProperty(exports, "ToastContainer", { enumerable: true, get: function () { return toast_2.ToastContainer; } });
 var accordion_1 = __importDefault(require("./components/accordion/accordion"));
 exports.Accordion = accordion_1.default;
+require("./styles/globals.css");
 //# sourceMappingURL=index.js.map

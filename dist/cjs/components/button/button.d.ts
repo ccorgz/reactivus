@@ -1,7 +1,7 @@
 import "../../styles/button.css";
 type ButtonProps = {
     label?: string;
-    style?: "btn-primary" | "btn-secondary" | "btn-danger" | "btn-success" | "btn-info" | "btn-dark" | "btn-light" | "btn-none" | "btn-warning";
+    style?: "btn-primary" | "btn-secondary" | "btn-danger" | "btn-success" | "btn-info" | "btn-dark" | "btn-light" | "btn-none" | "btn-warning" | "btn-black";
     width?: string;
     heigth?: string;
     icon?: any;

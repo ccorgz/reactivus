@@ -91,7 +91,7 @@ function Select(_a) {
         };
     }, [titleBoxRef, value, options]);
     (0, react_1.useEffect)(function () {
-        if (optionsList.length > 0) {
+        if (optionsList.length > 0 && typeof options[0] != "string") {
             var higgherValueString = 0;
             for (var i = 0; i < options.length; i++) {
                 var option = options[i][optionLabel];
@@ -266,7 +266,8 @@ function Select(_a) {
                         react_1.default.createElement("path", { d: "M2,2 L30,30 M2,30 L30,2" }))))), optionsFilterList === null || optionsFilterList === void 0 ? void 0 :
             optionsFilterList.map(function (option, index) {
                 var _a;
-                return (react_1.default.createElement("span", { className: "reactivus-select-item-box", onClick: function () {
+                return (react_1.default.createElement("span", { className: "reactivus-select-item-box " +
+                        (JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)) && "reactivus-item-selected"), onClick: function () {
                         if (multiSelect) {
                             setSelectionList(function (prev) {
                                 var isOptionInList = prev.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
@@ -304,7 +305,7 @@ function Select(_a) {
     };
     function appendOptionsBoxToBody(inputProps) {
         var div = document.createElement("div");
-        div.className = "reactivus-select-options-box reactivus-select-options-box-".concat(showOptions ? "show" : "hide");
+        div.className = "reactivus-select-options-box reactivus-box-shadow reactivus-select-options-box-".concat(showOptions ? "show" : "hide");
         div.style.top = inputProps.isClosestToTop
             ? inputProps.topDistance + "px"
             : "";
@@ -321,7 +322,7 @@ function Select(_a) {
         var root = client_1.default.createRoot(div);
         root.render(react_1.default.createElement(SelectOptionsBox, null));
     }
-    return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box" + " " + (className ? className : ""), style: {
+    return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box reactivus-box-shadow" + " " + (className ? className : ""), style: {
             minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
         } }),
         label && react_1.default.createElement("label", null, label),

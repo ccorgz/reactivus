@@ -32,12 +32,6 @@
   background-color: transparent !important;
 }
 
-.reactivus-shadow-button {
-  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-}
-
 .reactivus-btn-none {
   background-color: transparent;
   color: #000;
@@ -130,6 +124,23 @@
 }
 .reactivus-btn-warning.reactivus-text-button:hover {
   background-color: #ffa50020 !important;
+}
+
+.reactivus-btn-black {
+  background-color: #000000;
+  color: #fafafa;
+  fill: #fafafa;
+}
+.reactivus-btn-black:hover {
+  background-color: #202020;
+}
+.reactivus-btn-black.reactivus-text-button {
+  color: #000000 !important;
+  fill: #000000 !important;
+  font-weight: 500;
+}
+.reactivus-btn-black.reactivus-text-button:hover {
+  background-color: #19191920 !important;
 }
 
 .reactivus-btn-sm {

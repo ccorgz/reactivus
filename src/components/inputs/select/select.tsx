@@ -132,7 +132,7 @@ export default function Select({
   }, [titleBoxRef, value, options]);
 
   useEffect(() => {
-    if (optionsList.length > 0) {
+    if (optionsList.length > 0 && typeof options[0] != "string") {
       let higgherValueString = 0;
       for (let i = 0; i < options.length; i++) {
         const option = options[i][optionLabel];
@@ -371,7 +371,12 @@ export default function Select({
         {optionsFilterList?.map((option: any, index: any) => {
           return (
             <span
-              className={`reactivus-select-item-box`}
+              className={
+                `reactivus-select-item-box ` +
+                (JSON.stringify(optionsSelectionList).includes(
+                  JSON.stringify(option)
+                ) && "reactivus-item-selected")
+              }
               onClick={() => {
                 if (multiSelect) {
                   setSelectionList((prev: any) => {
@@ -433,7 +438,7 @@ export default function Select({
 
   function appendOptionsBoxToBody(inputProps: any) {
     const div = document.createElement("div");
-    div.className = `reactivus-select-options-box reactivus-select-options-box-${
+    div.className = `reactivus-select-options-box reactivus-box-shadow reactivus-select-options-box-${
       showOptions ? "show" : "hide"
     }`;
     div.style.top = inputProps.isClosestToTop
@@ -459,7 +464,7 @@ export default function Select({
     <div
       {...rest}
       className={
-        `reactivus-select-input-box` + " " + (className ? className : "")
+        `reactivus-select-input-box reactivus-box-shadow` + " " + (className ? className : "")
       }
       style={{
         minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",

@@ -12,7 +12,8 @@ type ButtonProps = {
     | "btn-dark"
     | "btn-light"
     | "btn-none"
-    | "btn-warning";
+    | "btn-warning"
+    | "btn-black";
   width?: string;
   heigth?: string;
   icon?: any;
@@ -58,7 +59,7 @@ export default function Button({
       reactivus-${disabled ? "btn-disabled" : ""} 
       reactivus-${rounded ? "btn-rounded" : ""} 
       ${text ? "reactivus-text-button" : ""} 
-      ${shadow ? "reactivus-shadow-button" : ""}
+      ${shadow ? "reactivus-box-shadow" : ""}
       ${rounded && icon && !label ? "reactivus-btn-rounded-icon" : ""}`}
       style={styleOption}
       {...rest}

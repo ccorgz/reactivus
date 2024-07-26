@@ -53,7 +53,7 @@ var Input = function (_a) {
     var onKeyDown = _a.onKeyDown, type = _a.type, icon = _a.icon, iconPosition = _a.iconPosition, iconAction = _a.iconAction, label = _a.label, width = _a.width, placeholder = _a.placeholder, password = _a.password, size = _a.size, className = _a.className, description = _a.description, inputRef = _a.inputRef, rest = __rest(_a, ["onKeyDown", "type", "icon", "iconPosition", "iconAction", "label", "width", "placeholder", "password", "size", "className", "description", "inputRef"]);
     var _c = (0, react_1.useState)(false), seePwd = _c[0], setSeePwd = _c[1];
     return (react_1.default.createElement("div", { style: { width: width }, className: "reactivus-input-main-box" },
-        react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-input-box " +
+        react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-input-box reactivus-box-shadow " +
                 ((_b = "reactivus-input-" + size) !== null && _b !== void 0 ? _b : "md") +
                 " " +
                 (className ? className : "") }),

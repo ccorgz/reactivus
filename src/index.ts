@@ -12,4 +12,6 @@ import { ToastContainer } from "./components/toast/toast";
 
 import Accordion from "./components/accordion/accordion";
 
+import './styles/globals.css';
+
 export { dialog, Button, Input, Select, toast, ToastContainer, Accordion };
