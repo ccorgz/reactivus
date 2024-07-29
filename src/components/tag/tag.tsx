@@ -41,7 +41,9 @@ export default function Tag({
           ? ""
           : "reactivus-box-shadow ") +
         (text != undefined
-          ? "reactivus-tag-text-" + color + (border == true ? ` reactivus-tag-text-${color}-border` : "")
+          ? "reactivus-tag-text-" +
+            color +
+            (border == true ? ` reactivus-tag-text-${color}-border` : "")
           : "reactivus-tag-" + color) +
         (rounded != undefined && rounded == true
           ? " reactivus-tag-rounded"

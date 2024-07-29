@@ -14,6 +14,8 @@ import Accordion from "./components/accordion/accordion";
 
 import Tag from "./components/tag/tag";
 
+import Container from './components/container/container'
+
 import './styles/globals.css';
 
-export { dialog, Button, Input, Select, toast, ToastContainer, Accordion, Tag };
+export { dialog, Button, Input, Select, toast, ToastContainer, Accordion, Tag, Container };
