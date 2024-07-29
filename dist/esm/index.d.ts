@@ -5,5 +5,7 @@ import Select from "./components/inputs/select/select";
 import toast from "./components/toast/toast";
 import { ToastContainer } from "./components/toast/toast";
 import Accordion from "./components/accordion/accordion";
+import Tag from "./components/tag/tag";
+import Container from './components/container/container';
 import './styles/globals.css';
-export { dialog, Button, Input, Select, toast, ToastContainer, Accordion };
+export { dialog, Button, Input, Select, toast, ToastContainer, Accordion, Tag, Container };
