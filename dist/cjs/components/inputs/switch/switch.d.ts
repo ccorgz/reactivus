@@ -24,5 +24,5 @@ type SwitchProps = {
         value: boolean;
     }) => void;
 };
-export default function Switch({ defaultChecked, label, activeColor, onChange, checked }: SwitchProps): React.JSX.Element;
+export default function Switch({ defaultChecked, label, activeColor, onChange, checked, }: SwitchProps): React.JSX.Element;
 export {};
