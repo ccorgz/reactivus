@@ -69,7 +69,6 @@ function Select(_a) {
     var _c = (0, react_1.useState)(options !== null && options !== void 0 ? options : []), optionsList = _c[0], setOptionsList = _c[1];
     var _d = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _d[0], setOptionLabelState = _d[1];
     var _e = (0, react_1.useState)([]), selectionList = _e[0], setSelectionList = _e[1];
-    // const [higherLengthString, setHigherLengthString] = useState(0);
     var titleBoxRef = (0, react_1.useRef)(null);
     (0, react_1.useEffect)(function () {
         var handleResize = function () {
@@ -85,10 +84,10 @@ function Select(_a) {
             return;
         }
         setOptionsList(options !== null && options !== void 0 ? options : []);
-        document.addEventListener("scroll", handleGetInputCoordinates);
-        return function () {
-            document.removeEventListener("scroll", handleGetInputCoordinates);
-        };
+        // document.addEventListener("scroll", handleGetInputCoordinates);
+        // return () => {
+        //   document.removeEventListener("scroll", handleGetInputCoordinates);
+        // };
     }, [titleBoxRef, value, options]);
     (0, react_1.useEffect)(function () {
         if (optionsList.length > 0 && typeof options[0] != "string") {
@@ -322,7 +321,9 @@ function Select(_a) {
         var root = client_1.default.createRoot(div);
         root.render(react_1.default.createElement(SelectOptionsBox, null));
     }
-    return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box reactivus-box-shadow" + " " + (className ? className : ""), style: {
+    return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box reactivus-box-shadow" +
+            " " +
+            (className ? className : ""), style: {
             minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
         } }),
         label && react_1.default.createElement("label", null, label),
