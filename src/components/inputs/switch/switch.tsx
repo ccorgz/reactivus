@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 
 import "../../../styles/inputs/switch.css";
 
@@ -30,11 +30,13 @@ export default function Switch({
   label,
   activeColor,
   onChange,
-  checked
+  checked,
 }: SwitchProps) {
   const [isInputChecked, setIsInputChecked] = useState<boolean>(
     defaultChecked ? defaultChecked : checked ? checked : false
   );
+
+  const switchRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsInputChecked(e.target.checked);
@@ -51,7 +53,14 @@ export default function Switch({
       }}
     >
       <label className="r-switch-main-label">{label ? label : ""}</label>
-      <label htmlFor="r-switch-checkbox" className="r-switch-checkbox-label">
+      <label
+        className="r-switch-checkbox-label"
+        onClick={() => {
+          if (switchRef.current) {
+            switchRef.current.click();
+          }
+        }}
+      >
         <div className={"r-switch-button-box"} />
       </label>
 
@@ -60,6 +69,7 @@ export default function Switch({
         type="checkbox"
         checked={checked ?? isInputChecked}
         onChange={handleInputChange}
+        ref={switchRef}
       />
     </div>
   );
