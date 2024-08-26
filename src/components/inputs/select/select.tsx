@@ -103,8 +103,6 @@ export default function Select({
 
   const [selectionList, setSelectionList] = useState<any>([]);
 
-  // const [higherLengthString, setHigherLengthString] = useState(0);
-
   const titleBoxRef = useRef<any>(null);
 
   useEffect(() => {
@@ -125,10 +123,10 @@ export default function Select({
 
     setOptionsList(options ?? []);
 
-    document.addEventListener("scroll", handleGetInputCoordinates);
-    return () => {
-      document.removeEventListener("scroll", handleGetInputCoordinates);
-    };
+    // document.addEventListener("scroll", handleGetInputCoordinates);
+    // return () => {
+    //   document.removeEventListener("scroll", handleGetInputCoordinates);
+    // };
   }, [titleBoxRef, value, options]);
 
   useEffect(() => {
@@ -182,6 +180,7 @@ export default function Select({
     }
     setOptionLabelState(valueToSet);
   };
+
   const handleClickOutside = (event: any) => {
     if (
       titleBoxRef.current &&
@@ -375,7 +374,7 @@ export default function Select({
                 `reactivus-select-item-box ` +
                 (JSON.stringify(optionsSelectionList).includes(
                   JSON.stringify(option)
-                ) && "reactivus-item-selected")
+                ) && "r-item-selected")
               }
               onClick={() => {
                 if (multiSelect) {
@@ -438,7 +437,7 @@ export default function Select({
 
   function appendOptionsBoxToBody(inputProps: any) {
     const div = document.createElement("div");
-    div.className = `reactivus-select-options-box reactivus-box-shadow reactivus-select-options-box-${
+    div.className = `reactivus-select-options-box r-box-shadow reactivus-select-options-box-${
       showOptions ? "show" : "hide"
     }`;
     div.style.top = inputProps.isClosestToTop
@@ -464,7 +463,9 @@ export default function Select({
     <div
       {...rest}
       className={
-        `reactivus-select-input-box reactivus-box-shadow` + " " + (className ? className : "")
+        `reactivus-select-input-box r-box-shadow` +
+        " " +
+        (className ? className : "")
       }
       style={{
         minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",

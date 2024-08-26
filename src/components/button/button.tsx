@@ -59,7 +59,7 @@ export default function Button({
       reactivus-${disabled ? "btn-disabled" : ""} 
       reactivus-${rounded ? "btn-rounded" : ""} 
       ${text ? "reactivus-text-button" : ""} 
-      ${shadow ? "reactivus-box-shadow" : ""}
+      ${shadow ? "r-box-shadow" : ""}
       ${rounded && icon && !label ? "reactivus-btn-rounded-icon" : ""}`}
       style={styleOption}
       {...rest}

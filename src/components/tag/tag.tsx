@@ -39,7 +39,7 @@ export default function Tag({
         "reactivus-tag-main-box " +
         (shadow == undefined || (shadow != undefined && shadow == false)
           ? ""
-          : "reactivus-box-shadow ") +
+          : "r-box-shadow ") +
         (text != undefined
           ? "reactivus-tag-text-" +
             color +

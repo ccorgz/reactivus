@@ -25,7 +25,7 @@ export default function Container({
       className={
         "reactivus-container-flex-main-box " +
         (className ? className : "") +
-        (shadow == true ? " reactivus-box-shadow" : "")
+        (shadow == true ? " r-box-shadow" : "")
       }
       style={{
         flexDirection: flexDirection,

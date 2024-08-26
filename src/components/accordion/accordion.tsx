@@ -48,7 +48,7 @@ export default function Accordion({
   }, [defaultOpen]);
 
   return (
-    <div className={"reactivus-accordion-main-box reactivus-box-shadow"}>
+    <div className={"reactivus-accordion-main-box r-box-shadow"}>
       <div
         className="reactivus-accordion-header-box"
         onClick={() => {

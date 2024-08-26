@@ -94,7 +94,7 @@ const Input = ({
       <div
         {...rest}
         className={
-          "reactivus-input-box reactivus-box-shadow " +
+          "reactivus-input-box r-box-shadow " +
           ("reactivus-input-" + size ?? "md") +
           " " +
           (className ? className : "")

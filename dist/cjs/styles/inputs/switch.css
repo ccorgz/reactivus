@@ -1,9 +1,16 @@
 .r-switch-main-box {
   background-color: #d1d5db;
+<<<<<<< HEAD
   height: calc(1.5rem + 8px);
   width: 3.5rem;
   border-radius: 2rem;
   padding: 4px;
+=======
+  height: calc(1.5rem + 6px);
+  width: 3.5rem;
+  border-radius: 2rem;
+  padding: 3px;
+>>>>>>> 44ee67923725c91f9ba2173ca356cb2f7a55ccde
   display: flex;
   flex-direction: row;
   transition: all 0.4s ease;
@@ -16,7 +23,11 @@
 }
 
 .r-switch-active .r-switch-button-box {
+<<<<<<< HEAD
   margin-left: calc(3.5rem / 2 - 4px);
+=======
+  margin-left: calc(3.5rem / 2 - 2px);
+>>>>>>> 44ee67923725c91f9ba2173ca356cb2f7a55ccde
 }
 
 .r-switch-main-box input {

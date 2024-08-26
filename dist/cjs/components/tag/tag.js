@@ -32,7 +32,7 @@ function Tag(_a) {
     return (react_1.default.createElement("span", __assign({ className: "reactivus-tag-main-box " +
             (shadow == undefined || (shadow != undefined && shadow == false)
                 ? ""
-                : "reactivus-box-shadow ") +
+                : "r-box-shadow ") +
             (text != undefined
                 ? "reactivus-tag-text-" +
                     color +

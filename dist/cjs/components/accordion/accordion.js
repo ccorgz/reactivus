@@ -47,7 +47,7 @@ function Accordion(_a) {
             setIsOpen(defaultOpen);
         }
     }, [defaultOpen]);
-    return (react_1.default.createElement("div", { className: "reactivus-accordion-main-box reactivus-box-shadow" },
+    return (react_1.default.createElement("div", { className: "reactivus-accordion-main-box r-box-shadow" },
         react_1.default.createElement("div", { className: "reactivus-accordion-header-box", onClick: function () {
                 if (alwaysOpen == undefined || alwaysOpen == false) {
                     setIsOpen(!isOpen);
