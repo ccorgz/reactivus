@@ -122,11 +122,6 @@ export default function Select({
     }
 
     setOptionsList(options ?? []);
-
-    // document.addEventListener("scroll", handleGetInputCoordinates);
-    // return () => {
-    //   document.removeEventListener("scroll", handleGetInputCoordinates);
-    // };
   }, [titleBoxRef, value, options]);
 
   useEffect(() => {
@@ -468,6 +463,7 @@ export default function Select({
         (className ? className : "")
       }
       style={{
+        width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
         minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
       }}
     >
