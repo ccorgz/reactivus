@@ -3,15 +3,14 @@
   color: #0c63e4;
   background-color: #0c63e410;
 }
-.r-item-selected:hover {
+.r-item-selected:hover { 
   color: #0a5ad2;
   background-color: #0a5ad220;
 }
 
 /* defines global styles for itens with shadows applied */
 .r-box-shadow {
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px !important;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 
 /* defines global styles for the background color of the input switch when it's active */

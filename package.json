@@ -1,11 +1,11 @@
 {
   "name": "reactivus",
-  "version": "0.1.7",
+  "version": "0.1.71",
   "description": "React Based UI Components Package To Facilitate Web Front End Development - By Ccorgz",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
-    "dist"
+    "dist, src"
   ],
   "homepage": "https://www.ccorgz.com/reactivus",
   "keywords": [

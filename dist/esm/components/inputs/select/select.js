@@ -84,10 +84,6 @@ function Select(_a) {
             return;
         }
         setOptionsList(options !== null && options !== void 0 ? options : []);
-        // document.addEventListener("scroll", handleGetInputCoordinates);
-        // return () => {
-        //   document.removeEventListener("scroll", handleGetInputCoordinates);
-        // };
     }, [titleBoxRef, value, options]);
     (0, react_1.useEffect)(function () {
         if (optionsList.length > 0 && typeof options[0] != "string") {
@@ -324,6 +320,7 @@ function Select(_a) {
     return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box r-box-shadow" +
             " " +
             (className ? className : ""), style: {
+            width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
             minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
         } }),
         label && react_1.default.createElement("label", null, label),
