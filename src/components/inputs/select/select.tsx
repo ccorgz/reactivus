@@ -256,12 +256,7 @@ export default function Select({
       const allCheck: any = document.getElementById(
         "reactivusSelectAllCheckbox"
       );
-      if (
-        // selectionList.length == options.length ||
-        // optionsSelectionList.length == options.length
-        allCheck &&
-        !allCheck.checked
-      ) {
+      if (allCheck && !allCheck.checked) {
         setSelectionList([]);
         setOptionsSelectionList([]);
       } else if (allCheck && allCheck.checked) {
@@ -431,6 +426,18 @@ export default function Select({
   };
 
   function appendOptionsBoxToBody(inputProps: any) {
+    let largerOption = 0;
+    for (let i = 0; i < optionsList.length; i++) {
+      if (optionLabel) {
+        if (optionsList[i][optionLabel].length > largerOption) {
+          largerOption = optionsList[i][optionLabel].length;
+        }
+      } else {
+        if (optionsList[i].length > largerOption) {
+          largerOption = optionsList[i].length;
+        }
+      }
+    }
     const div = document.createElement("div");
     div.className = `reactivus-select-options-box r-box-shadow reactivus-select-options-box-${
       showOptions ? "show" : "hide"
@@ -442,7 +449,8 @@ export default function Select({
       ? ""
       : inputProps.bottomDistance + "px";
     div.style.left = inputProps.left + "px";
-    div.style.width = inputProps.width + "px";
+    // div.style.width = inputProps.width + "px";
+    div.style.width = largerOption * 9.5 + 15 + "px";
     div.style.flexDirection = inputProps.isClosestToTop
       ? "column"
       : "column-reverse";

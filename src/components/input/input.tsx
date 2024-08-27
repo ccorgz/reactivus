@@ -90,7 +90,7 @@ const Input = ({
   const [seePwd, setSeePwd] = useState(false);
 
   return (
-    <div style={{ width: width }} className="reactivus-input-main-box">
+    <div className="reactivus-input-main-box" style={{ width: width }}>
       <div
         {...rest}
         className={

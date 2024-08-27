@@ -200,11 +200,7 @@ function Select(_a) {
         }, [optionsSelectionList]);
         var handleAllOptionsSelection = function () {
             var allCheck = document.getElementById("reactivusSelectAllCheckbox");
-            if (
-            // selectionList.length == options.length ||
-            // optionsSelectionList.length == options.length
-            allCheck &&
-                !allCheck.checked) {
+            if (allCheck && !allCheck.checked) {
                 setSelectionList([]);
                 setOptionsSelectionList([]);
             }
@@ -299,6 +295,19 @@ function Select(_a) {
             })));
     };
     function appendOptionsBoxToBody(inputProps) {
+        var largerOption = 0;
+        for (var i = 0; i < optionsList.length; i++) {
+            if (optionLabel) {
+                if (optionsList[i][optionLabel].length > largerOption) {
+                    largerOption = optionsList[i][optionLabel].length;
+                }
+            }
+            else {
+                if (optionsList[i].length > largerOption) {
+                    largerOption = optionsList[i].length;
+                }
+            }
+        }
         var div = document.createElement("div");
         div.className = "reactivus-select-options-box r-box-shadow reactivus-select-options-box-".concat(showOptions ? "show" : "hide");
         div.style.top = inputProps.isClosestToTop
@@ -308,7 +317,8 @@ function Select(_a) {
             ? ""
             : inputProps.bottomDistance + "px";
         div.style.left = inputProps.left + "px";
-        div.style.width = inputProps.width + "px";
+        // div.style.width = inputProps.width + "px";
+        div.style.width = largerOption * 9.5 + 15 + "px";
         div.style.flexDirection = inputProps.isClosestToTop
             ? "column"
             : "column-reverse";
