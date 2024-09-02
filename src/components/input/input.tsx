@@ -90,17 +90,17 @@ const Input = ({
   const [seePwd, setSeePwd] = useState(false);
 
   return (
-    <div className="reactivus-input-main-box" style={{ width: width }}>
+    <div className="r-input-main-box" style={{ width: width }}>
+      {label && <label>{label}</label>}
       <div
         {...rest}
         className={
-          "reactivus-input-box r-box-shadow " +
-          ("reactivus-input-" + size ?? "md") +
+          "r-input-box r-box-shadow " +
+          ("r-input-" + size ?? "md") +
           " " +
           (className ? className : "")
         }
       >
-        {label && <label>{label}</label>}
         {icon &&
           (!iconPosition || (iconPosition && iconPosition == "left")) && (
             <span onClick={() => iconAction && iconAction()}>{icon}</span>
@@ -126,7 +126,7 @@ const Input = ({
         )}
       </div>
       {description && description.length > 0 && (
-        <span className="reactivus-input-box-description">{description}</span>
+        <span className="r-input-box-description">{description}</span>
       )}
     </div>
   );

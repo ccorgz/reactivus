@@ -1,23 +1,13 @@
-import dialog from "./components/dialog/dialog";
+// Export components
+export { default as dialog } from "./components/dialog/dialog";
+export { default as Button } from "./components/button/button";
+export { default as Input } from "./components/input/input";
+export { default as Select } from "./components/inputs/select/select";
+export { default as toast } from "./components/toast/toast";
+export { default as Accordion } from "./components/accordion/accordion";
+export { default as Tag } from "./components/tag/tag";
+export { default as Container } from './components/container/container';
+export { default as Switch } from './components/inputs/switch/switch';
 
-import Button from "./components/button/button";
-
-import Input from "./components/input/input";
-
-import Select from "./components/inputs/select/select";
-
-import toast from "./components/toast/toast";
-
-import { ToastContainer } from "./components/toast/toast";
-
-import Accordion from "./components/accordion/accordion";
-
-import Tag from "./components/tag/tag";
-
-import Container from './components/container/container';
-
-import Switch from './components/inputs/switch/switch'
-
+// Import global styles
 import './styles/globals.css';
-
-export { dialog, Button, Input, Select, toast, ToastContainer, Accordion, Tag, Container,Switch };

@@ -449,7 +449,6 @@ export default function Select({
       ? ""
       : inputProps.bottomDistance + "px";
     div.style.left = inputProps.left + "px";
-    // div.style.width = inputProps.width + "px";
     div.style.width = largerOption * 9.5 + 15 + "px";
     div.style.flexDirection = inputProps.isClosestToTop
       ? "column"

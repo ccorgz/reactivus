@@ -8,31 +8,31 @@ import "../../styles/toast.css";
 const icons = {
   success: () => {
     const successIcon = document.createElement("span");
-    successIcon.className = "reactivus-toast-icon-success";
+    successIcon.className = "r-toast-icon-success";
     successIcon.innerHTML = "✓";
     return successIcon;
   },
-  danger: () => {
+  error: () => {
     const dangerIcon = document.createElement("span");
     dangerIcon.innerText = "!";
-    dangerIcon.className = "reactivus-toast-icon-danger";
+    dangerIcon.className = "r-toast-icon-error";
     return dangerIcon;
   },
   warning: () => {
     const dangerIcon = document.createElement("span");
-    dangerIcon.className = "reactivus-toast-icon-warning";
+    dangerIcon.className = "r-toast-icon-warning";
     return dangerIcon;
   },
   info: () => {
     const dangerIcon = document.createElement("span");
     dangerIcon.innerText = "i";
-    dangerIcon.className = "reactivus-toast-icon-info";
+    dangerIcon.className = "r-toast-icon-info";
     return dangerIcon;
   },
 };
 
 // DEFINE THE STYLES TYPES
-type styles = "success" | "danger" | "warning" | "info";
+type styles = "success" | "error" | "warning" | "info";
 
 // DEFINE THE POSITIONS TYPES
 type positions = "top-left" | "top-right" | "bottom-left" | "bottom-right";
@@ -51,6 +51,10 @@ type ContainerProps = {
    * Defines in wich position the toast will be shown.
    */
   position: positions;
+  /**
+   * Defines if the pause option will be available on the toast.
+   */
+  pauseOnHover?: boolean;
 };
 
 // DEFINE A STRING FOR THE TOAST CONTAINER ID
@@ -62,14 +66,12 @@ const ToastContainer = (props: ContainerProps) => {
 
   return (
     <div
-      className={`reactivus-toast-container-box ${
-        props.position
-          ? "reactivus-toast-" + props.position
-          : "reactivus-toast-top-right"
+      className={`r-toast-container-box ${
+        props.position ? "r-toast-" + props.position : "r-toast-top-right"
       }`}
     >
       <div
-        className={`reactivus-toast-container-toasts-box`}
+        className={`r-toast-container-toasts-box`}
         id={toastContainerId}
         {...{ ["data-props"]: dataAttributeString }}
       ></div>
@@ -81,16 +83,18 @@ const ToastContainer = (props: ContainerProps) => {
 const appendToastToContainer = (toastElement: any) => {
   const container = document.getElementById(toastContainerId);
 
-  const conatinerDataProps = container?.dataset ? container?.dataset.props : "";
-  const containerProps: ContainerProps = JSON.parse(conatinerDataProps ?? "");
+  const containerDataProps = container?.dataset ? container?.dataset.props : "";
+  const containerProps: ContainerProps = containerDataProps
+    ? JSON.parse(containerDataProps ?? "")
+    : {};
 
   toastElement.classList.add(
     containerProps.position
       ? containerProps.position == "bottom-right" ||
         containerProps.position == "top-right"
-        ? "reactivus-toast-show-right"
-        : "reactivus-toast-show-left"
-      : "reactivus-toast-show-left"
+        ? "r-toast-show-right"
+        : "r-toast-show-left"
+      : "r-toast-show-left"
   );
 
   if (container) {
@@ -113,41 +117,54 @@ const appendToastToContainer = (toastElement: any) => {
     console.error(`Container with ID "${toastContainerId}" not found.`);
   }
 
-  setTimeout(() => {
-    if (
-      containerProps.autoClose &&
-      toastElement &&
-      toastElement.parentNode === container
-    ) {
-      toastElement.style.animation = containerProps.position
-        ? containerProps.position == "bottom-right" ||
-          containerProps.position == "top-right"
-          ? "hideToRight .2s ease forwards"
-          : "hideToLeft .2s ease forwards"
-        : "hideToLeft .2s ease forwards";
-      setTimeout(() => {
-        container?.removeChild(toastElement);
-      }, 350);
-    }
-  }, containerProps.autoClose ?? 3000);
+};
+
+const createCloseSvgIcon = () => {
+  const svgNamespace = "http://www.w3.org/2000/svg";
+
+  const svgElementBox = document.createElement("div");
+  svgElementBox.className = `r-toast-close-svg`;
+
+  const svgElement = document.createElementNS(svgNamespace, "svg");
+  svgElement.setAttribute("xmlns", svgNamespace);
+  svgElement.setAttribute("viewBox", "-8 -8 48 48");
+  svgElement.setAttribute("width", "18");
+  svgElement.setAttribute("height", "18");
+  svgElement.setAttribute("fill", "none");
+  svgElement.setAttribute("stroke", "currentColor");
+  svgElement.setAttribute("stroke-width", "6");
+  svgElement.setAttribute("stroke-linecap", "round");
+  svgElement.setAttribute("stroke-linejoin", "round");
+
+  const pathElement = document.createElementNS(svgNamespace, "path");
+  pathElement.setAttribute("d", "M2,2 L30,30 M2,30 L30,2");
+
+  svgElement.appendChild(pathElement);
+  svgElementBox.appendChild(svgElement);
+  return svgElementBox;
 };
 
 // TOAST BOX
 const createToast = (style: styles, text: string, props?: ContainerProps) => {
   // DEFINES THE CONTAINER PROPS OBJECT
   const container = document.getElementById(toastContainerId);
-  const conatinerDataProps = container?.dataset ? container?.dataset.props : "";
-  const containerProps: ContainerProps = JSON.parse(conatinerDataProps ?? "");
+  const containerDataProps = container?.dataset ? container?.dataset.props : "";
+  const containerProps: ContainerProps = containerDataProps
+    ? JSON.parse(containerDataProps ?? "")
+    : {};
 
   const toastElement = document.createElement("div");
-  toastElement.id = "reactivus-toast-box";
-  toastElement.className = `reactivus-toast-box reactivus-toast-${style}`;
+  toastElement.id = "r-toast-box";
+  toastElement.className = `r-toast-box r-toast-${style}`;
+
+  const toastCloseSvgContent = createCloseSvgIcon();
+  toastElement.appendChild(toastCloseSvgContent);
 
   const toastContentElement = document.createElement("div");
-  toastContentElement.className = `reactivus-toast-content-box`;
+  toastContentElement.className = `r-toast-content-box`;
 
   const toastContentIconBoxElement = document.createElement("span");
-  toastContentIconBoxElement.className = `reactivus-toast-icon-box`;
+  toastContentIconBoxElement.className = `r-toast-icon-box`;
   const toastContentIconElement = icons[style]();
   toastContentIconBoxElement.appendChild(toastContentIconElement);
 
@@ -158,7 +175,7 @@ const createToast = (style: styles, text: string, props?: ContainerProps) => {
   toastContentElement.appendChild(toastContentTextElement);
 
   const timeBarElement = document.createElement("div");
-  timeBarElement.className = "reactivus-toast-time-bar";
+  timeBarElement.className = "r-toast-time-bar";
   if (containerProps.autoClose) {
     timeBarElement.style.animation = `toastTimeBar ${
       containerProps.autoClose / 1000
@@ -166,6 +183,64 @@ const createToast = (style: styles, text: string, props?: ContainerProps) => {
   }
   toastElement.appendChild(toastContentElement);
   toastElement.appendChild(timeBarElement);
+
+  // Add event listeners to control the animation play state
+  // toastElement.addEventListener("mouseenter", () => {
+  //   timeBarElement.style.animationPlayState = "paused";
+  // });
+
+  // toastElement.addEventListener("mouseleave", () => {
+  //   timeBarElement.style.animationPlayState = "running";
+  // });
+
+  // Variable to store the timeout ID and the remaining time
+  let autoCloseTimeout: NodeJS.Timeout;
+  let remainingTime = containerProps.autoClose ?? 3000;
+  let startTime: number;
+
+  // Function to start the timeout
+  const startAutoCloseTimeout = () => {
+    startTime = Date.now();
+    autoCloseTimeout = setTimeout(() => {
+      if (
+        containerProps.autoClose &&
+        toastElement &&
+        toastElement.parentNode === container
+      ) {
+        toastElement.style.animation = containerProps.position
+          ? containerProps.position === "bottom-right" ||
+            containerProps.position === "top-right"
+            ? "hideToRight .2s ease forwards"
+            : "hideToLeft .2s ease forwards"
+          : "hideToLeft .2s ease forwards";
+        setTimeout(() => {
+          container?.removeChild(toastElement);
+        }, 350);
+      }
+    }, remainingTime);
+  };
+
+  // Start the auto-close timeout initially
+  startAutoCloseTimeout();
+
+  // Add event listeners to control the animation play state and timeout
+  const handleMouseEnter = () => {
+    if (containerProps.pauseOnHover) {
+      timeBarElement.style.animationPlayState = "paused";
+      clearTimeout(autoCloseTimeout);
+      remainingTime -= Date.now() - startTime;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (containerProps.pauseOnHover) {
+      timeBarElement.style.animationPlayState = "running";
+      startAutoCloseTimeout();
+    }
+  };
+
+  toastElement.addEventListener("mouseenter", handleMouseEnter);
+  toastElement.addEventListener("mouseleave", handleMouseLeave);
 
   return toastElement;
 };
@@ -177,8 +252,8 @@ const success = (text: string, props?: ContainerProps) => {
 };
 
 // METHOD TO HANDLE A NEW DANGER TOAST
-const danger = (text: string, props?: ContainerProps) => {
-  const successToast = createToast("danger", text, props);
+const error = (text: string, props?: ContainerProps) => {
+  const successToast = createToast("error", text, props);
   appendToastToContainer(successToast);
 };
 
@@ -211,7 +286,7 @@ type ToastType = {
   /**
    * Show a toast with a danger (red) style.
    */
-  danger: (text: string, props?: ContainerProps) => void;
+  error: (text: string, props?: ContainerProps) => void;
   /**
    * Show a toast with a info (blue) style.
    */
@@ -229,7 +304,7 @@ type ToastType = {
 // RETURN OBJECT
 const toast: ToastType = {
   success,
-  danger,
+  error,
   info,
   warning,
   dismiss,

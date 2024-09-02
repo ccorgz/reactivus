@@ -20,6 +20,7 @@ export default function Accordion({
   alwaysOpen,
   defaultOpen,
   headerTemplate,
+  ...rest
 }: AccordionProps) {
   const [isOpen, setIsOpen] = useState<boolean>(
     isOpenControl
@@ -48,7 +49,7 @@ export default function Accordion({
   }, [defaultOpen]);
 
   return (
-    <div className={"reactivus-accordion-main-box r-box-shadow"}>
+    <div className={"reactivus-accordion-main-box r-box-shadow"} {...rest}>
       <div
         className="reactivus-accordion-header-box"
         onClick={() => {
