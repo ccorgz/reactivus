@@ -180,7 +180,7 @@ export default function Select({
     if (
       titleBoxRef.current &&
       !titleBoxRef.current.contains(event.target) &&
-      event.target.closest(".reactivus-select-options-box") === null
+      event.target.closest(".r-select-options-box") === null
     ) {
       setShowOptions(false);
     }
@@ -198,7 +198,7 @@ export default function Select({
     if (showOptions) {
       handleGetInputCoordinates();
     } else {
-      const element = document.querySelector(".reactivus-select-options-box");
+      const element = document.querySelector(".r-select-options-box");
       if (element && element.parentNode) {
         element.parentNode.removeChild(element);
       }
@@ -292,7 +292,7 @@ export default function Select({
       <div>
         {(filter || selectAll) && (
           <span
-            className={`reactivus-select-item-box reactivus-select-filter-box`}
+            className={`r-select-item-box r-select-filter-box`}
             style={{
               zIndex: 9998,
             }}
@@ -301,7 +301,7 @@ export default function Select({
               <input
                 type={"checkbox"}
                 id={"reactivusSelectAllCheckbox"}
-                className={`reactivus-select-filter-box-checkbox`}
+                className={`r-select-filter-box-checkbox`}
                 onClick={() => {
                   handleAllOptionsSelection();
                 }}
@@ -309,7 +309,7 @@ export default function Select({
             )}
             {!filter && (
               <span
-                className={`reactivus-select-filter-box-label`}
+                className={`r-select-filter-box-label`}
                 onClick={() => {
                   handleAllOptionsSelection();
                 }}
@@ -320,7 +320,7 @@ export default function Select({
             {filter && (
               <input
                 type="text"
-                className={`reactivus-select-filter-box-text`}
+                className={`r-select-filter-box-text`}
                 placeholder={filterPlaceHolder ?? "Search"}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleOptionsFilter(e.target.value)
@@ -328,7 +328,7 @@ export default function Select({
               />
             )}
             <span
-              className="reactivus-select-title-icon-close"
+              className="r-select-title-icon-close"
               onClick={() => {
                 setSelectionList([]);
                 setOptionsSelectionList([]);
@@ -361,7 +361,7 @@ export default function Select({
           return (
             <span
               className={
-                `reactivus-select-item-box ` +
+                `r-select-item-box ` +
                 (JSON.stringify(optionsSelectionList).includes(
                   JSON.stringify(option)
                 ) && "r-item-selected")
@@ -407,7 +407,7 @@ export default function Select({
             >
               {multiSelect && (
                 <input
-                  className="reactivus-select-item-box-checkbox"
+                  className="r-select-item-box-checkbox"
                   type={"checkbox"}
                   checked={JSON.stringify(optionsSelectionList).includes(
                     JSON.stringify(option)
@@ -439,7 +439,7 @@ export default function Select({
       }
     }
     const div = document.createElement("div");
-    div.className = `reactivus-select-options-box r-box-shadow reactivus-select-options-box-${
+    div.className = `r-select-options-box r-box-shadow r-select-options-box-${
       showOptions ? "show" : "hide"
     }`;
     div.style.top = inputProps.isClosestToTop
@@ -465,7 +465,7 @@ export default function Select({
     <div
       {...rest}
       className={
-        `reactivus-select-input-box r-box-shadow` +
+        `r-select-input-box r-box-shadow` +
         " " +
         (className ? className : "")
       }
@@ -476,14 +476,14 @@ export default function Select({
     >
       {label && <label>{label}</label>}
       <div
-        className={`reactivus-select-title-box`}
+        className={`r-select-title-box`}
         ref={titleBoxRef}
         onClick={() => {
           setShowOptions(!showOptions);
         }}
       >
-        <div className="reactivus-select-title-label">{optionLabelState}</div>
-        <span className="reactivus-select-title-icon-open">
+        <div className="r-select-title-label">{optionLabelState}</div>
+        <span className="r-select-title-icon-open">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

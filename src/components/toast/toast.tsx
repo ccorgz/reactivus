@@ -37,8 +37,11 @@ type styles = "success" | "error" | "warning" | "info";
 // DEFINE THE POSITIONS TYPES
 type positions = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
+// DEFINE THE THEMES TYPES
+type themes = "light" | "colored";
+
 // TOAST CONTAINER TO HOLD EVERY TOAST INSIDE OF IT
-type ContainerProps = {
+interface ContainerProps {
   /**
    * Indicates the time for the toast to auto close.
    */
@@ -55,7 +58,11 @@ type ContainerProps = {
    * Defines if the pause option will be available on the toast.
    */
   pauseOnHover?: boolean;
-};
+  /**
+   * Defines the theme type between light and colored. Light is the default.
+   */
+  theme?: themes;
+}
 
 // DEFINE A STRING FOR THE TOAST CONTAINER ID
 const toastContainerId = "reactivus-toast-container";
@@ -116,7 +123,6 @@ const appendToastToContainer = (toastElement: any) => {
   } else {
     console.error(`Container with ID "${toastContainerId}" not found.`);
   }
-
 };
 
 const createCloseSvgIcon = () => {
@@ -155,7 +161,9 @@ const createToast = (style: styles, text: string, props?: ContainerProps) => {
 
   const toastElement = document.createElement("div");
   toastElement.id = "r-toast-box";
-  toastElement.className = `r-toast-box r-toast-${style}`;
+  toastElement.className = `r-toast-box r-toast-${style} r-toast-${
+    containerProps.theme ?? "light"
+  }-${style}`;
 
   const toastCloseSvgContent = createCloseSvgIcon();
   toastElement.appendChild(toastCloseSvgContent);

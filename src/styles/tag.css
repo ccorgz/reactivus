@@ -1,4 +1,4 @@
-.reactivus-tag-main-box {
+.r-tag-main-box {
   padding: 2.5px 10px;
   color: #fff;
   fill: #fff;
@@ -11,152 +11,152 @@
   justify-content: center;
   gap: 5px;
 }
-.reactivus-tag-main-box svg {
+.r-tag-main-box svg {
   font-size: 0.7rem !important;
 }
 
-.reactivus-tag-rounded {
+.r-tag-rounded {
   border-radius: 2rem;
   padding: 2.5px 10px;
 }
 
-.reactivus-tag-icon-box svg {
+.r-tag-icon-box svg {
   font-size: 0.7rem !important;
 }
 
-.reactivus-tag-success {
+.r-tag-success {
   background-color: #3f7d54;
 }
-.reactivus-tag-success:hover {
+.r-tag-success:hover {
   background-color: #056639;
 }
-.reactivus-tag-text-success {
+.r-tag-text-success {
   color: #3f7d54;
   background-color: #3f7d5420;
 }
-.reactivus-tag-text-success:hover {
+.r-tag-text-success:hover {
   background-color: #3f7d5440;
 }
-.reactivus-tag-text-success-border {
+.r-tag-text-success-border {
   border: 1.5px solid #3f7d5440;
 }
 
-.reactivus-tag-danger {
+.r-tag-danger {
   background-color: #cb2a29;
 }
-.reactivus-tag-danger:hover {
+.r-tag-danger:hover {
   background-color: #9c1f1e;
 }
-.reactivus-tag-text-danger {
+.r-tag-text-danger {
   color: #cb2a29;
   background-color: #cb2a2920;
 }
-.reactivus-tag-text-danger:hover {
+.r-tag-text-danger:hover {
   background-color: #cb2a2930;
 }
-.reactivus-tag-text-danger-border {
+.r-tag-text-danger-border {
   border: 1.5px solid #cb2a2940;
 }
 
-.reactivus-tag-info {
+.r-tag-info {
   background-color: #2e86c1;
 }
-.reactivus-tag-info:hover {
+.r-tag-info:hover {
   background-color: #2375ac;
 }
-.reactivus-tag-text-info {
+.r-tag-text-info {
   color: #2e86c1;
   background-color: #2e86c120;
 }
-.reactivus-tag-text-info:hover {
+.r-tag-text-info:hover {
   background-color: #2e86c140;
 }
-.reactivus-tag-text-info-border {
+.r-tag-text-info-border {
   border: 1.5px solid #2e86c140;
 }
 
-.reactivus-tag-dark {
+.r-tag-dark {
   background-color: #606062;
 }
-.reactivus-tag-dark:hover {
+.r-tag-dark:hover {
   background-color: #424246;
 }
-.reactivus-tag-text-dark {
+.r-tag-text-dark {
   color: #424246;
   background-color: #42424610
 }
-.reactivus-tag-text-dark:hover {
+.r-tag-text-dark:hover {
   background-color: #42424630 !important;
 }
-.reactivus-tag-text-dark-border {
+.r-tag-text-dark-border {
   border: 1.5px solid #60606240;
 }
 
 
-.reactivus-tag-warning {
+.r-tag-warning {
   background-color: #ffa500;
 }
-.reactivus-tag-warning:hover {
+.r-tag-warning:hover {
   background-color: #df9100;
 }
-.reactivus-tag-text-warning {
+.r-tag-text-warning {
   color: #ffa500;
   background-color: #ffa50015;
 }
-.reactivus-tag-text-warning:hover {
+.r-tag-text-warning:hover {
   background-color: #ffa50040;
 }
-.reactivus-tag-text-warning-border {
+.r-tag-text-warning-border {
   border: 1.5px solid #bbaa8b70;
 }
 
-.reactivus-tag-black {
+.r-tag-black {
   background-color: #000000;
 }
-.reactivus-tag-black:hover {
+.r-tag-black:hover {
   background-color: #202020;
 }
-.reactivus-tag-text-black {
+.r-tag-text-black {
   color: #000000;
   background-color: #19191920;
 }
-.reactivus-tag-text-black:hover {
+.r-tag-text-black:hover {
   background-color: #19191940;
 }
-.reactivus-tag-text-black-border {
+.r-tag-text-black-border {
   border: 1.5px solid #19191950;
 }
 
-.reactivus-tag-white {
+.r-tag-white {
   background-color: #fff;
   color: #000;
 }
-.reactivus-tag-white:hover {
+.r-tag-white:hover {
   background-color: #60606010;
 }
-.reactivus-tag-text-white {
+.r-tag-text-white {
   color: #000000;
 }
-.reactivus-tag-text-white:hover {
+.r-tag-text-white:hover {
   background-color: #60606010;
 }
-.reactivus-tag-text-white-border {
+.r-tag-text-white-border {
   border: 1.5px solid #19191950;
 }
 
-.reactivus-tag-none {
+.r-tag-none {
   background-color: #fff;
   color: #000;
 }
-.reactivus-tag-none:hover {
+.r-tag-none:hover {
   background-color: #60606010;
 }
-.reactivus-tag-text-none {
+.r-tag-text-none {
   color: #000000;
 }
-.reactivus-tag-text-none:hover {
+.r-tag-text-none:hover {
   background-color: #60606010;
 }
-.reactivus-tag-text-none-border {
+.r-tag-text-none-border {
   border: 1.5px solid #19191950;
 }

@@ -13,7 +13,8 @@ type TagProps = {
     | "none"
     | "warning"
     | "black"
-    | "white";
+    | "white"
+    | string;
   rounded?: boolean;
   icon?: HTMLElement | any;
   iconPosition?: "right" | "left";
@@ -36,23 +37,21 @@ export default function Tag({
   return (
     <span
       className={
-        "reactivus-tag-main-box " +
+        "r-tag-main-box " +
         (shadow == undefined || (shadow != undefined && shadow == false)
           ? ""
           : "r-box-shadow ") +
         (text != undefined
-          ? "reactivus-tag-text-" +
+          ? "r-tag-text-" +
             color +
-            (border == true ? ` reactivus-tag-text-${color}-border` : "")
-          : "reactivus-tag-" + color) +
-        (rounded != undefined && rounded == true
-          ? " reactivus-tag-rounded"
-          : " ")
+            (border == true ? ` r-tag-text-${color}-border` : "")
+          : "r-tag-" + color) +
+        (rounded != undefined && rounded == true ? " r-tag-rounded" : " ")
       }
       {...rest}
     >
       {iconPosition == "left" && icon != undefined && icon}
-      <div className="reactivus-tag-label-box">{label}</div>
+      <div className="r-tag-label-box">{label}</div>
       {((iconPosition == "right" && icon != undefined) ||
         (icon != undefined && iconPosition != "left")) &&
         icon}

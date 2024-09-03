@@ -66,16 +66,45 @@
 .r-toast-success .r-toast-time-bar {
   background-color: #3f7d54;
 }
+.r-toast-colored-success {
+  background-color: #3f7d54;
+  color: #fff;
+}
+.r-toast-colored-success .r-toast-time-bar {
+  background-color: #fff;
+}
 
 .r-toast-error .r-toast-time-bar {
   background-color: #cb2a29;
+}
+.r-toast-colored-error {
+  background-color: #cb2a29;
+  color: #fff;
+}
+.r-toast-colored-error .r-toast-time-bar {
+  background-color: #fff;
 }
 
 .r-toast-warning .r-toast-time-bar {
   background-color: #ffa500;
 }
+.r-toast-colored-warning {
+  background-color: #ffa500;
+  color: #fff;
+}
+.r-toast-colored-warning .r-toast-time-bar {
+  background-color: #fff;
+}
+
 .r-toast-info .r-toast-time-bar {
   background-color: #2e86c1;
+}
+.r-toast-colored-info {
+  background-color: #2e86c1;
+  color: #fff;
+}
+.r-toast-colored-info .r-toast-time-bar {
+  background-color: #fff;
 }
 
 .r-toast-time-bar {
@@ -107,7 +136,6 @@
 }
 
 /* ---------- ICONS ---------- */
-
 .r-toast-icon-success {
   width: 90%;
   background-color: #3f7d54;
@@ -118,6 +146,10 @@
   justify-content: center;
   align-items: center;
   font-size: 1rem;
+}
+.r-toast-colored-success .r-toast-icon-success {
+  background-color: #fff;
+  color: #3f7d54;
 }
 
 .r-toast-icon-error {
@@ -132,6 +164,10 @@
   align-items: center;
   font-size: 1rem;
   font-weight: bold;
+}
+.r-toast-colored-error .r-toast-icon-error {
+  background-color: #fff;
+  color: #cb2a29;
 }
 
 .r-toast-icon-warning {
@@ -150,6 +186,9 @@
   z-index: 1;
   content: "!";
 }
+.r-toast-colored-warning .r-toast-icon-warning:before {
+  color: #ffa500;
+}
 .r-toast-icon-warning:after {
   display: inline-block;
   margin-left: 3px;
@@ -164,6 +203,9 @@
   vertical-align: bottom;
   content: "";
 }
+.r-toast-colored-warning .r-toast-icon-warning:after {
+  border-bottom-color: #fff;
+}
 
 .r-toast-icon-info {
   width: 90%;
@@ -177,6 +219,10 @@
   font-size: 1rem;
   font-weight: bold;
 }
+.r-toast-colored-info .r-toast-icon-info {
+  background-color: #fff;
+  color: #2e86c1;
+}
 
 .r-toast-close-svg {
   position: absolute;
@@ -187,6 +233,13 @@
 
 .r-toast-close-svg:hover {
   color: #606060;
+}
+
+.r-toast-colored-success .r-toast-close-svg,
+.r-toast-colored-warning .r-toast-close-svg,
+.r-toast-colored-error .r-toast-close-svg,
+.r-toast-colored-info .r-toast-close-svg {
+  color: #fff;
 }
 
 @media only screen and (max-width: 620px) {
