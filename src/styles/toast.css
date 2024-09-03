@@ -6,12 +6,7 @@
   position: absolute;
   top: 0;
   width: clamp(320px, 340px, 100%);
-  background-color: #00000070;
-}
-
-.r-toast-container-toasts-box {
-  position: fixed;
-  top: 0;
+  gap: 10px;
 }
 
 .r-toast-box {
@@ -29,7 +24,6 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   top: 0;
-  margin: 10px;
   color: #393939;
   font-size: 0.9rem;
   cursor: pointer;
@@ -114,25 +108,54 @@
   left: 0;
 }
 
+.r-toast-container-toasts-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 1s ease;
+}
+
 .r-toast-top-right {
   position: absolute;
   top: 0;
-  right: 0;
+  right: -25px;
+  background-color: #c51f1f10;
+}
+.r-toast-top-right .r-toast-container-toasts-box {
+  position: fixed;
+  top: 0;
+  padding-top: 15px;
 }
 .r-toast-top-left {
   position: absolute;
   top: 0;
   left: 0;
 }
+.r-toast-top-left .r-toast-container-toasts-box {
+  position: fixed;
+  top: 0;
+  left: 10px;
+  padding-top: 15px;
+}
 .r-toast-bottom-left {
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 10px;
+}
+.r-toast-bottom-left .r-toast-container-toasts-box {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 15px;
 }
 .r-toast-bottom-right {
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: -25px;
+}
+.r-toast-bottom-right .r-toast-container-toasts-box {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 15px;
 }
 
 /* ---------- ICONS ---------- */
@@ -269,6 +292,22 @@
   }
 }
 
+@keyframes toastBounceToTop {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0px);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(0px);
+  }
+}
+
 @keyframes showFromLeft {
   0% {
     margin-left: -100%;
@@ -297,10 +336,18 @@
 
 @keyframes hideToRight {
   0% {
-    transform: translateX(0%);
+    transform: translate(0%, 0%);
+    height: auto;
+  }
+  50% {
+    transform: translate(+150%, 0%);
   }
   100% {
-    transform: translateX(+150%);
+    transform: translate(+150%, -150%);
+    height: 0px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: -10px;
   }
 }
 

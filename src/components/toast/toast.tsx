@@ -192,15 +192,6 @@ const createToast = (style: styles, text: string, props?: ContainerProps) => {
   toastElement.appendChild(toastContentElement);
   toastElement.appendChild(timeBarElement);
 
-  // Add event listeners to control the animation play state
-  // toastElement.addEventListener("mouseenter", () => {
-  //   timeBarElement.style.animationPlayState = "paused";
-  // });
-
-  // toastElement.addEventListener("mouseleave", () => {
-  //   timeBarElement.style.animationPlayState = "running";
-  // });
-
   // Variable to store the timeout ID and the remaining time
   let autoCloseTimeout: NodeJS.Timeout;
   let remainingTime = containerProps.autoClose ?? 3000;
@@ -218,12 +209,12 @@ const createToast = (style: styles, text: string, props?: ContainerProps) => {
         toastElement.style.animation = containerProps.position
           ? containerProps.position === "bottom-right" ||
             containerProps.position === "top-right"
-            ? "hideToRight .2s ease forwards"
-            : "hideToLeft .2s ease forwards"
-          : "hideToLeft .2s ease forwards";
+            ? "hideToRight .4s ease forwards"
+            : "hideToLeft .4s ease forwards"
+          : "hideToLeft .4s ease forwards";
         setTimeout(() => {
           container?.removeChild(toastElement);
-        }, 350);
+        }, 550);
       }
     }, remainingTime);
   };
