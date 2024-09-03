@@ -18,9 +18,9 @@ const icons = {
     dangerIcon.className = "r-toast-icon-error";
     return dangerIcon;
   },
-  warning: () => {
+  warn: () => {
     const dangerIcon = document.createElement("span");
-    dangerIcon.className = "r-toast-icon-warning";
+    dangerIcon.className = "r-toast-icon-warn";
     return dangerIcon;
   },
   info: () => {
@@ -32,7 +32,7 @@ const icons = {
 };
 
 // DEFINE THE STYLES TYPES
-type styles = "success" | "error" | "warning" | "info";
+type styles = "success" | "error" | "warn" | "info";
 
 // DEFINE THE POSITIONS TYPES
 type positions = "top-left" | "top-right" | "bottom-left" | "bottom-right";
@@ -192,12 +192,10 @@ const createToast = (style: styles, text: string, props?: ContainerProps) => {
   toastElement.appendChild(toastContentElement);
   toastElement.appendChild(timeBarElement);
 
-  // Variable to store the timeout ID and the remaining time
   let autoCloseTimeout: NodeJS.Timeout;
   let remainingTime = containerProps.autoClose ?? 3000;
   let startTime: number;
 
-  // Function to start the timeout
   const startAutoCloseTimeout = () => {
     startTime = Date.now();
     autoCloseTimeout = setTimeout(() => {
@@ -213,16 +211,16 @@ const createToast = (style: styles, text: string, props?: ContainerProps) => {
             : "hideToLeft .4s ease forwards"
           : "hideToLeft .4s ease forwards";
         setTimeout(() => {
-          container?.removeChild(toastElement);
+          if (container && container.contains(toastElement)) {
+            container.removeChild(toastElement);
+          }
         }, 550);
       }
     }, remainingTime);
   };
 
-  // Start the auto-close timeout initially
   startAutoCloseTimeout();
 
-  // Add event listeners to control the animation play state and timeout
   const handleMouseEnter = () => {
     if (containerProps.pauseOnHover) {
       timeBarElement.style.animationPlayState = "paused";
@@ -262,9 +260,9 @@ const info = (text: string, props?: ContainerProps) => {
   appendToastToContainer(successToast);
 };
 
-// METHOD TO HANDLE A NEW WARNING TOAST
-const warning = (text: string, props?: ContainerProps) => {
-  const successToast = createToast("warning", text, props);
+// METHOD TO HANDLE A NEW WARN TOAST
+const warn = (text: string, props?: ContainerProps) => {
+  const successToast = createToast("warn", text, props);
   appendToastToContainer(successToast);
 };
 
@@ -291,9 +289,9 @@ type ToastType = {
    */
   info: (text: string, props?: ContainerProps) => void;
   /**
-   * Show a toast with a warning (orange/yellow) style.
+   * Show a toast with a warn (orange/yellow) style.
    */
-  warning: (text: string, props?: ContainerProps) => void;
+  warn: (text: string, props?: ContainerProps) => void;
   /**
    * Dismiss all the toasts.
    */
@@ -305,7 +303,7 @@ const toast: ToastType = {
   success,
   error,
   info,
-  warning,
+  warn,
   dismiss,
 };
 

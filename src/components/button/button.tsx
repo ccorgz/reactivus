@@ -54,33 +54,33 @@ export default function Button({
 
   return (
     <button
-      className={`reactivus-button-main-box 
-      reactivus-${style ?? "btn-light"} reactivus-${size ?? "btn-md"} 
-      reactivus-${disabled ? "btn-disabled" : ""} 
-      reactivus-${rounded ? "btn-rounded" : ""} 
-      ${text ? "reactivus-text-button" : ""} 
+      className={`r-button-main-box 
+      r-${style ?? "btn-light"} r-${size ?? "btn-md"} 
+      r-${disabled ? "btn-disabled" : ""} 
+      r-${rounded ? "btn-rounded" : ""} 
+      ${text ? "r-text-button" : ""} 
       ${shadow ? "r-box-shadow" : ""}
-      ${rounded && icon && !label ? "reactivus-btn-rounded-icon" : ""}`}
+      ${rounded && icon && !label ? "r-btn-rounded-icon" : ""}`}
       style={styleOption}
       {...rest}
     >
       {tooltip && (
         <span
-          className={`reactivus-tooltip ${
-            "reactivus-tooltip-" + tooltipPosition
+          className={`r-tooltip ${
+            "r-tooltip-" + tooltipPosition
           }`}
         >
           {tooltip ?? ""}
         </span>
       )}
 
-      <span className={`reactivus-button-label-icon-box`}>
+      <span className={`r-button-label-icon-box`}>
         {iconPosition != "right" && icon && (
-          <>{loading ? <div className={"reactivus-loading"} /> : <span>{icon}</span>}</>
+          <>{loading ? <div className={"r-loading"} /> : <span>{icon}</span>}</>
         )}
         {label}
         {iconPosition == "right" && (
-          <>{loading ? <div className={"reactivus-loading"} /> : <span>{icon}</span>}</>
+          <>{loading ? <div className={"r-loading"} /> : <span>{icon}</span>}</>
         )}
       </span>
     </button>
