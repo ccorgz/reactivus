@@ -1,0 +1,110 @@
+.r-progress-main-box {
+  padding: 2.5px 10px;
+  color: #fff;
+  fill: #fff;
+  font-size: 0.7rem !important;
+  border-radius: 5px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: context-menu;
+  min-width: 50px;
+  position: relative;
+}
+
+.r-progress-label-box {
+  color: #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.r-progress-bar-main-box {
+  background-color: #d3d3d350;
+  border-radius: 3px;
+  height: 15px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.r-progress-bar-box {
+  background-color: #d3d3d350;
+  height: 100%;
+}
+
+.r-progress-bar-label-box {
+  color: #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 400;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.r-progress-success {
+  background-color: rgb(25, 190, 25);
+  stroke: rgb(25, 190, 25);
+}
+.r-progress-success:hover {
+  background-color: rgb(12, 148, 12);
+  stroke: rgb(12, 148, 12);
+}
+
+.r-progress-danger {
+  background-color: #de1515;
+  stroke: #de1515;
+}
+.r-progress-danger:hover {
+  background-color: #9c1f1e;
+  stroke: #9c1f1e;
+}
+
+.r-progress-info {
+  background-color: #2e86c1;
+  stroke: #2e86c1;
+}
+.r-progress-info:hover {
+  background-color: #0c588b;
+  stroke: #0c588b;
+}
+
+.r-progress-dark,
+.r-progress-black {
+  background-color: #000000;
+  stroke: #000000;
+}
+.r-progress-dark:hover,
+.r-progress-black:hover {
+  background-color: #525253;
+  stroke: #525253;
+}
+
+.r-progress-warning {
+  background-color: #ffa500;
+  stroke: #ffa500;
+}
+.r-progress-warning:hover {
+  background-color: #df9100;
+  stroke: #df9100;
+}
+
+.r-progress-none {
+  background-color: #fff;
+  color: #000;
+}
+.r-progress-none:hover {
+  background-color: #60606010;
+}
