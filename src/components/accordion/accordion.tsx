@@ -49,9 +49,9 @@ export default function Accordion({
   }, [defaultOpen]);
 
   return (
-    <div className={"reactivus-accordion-main-box r-box-shadow"} {...rest}>
+    <div className={"r-accordion-main-box r-box-shadow"} {...rest}>
       <div
-        className="reactivus-accordion-header-box"
+        className="r-accordion-header-box"
         onClick={() => {
           if (alwaysOpen == undefined || alwaysOpen == false) {
             setIsOpen(!isOpen);
@@ -59,7 +59,7 @@ export default function Accordion({
           }
         }}
       >
-        <div className={"reactivus-accordion-header-title"}>
+        <div className={"r-accordion-header-title"}>
           {headerTemplate ? headerTemplate : title ? title : ""}
         </div>
         <svg
@@ -74,15 +74,15 @@ export default function Accordion({
           strokeLinejoin="round"
           className={
             isOpen
-              ? "reactivus-accordion-rotate-svg-up"
-              : "reactivus-accordion-rotate-svg-down"
+              ? "r-accordion-rotate-svg-up"
+              : "r-accordion-rotate-svg-down"
           }
         >
           <path d="M6 9l6 6 6-6" />
         </svg>
       </div>
       <div
-        className={"reactivus-accordion-content-box"}
+        className={"r-accordion-content-box"}
         style={{
           maxHeight: isOpenControl || isOpen ? "100dvh" : "0px",
         }}

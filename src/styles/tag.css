@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
+  cursor: context-menu;
 }
 .r-tag-main-box svg {
   font-size: 0.7rem !important;

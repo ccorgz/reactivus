@@ -6,7 +6,7 @@ const SuccessSvg = () => {
   return (
     <svg version="1.1" viewBox="0 0 130.2 130.2">
       <circle
-        className="reactivus-path reactivus-circle"
+        className="r-path r-circle"
         fill="none"
         stroke="#73AF5570"
         strokeWidth="6"
@@ -16,7 +16,7 @@ const SuccessSvg = () => {
         r="62.1"
       />
       <polyline
-        className="reactivus-path reactivus-check"
+        className="r-path r-check"
         fill="none"
         stroke="#73AF55"
         strokeWidth="6"

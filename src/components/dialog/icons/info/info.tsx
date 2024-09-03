@@ -6,7 +6,7 @@ const InfoSvg = () => {
   return (
     <svg version="1.1" viewBox="0 0 130.2 130.2">
       <circle
-        className="reactivus-path reactivus-circle"
+        className="r-path r-circle"
         fill="none"
         stroke="#2375ac70"
         strokeWidth="6"
@@ -16,7 +16,7 @@ const InfoSvg = () => {
         r="62.1"
       />
       <text
-        className="reactivus-path reactivus-info"
+        className="r-path r-info"
         x="65.1"
         y="75"
         fontSize="70"

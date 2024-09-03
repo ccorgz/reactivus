@@ -23,7 +23,7 @@ export default function Container({
   return (
     <div
       className={
-        "reactivus-container-flex-main-box " +
+        "r-container-flex-main-box " +
         (className ? className : "") +
         (shadow == true ? " r-box-shadow" : "")
       }

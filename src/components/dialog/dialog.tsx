@@ -143,7 +143,7 @@ type DialogReturn = {
 // FUNCTION TO APPEND THE NEW ALERT DOM COMPONENT INTO THE HTML FILE
 const appendAlert = (props?: AlertProps): Promise<DialogReturn> => {
   const container = document.createElement("div");
-  container.id = "reactivus-dialog-container";
+  container.id = "r-dialog-container";
 
   document.body.appendChild(container);
 
@@ -214,7 +214,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
     return (
       <svg version="1.1" viewBox="0 0 130.2 130.2">
         <line
-          className="reactivus-path"
+          className="r-path"
           fill="none"
           stroke="#606060"
           strokeWidth="6"
@@ -225,7 +225,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           y2="90"
         />
         <line
-          className="reactivus-path"
+          className="r-path"
           fill="none"
           stroke="#606060"
           strokeWidth="6"
@@ -242,21 +242,21 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
   // RETURN THE CONTENT BOX DOM ELEMENT
   return (
     <div
-      className={`reactivus-alertMainBox ${
-        showAlert ? "reactivus-showAlertMainBox" : "reactivus-hideAlertMainBox"
-      } reactivus-${alertProps?.position ?? "reactivus-center"}`}
+      className={`r-alertMainBox ${
+        showAlert ? "r-showAlertMainBox" : "r-hideAlertMainBox"
+      } r-${alertProps?.position ?? "r-center"}`}
     >
       <div
-        className={"reactivus-alertBackLayerBox"}
+        className={"r-alertBackLayerBox"}
         onClick={() => {
           handleOutsideAbort();
         }}
       ></div>
       <div
-        className={`reactivus-alertBox ${
-          showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"
+        className={`r-alertBox ${
+          showAlert ? "r-showAlertBox" : "r-hideAlertBox"
         }`}
-        id={"reactivus-dialog-box"}
+        id={"r-dialog-box"}
         style={{
           padding: alertProps?.isCustomDialog ? "10px" : "15px",
           gap: alertProps?.isCustomDialog ? "0px" : "20px",
@@ -264,13 +264,13 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
         }}
       >
         {alertProps?.headerTitle && (
-          <div className={"reactivus-alertBoxHeaderTitle"}>
+          <div className={"r-alertBoxHeaderTitle"}>
             {alertProps?.headerTitle}
           </div>
         )}
         {alertProps?.showCloseButton && (
           <div
-            className={"reactivus-alertBoxCloseButton"}
+            className={"r-alertBoxCloseButton"}
             onClick={() => {
               handleAbort();
             }}
@@ -279,33 +279,33 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
           </div>
         )}
         {alertProps?.icon && (
-          <div className={"reactivus-alertBoxTitleIcon"}>
+          <div className={"r-alertBoxTitleIcon"}>
             {iconsList[alertProps?.icon ?? "success"]}
           </div>
         )}
         {alertProps?.title && (
-          <div className={"reactivus-alertBoxTitle"}>{alertProps?.title}</div>
+          <div className={"r-alertBoxTitle"}>{alertProps?.title}</div>
         )}
-        <div className={"reactivus-alertBoxTitleContent"}>
+        <div className={"r-alertBoxTitleContent"}>
           {alertProps?.text}
         </div>
         {alertProps?.customHeader && (
-          <div className={"reactivus-alertBoxTitleContent"}>
+          <div className={"r-alertBoxTitleContent"}>
             {alertProps?.customHeader}
           </div>
         )}
         {alertProps?.htmlx && (
-          <div className={"reactivus-htmlx-content"}>
+          <div className={"r-htmlx-content"}>
             {alertProps?.htmlx}
           </div>
         )}
         {alertProps?.html && (
           <div
-            className={"reactivus-alertBoxTitleContent"}
+            className={"r-alertBoxTitleContent"}
             dangerouslySetInnerHTML={{ __html: alertProps?.html }}
           ></div>
         )}
-        {!alertProps?.isCustomDialog && <div className={"reactivus-alertButtonsBox"}>
+        {!alertProps?.isCustomDialog && <div className={"r-alertButtonsBox"}>
           {alertProps?.showConfirmButton && (
             <Button
               label={alertProps?.confirmButtonText ?? "Ok"}
@@ -336,11 +336,11 @@ const show = async (props: AlertProps): Promise<DialogReturn> => {
   return result;
 };
 const hide = async () => {
-  const alertBoxElement = document.getElementById("reactivus-dialog-box");
-  const container = document.getElementById("reactivus-dialog-container");
+  const alertBoxElement = document.getElementById("r-dialog-box");
+  const container = document.getElementById("r-dialog-container");
 
-  container?.classList.add("reactivus-hideAlertMainBox");
-  alertBoxElement?.classList.add("reactivus-hideAlertBox");
+  container?.classList.add("r-hideAlertMainBox");
+  alertBoxElement?.classList.add("r-hideAlertBox");
 
   setTimeout(() => {
     if (container && document.body.contains(container)) {
