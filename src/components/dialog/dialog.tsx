@@ -1,3 +1,5 @@
+"use client"
+
 // IMPORT REACTDOM FOR DOM OPERATIONS
 import ReactDOM from "react-dom/client";
 

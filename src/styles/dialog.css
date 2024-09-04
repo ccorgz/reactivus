@@ -45,7 +45,7 @@
 }
 
 .r-alertBackLayerBox {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -57,12 +57,10 @@
   position: absolute;
   background-color: #fff;
   border-radius: 10px;
-  /* width: clamp(420px, 480px, 90%); */
   min-width: 480px;
   max-width: 95vw;
   max-width: 95dvw !important;
   min-height: 200px;
-  /* min-width: 420px; */
   width: auto;
   height: auto;
   padding: 15px;

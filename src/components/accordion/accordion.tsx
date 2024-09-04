@@ -1,3 +1,5 @@
+"use client"
+
 import React, { ReactNode, SetStateAction, useEffect, useState } from "react";
 
 import "../../styles/accordion.css";

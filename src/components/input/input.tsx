@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 
 import "../../styles/input.css";
@@ -91,7 +93,7 @@ const Input = ({
 
   return (
     <div className="r-input-main-box" style={{ width: width }}>
-      {label && <label>{label}</label>}
+      {label && <label className="r-input-main-box-label">{label}</label>}
       <div
         {...rest}
         className={

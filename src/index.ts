@@ -1,3 +1,5 @@
+"use client"
+
 export { default as dialog } from "./components/dialog/dialog";
 export { default as Button } from "./components/button/button";
 export { default as Input } from "./components/input/input";

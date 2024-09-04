@@ -1,3 +1,5 @@
+"use client"
+
 // IMPORT REACT HOOKS
 import React, { useEffect, useRef, useState } from "react";
 
@@ -465,21 +467,21 @@ export default function Select({
     <div
       {...rest}
       className={
-        `r-select-input-box r-box-shadow` +
+        `r-select-input-box ` +
         " " +
         (className ? className : "")
       }
-      style={{
-        width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
-        minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
-      }}
     >
-      {label && <label>{label}</label>}
+      {label && <label className="r-select-input-box-label">{label}</label>}
       <div
-        className={`r-select-title-box`}
+        className={`r-select-title-box r-box-shadow`}
         ref={titleBoxRef}
         onClick={() => {
           setShowOptions(!showOptions);
+        }}
+        style={{
+          width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
+          minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
         }}
       >
         <div className="r-select-title-label">{optionLabelState}</div>
