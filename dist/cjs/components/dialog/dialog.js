@@ -1,4 +1,5 @@
 "use strict";
+"use client";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -87,7 +88,7 @@ require("../../styles/dialog.css");
 // FUNCTION TO APPEND THE NEW ALERT DOM COMPONENT INTO THE HTML FILE
 var appendAlert = function (props) {
     var container = document.createElement("div");
-    container.id = "reactivus-dialog-container";
+    container.id = "r-dialog-container";
     document.body.appendChild(container);
     var root = client_1.default.createRoot(container);
     return new Promise(function (resolve) {
@@ -140,31 +141,31 @@ var AlertBox = function (_a) {
     // DOM ELEMENT OF THE CLOSE BUTTON
     var CloseAlertSvg = function () {
         return (react_1.default.createElement("svg", { version: "1.1", viewBox: "0 0 130.2 130.2" },
-            react_1.default.createElement("line", { className: "reactivus-path", fill: "none", stroke: "#606060", strokeWidth: "6", strokeLinecap: "round", x1: "40.2", y1: "40.2", x2: "90", y2: "90" }),
-            react_1.default.createElement("line", { className: "reactivus-path", fill: "none", stroke: "#606060", strokeWidth: "6", strokeLinecap: "round", x1: "90", y1: "40.2", x2: "40.2", y2: "90" })));
+            react_1.default.createElement("line", { className: "r-path", fill: "none", stroke: "#606060", strokeWidth: "6", strokeLinecap: "round", x1: "40.2", y1: "40.2", x2: "90", y2: "90" }),
+            react_1.default.createElement("line", { className: "r-path", fill: "none", stroke: "#606060", strokeWidth: "6", strokeLinecap: "round", x1: "90", y1: "40.2", x2: "40.2", y2: "90" })));
     };
     // RETURN THE CONTENT BOX DOM ELEMENT
-    return (react_1.default.createElement("div", { className: "reactivus-alertMainBox ".concat(showAlert ? "reactivus-showAlertMainBox" : "reactivus-hideAlertMainBox", " reactivus-").concat((_b = alertProps === null || alertProps === void 0 ? void 0 : alertProps.position) !== null && _b !== void 0 ? _b : "reactivus-center") },
-        react_1.default.createElement("div", { className: "reactivus-alertBackLayerBox", onClick: function () {
+    return (react_1.default.createElement("div", { className: "r-alertMainBox ".concat(showAlert ? "r-showAlertMainBox" : "r-hideAlertMainBox", " r-").concat((_b = alertProps === null || alertProps === void 0 ? void 0 : alertProps.position) !== null && _b !== void 0 ? _b : "r-center") },
+        react_1.default.createElement("div", { className: "r-alertBackLayerBox", onClick: function () {
                 handleOutsideAbort();
             } }),
-        react_1.default.createElement("div", { className: "reactivus-alertBox ".concat(showAlert ? "reactivus-showAlertBox" : "reactivus-hideAlertBox"), id: "reactivus-dialog-box", style: {
+        react_1.default.createElement("div", { className: "r-alertBox ".concat(showAlert ? "r-showAlertBox" : "r-hideAlertBox"), id: "r-dialog-box", style: {
                 padding: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "10px" : "15px",
                 gap: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "0px" : "20px",
                 justifyContent: (alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) ? "flex-start" : "center",
             } },
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.headerTitle) && (react_1.default.createElement("div", { className: "reactivus-alertBoxHeaderTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.headerTitle)),
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCloseButton) && (react_1.default.createElement("div", { className: "reactivus-alertBoxCloseButton", onClick: function () {
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.headerTitle) && (react_1.default.createElement("div", { className: "r-alertBoxHeaderTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.headerTitle)),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCloseButton) && (react_1.default.createElement("div", { className: "r-alertBoxCloseButton", onClick: function () {
                     handleAbort();
                 } },
                 react_1.default.createElement(CloseAlertSvg, null))),
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleIcon" }, iconsList[(_c = alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) !== null && _c !== void 0 ? _c : "success"])),
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.title) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.title)),
-            react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.text),
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader)),
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx) && (react_1.default.createElement("div", { className: "reactivus-htmlx-content" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx)),
-            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.html) && (react_1.default.createElement("div", { className: "reactivus-alertBoxTitleContent", dangerouslySetInnerHTML: { __html: alertProps === null || alertProps === void 0 ? void 0 : alertProps.html } })),
-            !(alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) && react_1.default.createElement("div", { className: "reactivus-alertButtonsBox" },
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) && (react_1.default.createElement("div", { className: "r-alertBoxTitleIcon" }, iconsList[(_c = alertProps === null || alertProps === void 0 ? void 0 : alertProps.icon) !== null && _c !== void 0 ? _c : "success"])),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.title) && (react_1.default.createElement("div", { className: "r-alertBoxTitle" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.title)),
+            react_1.default.createElement("div", { className: "r-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.text),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader) && (react_1.default.createElement("div", { className: "r-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader)),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx) && (react_1.default.createElement("div", { className: "r-htmlx-content" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx)),
+            (alertProps === null || alertProps === void 0 ? void 0 : alertProps.html) && (react_1.default.createElement("div", { className: "r-alertBoxTitleContent", dangerouslySetInnerHTML: { __html: alertProps === null || alertProps === void 0 ? void 0 : alertProps.html } })),
+            !(alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) && react_1.default.createElement("div", { className: "r-alertButtonsBox" },
                 (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showConfirmButton) && (react_1.default.createElement(button_1.default, { label: (_d = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonText) !== null && _d !== void 0 ? _d : "Ok", style: (_e = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonStyle) !== null && _e !== void 0 ? _e : "btn-success", onClick: function () {
                         handleConfirm();
                     } })),
@@ -187,10 +188,10 @@ var show = function (props) { return __awaiter(void 0, void 0, void 0, function 
 var hide = function () { return __awaiter(void 0, void 0, void 0, function () {
     var alertBoxElement, container;
     return __generator(this, function (_a) {
-        alertBoxElement = document.getElementById("reactivus-dialog-box");
-        container = document.getElementById("reactivus-dialog-container");
-        container === null || container === void 0 ? void 0 : container.classList.add("reactivus-hideAlertMainBox");
-        alertBoxElement === null || alertBoxElement === void 0 ? void 0 : alertBoxElement.classList.add("reactivus-hideAlertBox");
+        alertBoxElement = document.getElementById("r-dialog-box");
+        container = document.getElementById("r-dialog-container");
+        container === null || container === void 0 ? void 0 : container.classList.add("r-hideAlertMainBox");
+        alertBoxElement === null || alertBoxElement === void 0 ? void 0 : alertBoxElement.classList.add("r-hideAlertBox");
         setTimeout(function () {
             if (container && document.body.contains(container)) {
                 document.body.removeChild(container);

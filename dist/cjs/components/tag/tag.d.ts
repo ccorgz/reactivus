@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/tag.css";
 type TagProps = {
     label: string;
-    color: "danger" | "success" | "info" | "dark" | "light" | "none" | "warning" | "black" | "white";
+    color: "danger" | "success" | "info" | "dark" | "light" | "none" | "warning" | "black" | "white" | string;
     rounded?: boolean;
     icon?: HTMLElement | any;
     iconPosition?: "right" | "left";

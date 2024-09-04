@@ -1,4 +1,4 @@
-.reactivus-accordion-main-box {
+.r-accordion-main-box {
   width: 100%;
   padding: 5px;
   border-radius: 5px;
@@ -13,7 +13,7 @@
   justify-content: flex-start;
 }
 
-.reactivus-accordion-header-box {
+.r-accordion-header-box {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -25,26 +25,26 @@
   padding: 5px 5px 0px 5px;
 }
 
-.reactivus-accordion-header-box svg {
+.r-accordion-header-box svg {
   font-size: 1.5rem;
   transition: all 0.4s ease;
 }
-.reactivus-accordion-rotate-svg-up {
+.r-accordion-rotate-svg-up {
   transform: rotate(180deg);
 }
-.reactivus-accordion-rotate-svg-down {
+.r-accordion-rotate-svg-down {
   transform: rotate(360deg);
 }
 
-.reactivus-accordion-header-box:hover {
+.r-accordion-header-box:hover {
   background-color: #60606007;
 }
-.reactivus-accordion-header-title {
+.r-accordion-header-title {
   font-weight: 400;
   height: 100%;
 }
 
-.reactivus-accordion-content-box {
+.r-accordion-content-box {
   font-weight: 400;
   max-height: 100dvh;
   overflow: hidden;

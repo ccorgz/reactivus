@@ -29,7 +29,7 @@ var react_1 = __importDefault(require("react"));
 require("../../styles/container.css");
 function Container(_a) {
     var shadow = _a.shadow, children = _a.children, flexDirection = _a.flexDirection, flexWrap = _a.flexWrap, gap = _a.gap, className = _a.className, rest = __rest(_a, ["shadow", "children", "flexDirection", "flexWrap", "gap", "className"]);
-    return (react_1.default.createElement("div", __assign({ className: "reactivus-container-flex-main-box " +
+    return (react_1.default.createElement("div", __assign({ className: "r-container-flex-main-box " +
             (className ? className : "") +
             (shadow == true ? " r-box-shadow" : ""), style: {
             flexDirection: flexDirection,

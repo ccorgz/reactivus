@@ -1,4 +1,4 @@
-/* defines global styles for itens on focus or selected */
+/* Defines global styles for itens on focus or selected */
 .r-item-selected {
   color: #0c63e4;
   background-color: #0c63e410;
@@ -8,12 +8,31 @@
   background-color: #0a5ad220;
 }
 
-/* defines global styles for itens with shadows applied */
+/* Defines global styles for itens with shadows applied */
 .r-box-shadow {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 
-/* defines global styles for the background color of the input switch when it's active */
+/* Defines global styles for the background color of the input switch when it's active */
 .r-switch-active {
   background-color: #3f7d54;
+}
+
+/* This is a example of classes that should be used to create a custom color pallette for the tag component*/
+/* Change the parameters as u like */
+.r-tag-custom {
+  background-color: #3f7d54;
+}
+.r-tag-custom:hover {
+  background-color: #056639;
+}
+.r-tag-text-custom {
+  color: #3f7d54;
+  background-color: #3f7d5420;
+}
+.r-tag-text-custom:hover {
+  background-color: #3f7d5440;
+}
+.r-tag-text-custom-border {
+  border: 1.5px solid #3f7d5440;
 }

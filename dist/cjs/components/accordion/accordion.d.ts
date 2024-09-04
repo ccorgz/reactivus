@@ -9,5 +9,5 @@ type AccordionProps = {
     defaultOpen?: boolean;
     headerTemplate?: HTMLElement | any;
 };
-export default function Accordion({ title, isOpenControl, setIsOpenControl, children, alwaysOpen, defaultOpen, headerTemplate, }: AccordionProps): React.JSX.Element;
+export default function Accordion({ title, isOpenControl, setIsOpenControl, children, alwaysOpen, defaultOpen, headerTemplate, ...rest }: AccordionProps): React.JSX.Element;
 export {};

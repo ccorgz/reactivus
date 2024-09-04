@@ -1,4 +1,5 @@
 "use strict";
+"use client";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -138,7 +139,7 @@ function Select(_a) {
     var handleClickOutside = function (event) {
         if (titleBoxRef.current &&
             !titleBoxRef.current.contains(event.target) &&
-            event.target.closest(".reactivus-select-options-box") === null) {
+            event.target.closest(".r-select-options-box") === null) {
             setShowOptions(false);
         }
     };
@@ -155,7 +156,7 @@ function Select(_a) {
             handleGetInputCoordinates();
         }
         else {
-            var element = document.querySelector(".reactivus-select-options-box");
+            var element = document.querySelector(".r-select-options-box");
             if (element && element.parentNode) {
                 element.parentNode.removeChild(element);
             }
@@ -232,19 +233,19 @@ function Select(_a) {
             }
         };
         return (react_1.default.createElement("div", null,
-            (filter || selectAll) && (react_1.default.createElement("span", { className: "reactivus-select-item-box reactivus-select-filter-box", style: {
+            (filter || selectAll) && (react_1.default.createElement("span", { className: "r-select-item-box r-select-filter-box", style: {
                     zIndex: 9998,
                 } },
-                selectAll && (react_1.default.createElement("input", { type: "checkbox", id: "reactivusSelectAllCheckbox", className: "reactivus-select-filter-box-checkbox", onClick: function () {
+                selectAll && (react_1.default.createElement("input", { type: "checkbox", id: "reactivusSelectAllCheckbox", className: "r-select-filter-box-checkbox", onClick: function () {
                         handleAllOptionsSelection();
                     } })),
-                !filter && (react_1.default.createElement("span", { className: "reactivus-select-filter-box-label", onClick: function () {
+                !filter && (react_1.default.createElement("span", { className: "r-select-filter-box-label", onClick: function () {
                         handleAllOptionsSelection();
                     } }, "Todos")),
-                filter && (react_1.default.createElement("input", { type: "text", className: "reactivus-select-filter-box-text", placeholder: filterPlaceHolder !== null && filterPlaceHolder !== void 0 ? filterPlaceHolder : "Search", onChange: function (e) {
+                filter && (react_1.default.createElement("input", { type: "text", className: "r-select-filter-box-text", placeholder: filterPlaceHolder !== null && filterPlaceHolder !== void 0 ? filterPlaceHolder : "Search", onChange: function (e) {
                         return handleOptionsFilter(e.target.value);
                     } })),
-                react_1.default.createElement("span", { className: "reactivus-select-title-icon-close", onClick: function () {
+                react_1.default.createElement("span", { className: "r-select-title-icon-close", onClick: function () {
                         setSelectionList([]);
                         setOptionsSelectionList([]);
                         setShowOptions(!showOptions);
@@ -257,7 +258,7 @@ function Select(_a) {
                         react_1.default.createElement("path", { d: "M2,2 L30,30 M2,30 L30,2" }))))), optionsFilterList === null || optionsFilterList === void 0 ? void 0 :
             optionsFilterList.map(function (option, index) {
                 var _a;
-                return (react_1.default.createElement("span", { className: "reactivus-select-item-box " +
+                return (react_1.default.createElement("span", { className: "r-select-item-box " +
                         (JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)) && "r-item-selected"), onClick: function () {
                         if (multiSelect) {
                             setSelectionList(function (prev) {
@@ -288,7 +289,7 @@ function Select(_a) {
                             setShowOptions(false);
                         }
                     }, key: index },
-                    multiSelect && (react_1.default.createElement("input", { className: "reactivus-select-item-box-checkbox", type: "checkbox", checked: JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)), onChange: function () { } })),
+                    multiSelect && (react_1.default.createElement("input", { className: "r-select-item-box-checkbox", type: "checkbox", checked: JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)), onChange: function () { } })),
                     optionTemplate
                         ? optionTemplate(option)
                         : (_a = option[optionLabel]) !== null && _a !== void 0 ? _a : option));
@@ -309,7 +310,7 @@ function Select(_a) {
             }
         }
         var div = document.createElement("div");
-        div.className = "reactivus-select-options-box r-box-shadow reactivus-select-options-box-".concat(showOptions ? "show" : "hide");
+        div.className = "r-select-options-box r-box-shadow r-select-options-box-".concat(showOptions ? "show" : "hide");
         div.style.top = inputProps.isClosestToTop
             ? inputProps.topDistance + "px"
             : "";
@@ -317,7 +318,6 @@ function Select(_a) {
             ? ""
             : inputProps.bottomDistance + "px";
         div.style.left = inputProps.left + "px";
-        // div.style.width = inputProps.width + "px";
         div.style.width = largerOption * 9.5 + 15 + "px";
         div.style.flexDirection = inputProps.isClosestToTop
             ? "column"
@@ -327,18 +327,18 @@ function Select(_a) {
         var root = client_1.default.createRoot(div);
         root.render(react_1.default.createElement(SelectOptionsBox, null));
     }
-    return (react_1.default.createElement("div", __assign({}, rest, { className: "reactivus-select-input-box r-box-shadow" +
+    return (react_1.default.createElement("div", __assign({}, rest, { className: "r-select-input-box " +
             " " +
-            (className ? className : ""), style: {
-            width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
-            minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
-        } }),
-        label && react_1.default.createElement("label", null, label),
-        react_1.default.createElement("div", { className: "reactivus-select-title-box", ref: titleBoxRef, onClick: function () {
+            (className ? className : "") }),
+        label && react_1.default.createElement("label", { className: "r-select-input-box-label" }, label),
+        react_1.default.createElement("div", { className: "r-select-title-box r-box-shadow", ref: titleBoxRef, onClick: function () {
                 setShowOptions(!showOptions);
+            }, style: {
+                width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
+                minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
             } },
-            react_1.default.createElement("div", { className: "reactivus-select-title-label" }, optionLabelState),
-            react_1.default.createElement("span", { className: "reactivus-select-title-icon-open" },
+            react_1.default.createElement("div", { className: "r-select-title-label" }, optionLabelState),
+            react_1.default.createElement("span", { className: "r-select-title-icon-open" },
                 react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" },
                     react_1.default.createElement("path", { d: "M6 9l6 6 6-6" }))))));
 }

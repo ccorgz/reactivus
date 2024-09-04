@@ -1,7 +1,8 @@
 import React from "react";
 import "../../styles/toast.css";
 type positions = "top-left" | "top-right" | "bottom-left" | "bottom-right";
-type ContainerProps = {
+type themes = "light" | "colored";
+interface ContainerProps {
     /**
      * Indicates the time for the toast to auto close.
      */
@@ -14,7 +15,15 @@ type ContainerProps = {
      * Defines in wich position the toast will be shown.
      */
     position: positions;
-};
+    /**
+     * Defines if the pause option will be available on the toast.
+     */
+    pauseOnHover?: boolean;
+    /**
+     * Defines the theme type between light and colored. Light is the default.
+     */
+    theme?: themes;
+}
 declare const ToastContainer: (props: ContainerProps) => React.JSX.Element;
 type ToastType = {
     /**
@@ -24,15 +33,15 @@ type ToastType = {
     /**
      * Show a toast with a danger (red) style.
      */
-    danger: (text: string, props?: ContainerProps) => void;
+    error: (text: string, props?: ContainerProps) => void;
     /**
      * Show a toast with a info (blue) style.
      */
     info: (text: string, props?: ContainerProps) => void;
     /**
-     * Show a toast with a warning (orange/yellow) style.
+     * Show a toast with a warn (orange/yellow) style.
      */
-    warning: (text: string, props?: ContainerProps) => void;
+    warn: (text: string, props?: ContainerProps) => void;
     /**
      * Dismiss all the toasts.
      */

@@ -34,12 +34,12 @@ function Button(_a) {
     // DEFINE VALOR PARA STYLE OPTIONS
     var styleOption = (_b = rest.style) !== null && _b !== void 0 ? _b : {};
     styleOption.width = width !== null && width !== void 0 ? width : "auto";
-    return (react_1.default.createElement("button", __assign({ className: "reactivus-button-main-box \n      reactivus-".concat(style !== null && style !== void 0 ? style : "btn-light", " reactivus-").concat(size !== null && size !== void 0 ? size : "btn-md", " \n      reactivus-").concat(disabled ? "btn-disabled" : "", " \n      reactivus-").concat(rounded ? "btn-rounded" : "", " \n      ").concat(text ? "reactivus-text-button" : "", " \n      ").concat(shadow ? "r-box-shadow" : "", "\n      ").concat(rounded && icon && !label ? "reactivus-btn-rounded-icon" : ""), style: styleOption }, rest),
-        tooltip && (react_1.default.createElement("span", { className: "reactivus-tooltip ".concat("reactivus-tooltip-" + tooltipPosition) }, tooltip !== null && tooltip !== void 0 ? tooltip : "")),
-        react_1.default.createElement("span", { className: "reactivus-button-label-icon-box" },
-            iconPosition != "right" && icon && (react_1.default.createElement(react_1.default.Fragment, null, loading ? react_1.default.createElement("div", { className: "reactivus-loading" }) : react_1.default.createElement("span", null, icon))),
+    return (react_1.default.createElement("button", __assign({ className: "r-button-main-box \n      r-".concat(style !== null && style !== void 0 ? style : "btn-light", " r-").concat(size !== null && size !== void 0 ? size : "btn-md", " \n      r-").concat(disabled ? "btn-disabled" : "", " \n      r-").concat(rounded ? "btn-rounded" : "", " \n      ").concat(text ? "r-text-button" : "", " \n      ").concat(shadow ? "r-box-shadow" : "", "\n      ").concat(rounded && icon && !label ? "r-btn-rounded-icon" : ""), style: styleOption }, rest),
+        tooltip && (react_1.default.createElement("span", { className: "r-tooltip ".concat("r-tooltip-" + tooltipPosition) }, tooltip !== null && tooltip !== void 0 ? tooltip : "")),
+        react_1.default.createElement("span", { className: "r-button-label-icon-box" },
+            iconPosition != "right" && icon && (react_1.default.createElement(react_1.default.Fragment, null, loading ? react_1.default.createElement("div", { className: "r-loading" }) : react_1.default.createElement("span", null, icon))),
             label,
-            iconPosition == "right" && (react_1.default.createElement(react_1.default.Fragment, null, loading ? react_1.default.createElement("div", { className: "reactivus-loading" }) : react_1.default.createElement("span", null, icon))))));
+            iconPosition == "right" && (react_1.default.createElement(react_1.default.Fragment, null, loading ? react_1.default.createElement("div", { className: "r-loading" }) : react_1.default.createElement("span", null, icon))))));
 }
 exports.default = Button;
 //# sourceMappingURL=button.js.map

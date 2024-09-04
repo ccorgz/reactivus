@@ -1,2 +1,1 @@
-import { ToastContainer } from "./components/toast/toast";
-export { ToastContainer };
+export { ToastContainer } from "./components/toast/toast";

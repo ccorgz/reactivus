@@ -29,20 +29,18 @@ var react_1 = __importDefault(require("react"));
 require("../../styles/tag.css");
 function Tag(_a) {
     var label = _a.label, color = _a.color, rounded = _a.rounded, icon = _a.icon, iconPosition = _a.iconPosition, text = _a.text, shadow = _a.shadow, border = _a.border, rest = __rest(_a, ["label", "color", "rounded", "icon", "iconPosition", "text", "shadow", "border"]);
-    return (react_1.default.createElement("span", __assign({ className: "reactivus-tag-main-box " +
+    return (react_1.default.createElement("span", __assign({ className: "r-tag-main-box " +
             (shadow == undefined || (shadow != undefined && shadow == false)
                 ? ""
                 : "r-box-shadow ") +
             (text != undefined
-                ? "reactivus-tag-text-" +
+                ? "r-tag-text-" +
                     color +
-                    (border == true ? " reactivus-tag-text-".concat(color, "-border") : "")
-                : "reactivus-tag-" + color) +
-            (rounded != undefined && rounded == true
-                ? " reactivus-tag-rounded"
-                : " ") }, rest),
+                    (border == true ? " r-tag-text-".concat(color, "-border") : "")
+                : "r-tag-" + color) +
+            (rounded != undefined && rounded == true ? " r-tag-rounded" : " ") }, rest),
         iconPosition == "left" && icon != undefined && icon,
-        react_1.default.createElement("div", { className: "reactivus-tag-label-box" }, label),
+        react_1.default.createElement("div", { className: "r-tag-label-box" }, label),
         ((iconPosition == "right" && icon != undefined) ||
             (icon != undefined && iconPosition != "left")) &&
             icon));
