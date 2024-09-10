@@ -4,7 +4,7 @@ type AccordionProps = {
     title: string;
     isOpenControl?: boolean;
     setIsOpenControl?: React.Dispatch<SetStateAction<boolean>>;
-    children: ReactNode;
+    children: ReactNode | any;
     alwaysOpen?: boolean;
     defaultOpen?: boolean;
     headerTemplate?: HTMLElement | any;

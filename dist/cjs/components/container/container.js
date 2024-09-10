@@ -35,7 +35,7 @@ function Container(_a) {
             flexDirection: flexDirection,
             flexWrap: flexWrap,
             gap: gap,
-        } }, rest), children));
+        } }, rest), children !== null && children !== void 0 ? children : ''));
 }
 exports.default = Container;
 //# sourceMappingURL=container.js.map

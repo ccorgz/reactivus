@@ -1,8 +1,8 @@
-import React from "react";
-import "../../styles/progress.css";
+import React from 'react';
+import '../../styles/progress.css';
 type ProgressProps = {
-    label: string;
-    color: "danger" | "success" | "info" | "dark" | "light" | "none" | "warning" | "black" | string;
+    label?: string;
+    color: 'danger' | 'success' | 'info' | 'dark' | 'light' | 'none' | 'warning' | 'black' | string;
     rounded?: boolean;
     shadow?: boolean;
     width?: string;

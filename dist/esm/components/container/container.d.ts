@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import "../../styles/container.css";
 type ContainerProps = {
     shadow?: boolean;
-    children: ReactNode;
+    children: ReactNode | any;
     flexDirection?: "row" | "column" | "row-reverse" | "column-reverse";
     flexWrap?: "wrap" | "nowrap";
     gap?: string;
