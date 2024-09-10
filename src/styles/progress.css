@@ -23,12 +23,13 @@
   transform: translate(-50%, -50%);
   font-weight: 400;
   font-size: 1rem;
+  background-color: pink;
 }
 
 .r-progress-bar-main-box {
   background-color: #d3d3d350;
-  border-radius: 3px;
-  height: 15px;
+  border-radius: 10px;
+  height: 12px;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -37,8 +38,9 @@
 }
 
 .r-progress-bar-box {
-  background-color: #d3d3d350;
+  background-color: #e6e6ee;
   height: 100%;
+  border-radius: 10px;
 }
 
 .r-progress-bar-label-box {
