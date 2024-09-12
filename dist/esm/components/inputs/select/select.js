@@ -180,7 +180,7 @@ function Select(_a) {
             bottom: bottom,
             isClosestToTop: isClosestToTop,
             topDistance: y + height + 15,
-            bottomDistance: window.innerHeight - y + height / 2,
+            bottomDistance: window.innerHeight - y - 7.5 + height / 2,
             maxHeight: maxHeight,
             left: left,
             right: right,
@@ -299,8 +299,8 @@ function Select(_a) {
         var largerOption = 0;
         for (var i = 0; i < optionsList.length; i++) {
             if (optionLabel) {
-                if (optionsList[i][optionLabel].length > largerOption) {
-                    largerOption = optionsList[i][optionLabel].length;
+                if (optionsList[i][optionLabel].toString().length > largerOption) {
+                    largerOption = optionsList[i][optionLabel].toString().length;
                 }
             }
             else {
@@ -312,30 +312,37 @@ function Select(_a) {
         var div = document.createElement("div");
         div.className = "r-select-options-box r-box-shadow r-select-options-box-".concat(showOptions ? "show" : "hide");
         div.style.top = inputProps.isClosestToTop
-            ? inputProps.topDistance + "px"
+            ? (inputProps.topDistance - 10) + "px"
             : "";
         div.style.bottom = inputProps.isClosestToTop
             ? ""
             : inputProps.bottomDistance + "px";
         div.style.left = inputProps.left + "px";
         div.style.width = largerOption * 9.5 + 15 + "px";
-        div.style.flexDirection = inputProps.isClosestToTop
-            ? "column"
-            : "column-reverse";
+        div.style.minWidth = width
+            ? width
+            : label
+                ? label.length * 9 + 15 + "px"
+                : "50px",
+            div.style.flexDirection = inputProps.isClosestToTop
+                ? "column"
+                : "column-reverse";
         div.style.maxHeight = showOptions ? inputProps.maxHeight + "px" : "0";
         document.body.appendChild(div);
         var root = client_1.default.createRoot(div);
         root.render(react_1.default.createElement(SelectOptionsBox, null));
     }
-    return (react_1.default.createElement("div", __assign({}, rest, { className: "r-select-input-box " +
-            " " +
-            (className ? className : "") }),
+    return (react_1.default.createElement("div", __assign({}, rest, { className: "r-select-input-box " + " " + (className ? className : "") }),
         label && react_1.default.createElement("label", { className: "r-select-input-box-label" }, label),
         react_1.default.createElement("div", { className: "r-select-title-box r-box-shadow", ref: titleBoxRef, onClick: function () {
                 setShowOptions(!showOptions);
             }, style: {
                 width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
-                minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
+                minWidth: width
+                    ? width
+                    : label
+                        ? label.length * 9 + 15 + "px"
+                        : "50px",
             } },
             react_1.default.createElement("div", { className: "r-select-title-label" }, optionLabelState),
             react_1.default.createElement("span", { className: "r-select-title-icon-open" },

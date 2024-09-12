@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 // IMPORT REACT HOOKS
 import React, { useEffect, useRef, useState } from "react";
@@ -227,7 +227,7 @@ export default function Select({
       bottom: bottom,
       isClosestToTop: isClosestToTop,
       topDistance: y + height + 15,
-      bottomDistance: window.innerHeight - y + height / 2,
+      bottomDistance: window.innerHeight - y - 7.5 + height / 2,
       maxHeight: maxHeight,
       left: left,
       right: right,
@@ -431,8 +431,8 @@ export default function Select({
     let largerOption = 0;
     for (let i = 0; i < optionsList.length; i++) {
       if (optionLabel) {
-        if (optionsList[i][optionLabel].length > largerOption) {
-          largerOption = optionsList[i][optionLabel].length;
+        if (optionsList[i][optionLabel].toString().length > largerOption) {
+          largerOption = optionsList[i][optionLabel].toString().length;
         }
       } else {
         if (optionsList[i].length > largerOption) {
@@ -445,16 +445,21 @@ export default function Select({
       showOptions ? "show" : "hide"
     }`;
     div.style.top = inputProps.isClosestToTop
-      ? inputProps.topDistance + "px"
+      ? (inputProps.topDistance - 10) + "px"
       : "";
     div.style.bottom = inputProps.isClosestToTop
       ? ""
       : inputProps.bottomDistance + "px";
     div.style.left = inputProps.left + "px";
     div.style.width = largerOption * 9.5 + 15 + "px";
-    div.style.flexDirection = inputProps.isClosestToTop
-      ? "column"
-      : "column-reverse";
+    div.style.minWidth = width
+      ? width
+      : label
+      ? label.length * 9 + 15 + "px"
+      : "50px",
+      div.style.flexDirection = inputProps.isClosestToTop
+        ? "column"
+        : "column-reverse";
     div.style.maxHeight = showOptions ? inputProps.maxHeight + "px" : "0";
 
     document.body.appendChild(div);
@@ -466,11 +471,7 @@ export default function Select({
   return (
     <div
       {...rest}
-      className={
-        `r-select-input-box ` +
-        " " +
-        (className ? className : "")
-      }
+      className={`r-select-input-box ` + " " + (className ? className : "")}
     >
       {label && <label className="r-select-input-box-label">{label}</label>}
       <div
@@ -481,7 +482,11 @@ export default function Select({
         }}
         style={{
           width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
-          minWidth: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
+          minWidth: width
+            ? width
+            : label
+            ? label.length * 9 + 15 + "px"
+            : "50px",
         }}
       >
         <div className="r-select-title-label">{optionLabelState}</div>
