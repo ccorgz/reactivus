@@ -5,7 +5,7 @@
   transition: all 1s ease;
   position: absolute;
   top: 0;
-  width: clamp(320px, 355px, 100%);
+  width: clamp(320px, 340px, 100%);
   gap: 10px;
 }
 
@@ -118,8 +118,7 @@
 .r-toast-top-right {
   position: absolute;
   top: 0;
-  right: 0px;
-  background-color: #00000010;
+  right: -25px;
 }
 .r-toast-top-right .r-toast-container-toasts-box {
   position: fixed;

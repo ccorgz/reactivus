@@ -56,8 +56,8 @@ export default function Button({
     <button
       className={`r-button-main-box 
       r-${style ?? "btn-light"} r-${size ?? "btn-md"} 
-      r-${disabled ? "btn-disabled" : ""} 
-      r-${rounded ? "btn-rounded" : ""} 
+      ${disabled ? "r-btn-disabled" : ""} 
+      ${rounded ? "r-btn-rounded" : ""} 
       ${text ? "r-text-button" : ""} 
       ${shadow ? "r-box-shadow" : ""}
       ${rounded && icon && !label ? "r-btn-rounded-icon" : ""}`}

@@ -44,33 +44,36 @@ export default function Switch({
   };
 
   return (
-    <div
-      className={`r-switch-main-box ${
-        isInputChecked ? "r-switch-active" : ""
-      }  r-box-shadow`}
-      style={{
-        backgroundColor: isInputChecked && activeColor ? `${activeColor}` : "",
-      }}
-    >
+    <div className="r-switch-main-box">
       <label className="r-switch-main-label">{label ? label : ""}</label>
-      <label
-        className="r-switch-checkbox-label"
-        onClick={() => {
-          if (switchRef.current) {
-            switchRef.current.click();
-          }
+      <div
+        className={`r-switch-input-box ${
+          isInputChecked ? "r-switch-active" : ""
+        }  r-box-shadow`}
+        style={{
+          backgroundColor:
+            isInputChecked && activeColor ? `${activeColor}` : "",
         }}
       >
-        <div className={"r-switch-button-box"} />
-      </label>
+        <label
+          className="r-switch-checkbox-label"
+          onClick={() => {
+            if (switchRef.current) {
+              switchRef.current.click();
+            }
+          }}
+        >
+          <div className={"r-switch-button-box"} />
+        </label>
 
-      <input
-        id={"r-switch-checkbox"}
-        type="checkbox"
-        checked={checked ?? isInputChecked}
-        onChange={handleInputChange}
-        ref={switchRef}
-      />
+        <input
+          id={"r-switch-checkbox"}
+          type="checkbox"
+          checked={checked ?? isInputChecked}
+          onChange={handleInputChange}
+          ref={switchRef}
+        />
+      </div>
     </div>
   );
 }

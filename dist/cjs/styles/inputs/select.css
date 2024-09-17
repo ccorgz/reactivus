@@ -2,7 +2,7 @@
   min-width: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   outline: none;
   border: none;
 }
@@ -15,6 +15,7 @@
   font-size: 0.9rem;
   margin-left: 5px;
   font-weight: 400;
+  text-align: left;
 }
 
 .r-select-title-box {
@@ -36,7 +37,6 @@
   position: relative;
   height: 2.5rem;
   caret-color: transparent;
-  top: -1px !important;
 }
 .r-select-title-label {
   white-space: nowrap !important;

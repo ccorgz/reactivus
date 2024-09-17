@@ -33,17 +33,18 @@ function Switch(_a) {
         setIsInputChecked(e.target.checked);
         onChange && onChange({ value: e.target.checked });
     };
-    return (react_1.default.createElement("div", { className: "r-switch-main-box ".concat(isInputChecked ? "r-switch-active" : "", "  r-box-shadow"), style: {
-            backgroundColor: isInputChecked && activeColor ? "".concat(activeColor) : "",
-        } },
+    return (react_1.default.createElement("div", { className: "r-switch-main-box" },
         react_1.default.createElement("label", { className: "r-switch-main-label" }, label ? label : ""),
-        react_1.default.createElement("label", { className: "r-switch-checkbox-label", onClick: function () {
-                if (switchRef.current) {
-                    switchRef.current.click();
-                }
+        react_1.default.createElement("div", { className: "r-switch-input-box ".concat(isInputChecked ? "r-switch-active" : "", "  r-box-shadow"), style: {
+                backgroundColor: isInputChecked && activeColor ? "".concat(activeColor) : "",
             } },
-            react_1.default.createElement("div", { className: "r-switch-button-box" })),
-        react_1.default.createElement("input", { id: "r-switch-checkbox", type: "checkbox", checked: checked !== null && checked !== void 0 ? checked : isInputChecked, onChange: handleInputChange, ref: switchRef })));
+            react_1.default.createElement("label", { className: "r-switch-checkbox-label", onClick: function () {
+                    if (switchRef.current) {
+                        switchRef.current.click();
+                    }
+                } },
+                react_1.default.createElement("div", { className: "r-switch-button-box" })),
+            react_1.default.createElement("input", { id: "r-switch-checkbox", type: "checkbox", checked: checked !== null && checked !== void 0 ? checked : isInputChecked, onChange: handleInputChange, ref: switchRef }))));
 }
 exports.default = Switch;
 //# sourceMappingURL=switch.js.map
