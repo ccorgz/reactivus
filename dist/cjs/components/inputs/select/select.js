@@ -124,7 +124,9 @@ function Select(_a) {
                     : "";
         }
         valueToSet =
-            valueToSet.slice(-2) == ", " ? valueToSet.slice(0, -2) : valueToSet;
+            valueToSet && valueToSet.slice(-2) == ", "
+                ? valueToSet.slice(0, -2)
+                : valueToSet;
         if (valueToSet == "" && !placeholder) {
             valueToSet = selectedLabel ? selectedLabel : optionLabel;
         }
@@ -312,21 +314,21 @@ function Select(_a) {
         var div = document.createElement("div");
         div.className = "r-select-options-box r-box-shadow r-select-options-box-".concat(showOptions ? "show" : "hide");
         div.style.top = inputProps.isClosestToTop
-            ? (inputProps.topDistance - 10) + "px"
+            ? inputProps.topDistance - 10 + "px"
             : "";
         div.style.bottom = inputProps.isClosestToTop
             ? ""
             : inputProps.bottomDistance + "px";
         div.style.left = inputProps.left + "px";
         div.style.width = largerOption * 9.5 + 15 + "px";
-        div.style.minWidth = width
+        (div.style.minWidth = width
             ? width
             : label
                 ? label.length * 9 + 15 + "px"
-                : "50px",
-            div.style.flexDirection = inputProps.isClosestToTop
+                : "50px"),
+            (div.style.flexDirection = inputProps.isClosestToTop
                 ? "column"
-                : "column-reverse";
+                : "column-reverse");
         div.style.maxHeight = showOptions ? inputProps.maxHeight + "px" : "0";
         document.body.appendChild(div);
         var root = client_1.default.createRoot(div);
