@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Progress = exports.Switch = exports.Container = exports.Tag = exports.Accordion = exports.toast = exports.Select = exports.Input = exports.Button = exports.dialog = void 0;
+exports.ToastContainer = exports.Progress = exports.Switch = exports.Container = exports.Tag = exports.Accordion = exports.toast = exports.Select = exports.Input = exports.Button = exports.dialog = void 0;
 var dialog_1 = require("./components/dialog/dialog");
 Object.defineProperty(exports, "dialog", { enumerable: true, get: function () { return __importDefault(dialog_1).default; } });
 var button_1 = require("./components/button/button");
@@ -25,5 +25,7 @@ var switch_1 = require("./components/inputs/switch/switch");
 Object.defineProperty(exports, "Switch", { enumerable: true, get: function () { return __importDefault(switch_1).default; } });
 var progress_1 = require("./components/progress/progress");
 Object.defineProperty(exports, "Progress", { enumerable: true, get: function () { return __importDefault(progress_1).default; } });
+var toast_2 = require("./components/toast/toast");
+Object.defineProperty(exports, "ToastContainer", { enumerable: true, get: function () { return toast_2.ToastContainer; } });
 require("./styles/globals.css");
 //# sourceMappingURL=index.js.map

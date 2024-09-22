@@ -10,5 +10,6 @@ export { default as Tag } from "./components/tag/tag";
 export { default as Container } from './components/container/container';
 export { default as Switch } from './components/inputs/switch/switch';
 export { default as Progress } from "./components/progress/progress";
+export { ToastContainer } from "./components/toast/toast";
 
 import './styles/globals.css';

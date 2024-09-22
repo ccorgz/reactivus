@@ -1,3 +1,5 @@
+"use client"
+
 // IMPORT REACT IN FULL AND REACT USESTATE HOOK
 import React from "react";
 
