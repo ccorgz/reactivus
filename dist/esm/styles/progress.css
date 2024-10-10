@@ -25,10 +25,29 @@
   font-size: 1rem;
 }
 
-.r-progress-bar-main-box {
+.r-progress-bar-box-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  max-height: 2.5rem;
+}
+
+.r-progress-bar-box-label {
+  color: #000;
+  font-weight: 400;
+  font-size: 0.9rem;
+  display: flex;
+  /* justify-content: flex-end; */
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.r-progress-bar-box {
   background-color: #d3d3d350;
   border-radius: 10px;
-  height: 12px;
+  height: 6px;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -36,23 +55,10 @@
   justify-content: flex-start;
 }
 
-.r-progress-bar-box {
+.r-progress-bar {
   background-color: #e6e6ee;
   height: 100%;
   border-radius: 10px;
-}
-
-.r-progress-bar-label-box {
-  color: #000;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: 400;
-  font-size: 0.9rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .r-progress-success {

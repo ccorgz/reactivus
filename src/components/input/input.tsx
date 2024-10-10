@@ -70,6 +70,10 @@ interface InputProps {
    * Defines a custom string value to be displayed bellow the input as a description of it.
    */
   description?: string;
+  /**
+   * Defines a custom color for the description.
+   */
+  descriptionColor?: 'success' | 'danger' | 'info' | 'warning' | 'default';
 }
 
 // EXPORTA COMPONENTE POR PADRÃO
@@ -86,6 +90,7 @@ const Input = ({
   size,
   className,
   description,
+  descriptionColor,
   inputRef,
   ...rest
 }: InputProps & Record<string, unknown>) => {
@@ -98,7 +103,7 @@ const Input = ({
         {...rest}
         className={
           "r-input-box r-box-shadow " +
-          ("r-input-" + size ?? "md") +
+          ("r-input-" +( size ?? "md")) +
           " " +
           (className ? className : "")
         }
@@ -128,7 +133,7 @@ const Input = ({
         )}
       </div>
       {description && description.length > 0 && (
-        <span className="r-input-box-description">{description}</span>
+        <span className={`r-input-box-description r-input-box-description-${descriptionColor ?? 'default'}`}>{description}</span>
       )}
     </div>
   );

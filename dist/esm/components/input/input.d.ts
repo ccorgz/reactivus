@@ -66,6 +66,10 @@ interface InputProps {
      * Defines a custom string value to be displayed bellow the input as a description of it.
      */
     description?: string;
+    /**
+     * Defines a custom color for the description.
+     */
+    descriptionColor?: 'success' | 'danger' | 'info' | 'warning' | 'default';
 }
-declare const Input: ({ onKeyDown, type, icon, iconPosition, iconAction, label, width, placeholder, password, size, className, description, inputRef, ...rest }: InputProps & Record<string, unknown>) => React.JSX.Element;
+declare const Input: ({ onKeyDown, type, icon, iconPosition, iconAction, label, width, placeholder, password, size, className, description, descriptionColor, inputRef, ...rest }: InputProps & Record<string, unknown>) => React.JSX.Element;
 export default Input;

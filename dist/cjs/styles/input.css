@@ -58,11 +58,20 @@
   flex-direction: column;
 }
 
-.r-input-box-description {
+.r-input-box-description, .r-input-box-description-default {
   width: 100%;
   text-align: left;
   font-size: 0.8rem;
-  padding: 0px 5px;
+  padding: 2px 5px;
+  color: #00000080;
+}.r-input-box-description-success {
+  color: #3f7d54;
+}.r-input-box-description-danger {
+  color: #cb2a29;
+}.r-input-box-description-info {
+  color: #2e86c1;
+}.r-input-box-description-warning {
+  color: #ffa500;
 }
 
 .r-input-sm {

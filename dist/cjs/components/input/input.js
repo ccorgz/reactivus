@@ -50,13 +50,12 @@ var react_1 = __importStar(require("react"));
 require("../../styles/input.css");
 // EXPORTA COMPONENTE POR PADRÃO
 var Input = function (_a) {
-    var _b;
-    var onKeyDown = _a.onKeyDown, type = _a.type, icon = _a.icon, iconPosition = _a.iconPosition, iconAction = _a.iconAction, label = _a.label, width = _a.width, placeholder = _a.placeholder, password = _a.password, size = _a.size, className = _a.className, description = _a.description, inputRef = _a.inputRef, rest = __rest(_a, ["onKeyDown", "type", "icon", "iconPosition", "iconAction", "label", "width", "placeholder", "password", "size", "className", "description", "inputRef"]);
-    var _c = (0, react_1.useState)(false), seePwd = _c[0], setSeePwd = _c[1];
+    var onKeyDown = _a.onKeyDown, type = _a.type, icon = _a.icon, iconPosition = _a.iconPosition, iconAction = _a.iconAction, label = _a.label, width = _a.width, placeholder = _a.placeholder, password = _a.password, size = _a.size, className = _a.className, description = _a.description, descriptionColor = _a.descriptionColor, inputRef = _a.inputRef, rest = __rest(_a, ["onKeyDown", "type", "icon", "iconPosition", "iconAction", "label", "width", "placeholder", "password", "size", "className", "description", "descriptionColor", "inputRef"]);
+    var _b = (0, react_1.useState)(false), seePwd = _b[0], setSeePwd = _b[1];
     return (react_1.default.createElement("div", { className: "r-input-main-box", style: { width: width } },
         label && react_1.default.createElement("label", { className: "r-input-main-box-label" }, label),
         react_1.default.createElement("div", __assign({}, rest, { className: "r-input-box r-box-shadow " +
-                ((_b = "r-input-" + size) !== null && _b !== void 0 ? _b : "md") +
+                ("r-input-" + (size !== null && size !== void 0 ? size : "md")) +
                 " " +
                 (className ? className : "") }),
             icon &&
@@ -66,7 +65,7 @@ var Input = function (_a) {
                 seePwd ? password === null || password === void 0 ? void 0 : password.onIcon : password === null || password === void 0 ? void 0 : password.offIcon,
                 " ")),
             icon && iconPosition && iconPosition == "right" && (react_1.default.createElement("span", { onClick: function () { return iconAction && iconAction(); } }, icon))),
-        description && description.length > 0 && (react_1.default.createElement("span", { className: "r-input-box-description" }, description))));
+        description && description.length > 0 && (react_1.default.createElement("span", { className: "r-input-box-description r-input-box-description-".concat(descriptionColor !== null && descriptionColor !== void 0 ? descriptionColor : 'default') }, description))));
 };
 exports.default = Input;
 //# sourceMappingURL=input.js.map

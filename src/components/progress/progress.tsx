@@ -1,37 +1,57 @@
-import React from 'react';
+import React from "react";
 
-import '../../styles/progress.css';
+import "../../styles/progress.css";
 
 type ProgressProps = {
   label?: string;
-  color: 'danger' | 'success' | 'info' | 'dark' | 'light' | 'none' | 'warning' | 'black' | string;
+  labelPosition?: 'right' | 'left';
+  color:
+    | "danger"
+    | "success"
+    | "info"
+    | "dark"
+    | "light"
+    | "none"
+    | "warning"
+    | "black"
+    | string;
   rounded?: boolean;
   shadow?: boolean;
   width?: string;
   percentage: number;
   stroke?: number;
-  // labelPosition?: 'center' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+  barHeight?: number;
 };
 
 export default function Progress({
   label,
+  labelPosition,
   color,
   rounded,
   shadow,
   percentage,
   width,
   stroke,
-  // labelPosition,
+  barHeight,
   ...rest
 }: ProgressProps & Record<string, unknown>) {
-  const predefinedColors = ['danger', 'success', 'info', 'dark', 'light', 'none', 'warning', 'black'];
+  const predefinedColors = [
+    "danger",
+    "success",
+    "info",
+    "dark",
+    "light",
+    "none",
+    "warning",
+    "black",
+  ];
 
   if (rounded != undefined && rounded == true) {
     return (
       <span
-        className={'r-progress-main-box '}
+        className={"r-progress-main-box "}
         style={{
-          minWidth: `${width}` ?? '50px',
+          minWidth: width ?? "50px",
         }}
         {...rest}
       >
@@ -53,8 +73,10 @@ export default function Progress({
               fill="none"
               strokeWidth={stroke ?? 2}
               strokeLinecap="round"
-              strokeDasharray={(percentage == 0 ? 100 : percentage) + ', 100'}
-              className={`${predefinedColors.includes(color) ? `r-progress-${color}` : ''}`}
+              strokeDasharray={(percentage == 0 ? 100 : percentage) + ", 100"}
+              className={`${
+                predefinedColors.includes(color) ? `r-progress-${color}` : ""
+              }`}
               style={{
                 stroke: predefinedColors.includes(color) ? undefined : color,
               }}
@@ -65,25 +87,40 @@ export default function Progress({
     );
   } else {
     return (
-      <span
-        className={
-          (shadow == undefined || (shadow != undefined && shadow == false) ? '' : 'r-box-shadow ') +
-          'r-progress-bar-main-box'
-        }
-        style={{
-          minWidth: `${width}` ?? '50px',
-        }}
-        {...rest}
-      >
-        <label className={`r-progress-bar-label-box`}>{label}</label>
+      <div className={`r-progress-bar-box-main`}>
         <div
-          className={`r-progress-bar-box ${predefinedColors.includes(color) ? `r-progress-${color}` : ''}`}
+          className={`r-progress-bar-box-label`}
           style={{
-            width: `${percentage}%`,
-            backgroundColor: predefinedColors.includes(color) ? undefined : color,
+            justifyContent: labelPosition && labelPosition == 'right' ? "flex-end" : 'flex-start',
           }}
-        />
-      </span>
+        >
+          {label}
+        </div>
+        <div
+          className={
+            (shadow == undefined || (shadow != undefined && shadow == false)
+              ? ""
+              : "r-box-shadow ") + "r-progress-bar-box"
+          }
+          style={{
+            minWidth: width ?? "50px",
+            height: barHeight ? `${barHeight}px` : "6px"
+          }}
+          {...rest}
+        >
+          <div
+            className={`r-progress-bar ${
+              predefinedColors.includes(color) ? `r-progress-${color}` : ""
+            }`}
+            style={{
+              width: `${percentage}%`,
+              backgroundColor: predefinedColors.includes(color)
+                ? undefined
+                : color,
+            }}
+          />
+        </div>
+      </div>
     );
   }
 }
