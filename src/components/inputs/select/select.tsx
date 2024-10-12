@@ -18,11 +18,7 @@ type SelectInputProps = {
    */
   width?: string;
   /**
-   * React state with value to be set to the component.
-   */
-  value?: any;
-  /**
-   * Array containing the defualt value to be displayed in the component.
+   * Array containing the default value to be displayed in the component.
    */
   defaultValue?: any;
   /**
@@ -31,18 +27,19 @@ type SelectInputProps = {
   options: Array<any>;
   /**
    * Name of the property to be displayed by default in the options list of the component.
+   * This is optional if `options` is an array of strings.
    */
-  optionLabel: string;
+  optionLabel?: string;
   /**
    * Custom element to be rendered in the options list of the component.
    */
   optionTemplate?: HTMLElement | any;
   /**
-   * Custom data label string that defines wich field will be displayed at the selected fields.
+   * Custom data label string that defines which field will be displayed at the selected fields.
    */
   selectedLabel?: string;
   /**
-   * Boolean to control if must be rendered a filter option in the component.
+   * Boolean to control if a filter option must be rendered in the component.
    */
   filter?: boolean;
   /**
@@ -50,7 +47,7 @@ type SelectInputProps = {
    */
   filterPlaceHolder?: string;
   /**
-   * String containing the list of fields that the search logic mus consider in the component.
+   * String containing the list of fields that the search logic must consider in the component.
    */
   filterBy?: string;
   /**
@@ -58,22 +55,36 @@ type SelectInputProps = {
    */
   placeholder?: string;
   /**
-   * Boolean that controls if multi options can be selected in the component.
+   * React state that determines if multiple options can be selected.
    */
   multiSelect?: boolean;
   /**
-   * Boolean that controls if the option to select all the options at once will be abled in the component.
-   */
-  selectAll?: boolean;
-  /**
    * Function that returns the value of the component.
    */
-  onChange: (selectedOption: any) => void;
+  onChange?: (selectedOption: { value: any }) => void;
   /**
    * Defines a custom className object to be set as the input box styles.
    */
   className?: any;
-} & ({} extends { multiSelect: boolean } ? { value: any } : {});
+} & ( // Make selectAll only available when multiSelect is true
+  | {
+      multiSelect: true;
+      /**
+       * Optional property that enables the selection of all options at once.
+       * This property is only allowed if `multiSelect` is true.
+       */
+      selectAll?: boolean;
+      /**
+       * React state with value to be set to the component.
+       */
+      value: any;
+    }
+  | { multiSelect?: false; value?: any; selectAll?: never }
+) &
+  (
+    | { options: string[]; optionLabel?: never }
+    | { options: Array<any>; optionLabel: string }
+  );
 
 // EXPORTS COMPONENT BY DEFAULT
 export default function Select({
@@ -107,6 +118,8 @@ export default function Select({
 
   const titleBoxRef = useRef<any>(null);
 
+  optionLabel = !optionLabel ? "" : (optionLabel ?? '');
+
   useEffect(() => {
     const handleResize = () => {
       setShowOptions(false);
@@ -130,7 +143,7 @@ export default function Select({
     if (optionsList.length > 0 && typeof options[0] != "string") {
       let higgherValueString = 0;
       for (let i = 0; i < options.length; i++) {
-        const option = options[i][optionLabel];
+        const option = options[i][optionLabel ?? ''];
         higgherValueString =
           option.length >= higgherValueString
             ? option.length
@@ -144,7 +157,7 @@ export default function Select({
   }, [value]);
 
   useEffect(() => {
-    if (defaultValue && defaultValue[optionLabel] && !value) {
+    if (defaultValue && optionLabel != undefined && defaultValue[optionLabel] && !value) {
       setOptionLabelState(defaultValue[optionLabel]);
     } else {
       handleOptionLabelStateDefinition(selectionList);
@@ -156,7 +169,7 @@ export default function Select({
     if (multiSelect) {
       valueToSet = values
         ?.map((v: any) => {
-          return selectedLabel ? v[selectedLabel] : v[optionLabel] ?? "";
+          return selectedLabel ? v[selectedLabel] : optionLabel ? v[optionLabel] : "";
         })
         .join(", ");
     } else {
@@ -170,12 +183,12 @@ export default function Select({
         ? valueToSet.slice(0, -2)
         : valueToSet;
     if (valueToSet == "" && !placeholder) {
-      valueToSet = selectedLabel ? selectedLabel : optionLabel;
+      valueToSet = selectedLabel ? selectedLabel : (optionLabel ?? '');
     } else if (valueToSet == "" && placeholder) {
       valueToSet = placeholder;
     }
-    if (value && value[optionLabel]) {
-      valueToSet = selectedLabel ? value[selectedLabel] : value[optionLabel];
+    if (value && optionLabel != undefined && value[optionLabel]) {
+      valueToSet = selectedLabel ? value[selectedLabel] : optionLabel ? value[optionLabel] : '';
     }
     setOptionLabelState(valueToSet);
   };
@@ -217,29 +230,39 @@ export default function Select({
 
   const handleGetInputCoordinates = () => {
     const titleBoxRect = titleBoxRef.current.getBoundingClientRect();
-    const { x, y, height, width, top, bottom, left, right } = titleBoxRect;
+    const scrollY = window.scrollY || window.pageYOffset;
+    const scrollX = window.scrollX || window.pageXOffset;
+
+    const adjustedY = titleBoxRect.y + scrollY;
+    const adjustedX = titleBoxRect.x + scrollX;
+
+    const { height, width, top, bottom, left, right } = titleBoxRect;
     const isClosestToTop = top < window.innerHeight - bottom;
-    const maxHeight = isClosestToTop ? (window.innerHeight - y) / 2 : y / 2;
+    const maxHeight = isClosestToTop
+      ? (window.innerHeight - adjustedY) / 2
+      : adjustedY / 2;
+
     const inputProps = {
-      x: x,
-      y: y,
+      x: adjustedX,
+      y: adjustedY,
       height: height,
       width: width,
-      top: top,
-      bottom: bottom,
+      top: top + scrollY,
+      bottom: bottom + scrollY,
       isClosestToTop: isClosestToTop,
-      topDistance: y + height + 15,
-      bottomDistance: window.innerHeight - y - 7.5 + height / 2,
+      topDistance: adjustedY + height + 15,
+      bottomDistance: window.innerHeight - adjustedY - 7.5 + height / 2,
       maxHeight: maxHeight,
-      left: left,
-      right: right,
+      left: left + scrollX,
+      right: right + scrollX,
     };
+
     appendOptionsBoxToBody(inputProps);
   };
 
   const SelectOptionsBox = () => {
     const [optionsSelectionList, setOptionsSelectionList] = useState<any>(
-      selectionList ?? []
+      selectionList ? selectionList : []
     );
     const [optionsFilterList, setOptionsFilterList] = useState<any>(
       optionsList ?? []
@@ -368,7 +391,9 @@ export default function Select({
                 `r-select-item-box ` +
                 (JSON.stringify(optionsSelectionList).includes(
                   JSON.stringify(option)
-                ) && "r-item-selected")
+                )
+                  ? "r-item-selected"
+                  : "")
               }
               onClick={() => {
                 if (multiSelect) {
@@ -403,6 +428,8 @@ export default function Select({
                   if (!value) {
                     value = option;
                     handleOptionLabelStateDefinition([option]);
+                    setOptionsSelectionList(option);
+                    typeof option == "string" && setSelectionList([option]);
                   }
                   setShowOptions(false);
                 }
@@ -416,12 +443,11 @@ export default function Select({
                   checked={JSON.stringify(optionsSelectionList).includes(
                     JSON.stringify(option)
                   )}
-                  onChange={() => {}}
                 />
               )}
               {optionTemplate
                 ? optionTemplate(option)
-                : option[optionLabel] ?? option}
+                : optionLabel ? option[optionLabel] : option}
             </span>
           );
         })}
@@ -451,7 +477,7 @@ export default function Select({
       : "";
     div.style.bottom = inputProps.isClosestToTop
       ? ""
-      : inputProps.bottomDistance + "px";
+      : inputProps.bottomDistance - 8 + "px";
     div.style.left = inputProps.left + "px";
     div.style.width = largerOption * 9.5 + 15 + "px";
     (div.style.minWidth = width
@@ -483,7 +509,7 @@ export default function Select({
           setShowOptions(!showOptions);
         }}
         style={{
-          width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
+          width: width ? width : "auto",
           minWidth: width
             ? width
             : label

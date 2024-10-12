@@ -71,6 +71,7 @@ function Select(_a) {
     var _d = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _d[0], setOptionLabelState = _d[1];
     var _e = (0, react_1.useState)([]), selectionList = _e[0], setSelectionList = _e[1];
     var titleBoxRef = (0, react_1.useRef)(null);
+    optionLabel = !optionLabel ? "" : (optionLabel !== null && optionLabel !== void 0 ? optionLabel : '');
     (0, react_1.useEffect)(function () {
         var handleResize = function () {
             setShowOptions(false);
@@ -90,7 +91,7 @@ function Select(_a) {
         if (optionsList.length > 0 && typeof options[0] != "string") {
             var higgherValueString = 0;
             for (var i = 0; i < options.length; i++) {
-                var option = options[i][optionLabel];
+                var option = options[i][optionLabel !== null && optionLabel !== void 0 ? optionLabel : ''];
                 higgherValueString =
                     option.length >= higgherValueString
                         ? option.length
@@ -102,7 +103,7 @@ function Select(_a) {
         setSelectionList(typeof value == "string" ? [value] : value);
     }, [value]);
     (0, react_1.useEffect)(function () {
-        if (defaultValue && defaultValue[optionLabel] && !value) {
+        if (defaultValue && optionLabel != undefined && defaultValue[optionLabel] && !value) {
             setOptionLabelState(defaultValue[optionLabel]);
         }
         else {
@@ -113,8 +114,7 @@ function Select(_a) {
         var valueToSet = "";
         if (multiSelect) {
             valueToSet = values === null || values === void 0 ? void 0 : values.map(function (v) {
-                var _a;
-                return selectedLabel ? v[selectedLabel] : (_a = v[optionLabel]) !== null && _a !== void 0 ? _a : "";
+                return selectedLabel ? v[selectedLabel] : optionLabel ? v[optionLabel] : "";
             }).join(", ");
         }
         else {
@@ -128,13 +128,13 @@ function Select(_a) {
                 ? valueToSet.slice(0, -2)
                 : valueToSet;
         if (valueToSet == "" && !placeholder) {
-            valueToSet = selectedLabel ? selectedLabel : optionLabel;
+            valueToSet = selectedLabel ? selectedLabel : (optionLabel !== null && optionLabel !== void 0 ? optionLabel : '');
         }
         else if (valueToSet == "" && placeholder) {
             valueToSet = placeholder;
         }
-        if (value && value[optionLabel]) {
-            valueToSet = selectedLabel ? value[selectedLabel] : value[optionLabel];
+        if (value && optionLabel != undefined && value[optionLabel]) {
+            valueToSet = selectedLabel ? value[selectedLabel] : optionLabel ? value[optionLabel] : '';
         }
         setOptionLabelState(valueToSet);
     };
@@ -170,27 +170,33 @@ function Select(_a) {
     }, [titleBoxRef, showOptions]);
     var handleGetInputCoordinates = function () {
         var titleBoxRect = titleBoxRef.current.getBoundingClientRect();
-        var x = titleBoxRect.x, y = titleBoxRect.y, height = titleBoxRect.height, width = titleBoxRect.width, top = titleBoxRect.top, bottom = titleBoxRect.bottom, left = titleBoxRect.left, right = titleBoxRect.right;
+        var scrollY = window.scrollY || window.pageYOffset;
+        var scrollX = window.scrollX || window.pageXOffset;
+        var adjustedY = titleBoxRect.y + scrollY;
+        var adjustedX = titleBoxRect.x + scrollX;
+        var height = titleBoxRect.height, width = titleBoxRect.width, top = titleBoxRect.top, bottom = titleBoxRect.bottom, left = titleBoxRect.left, right = titleBoxRect.right;
         var isClosestToTop = top < window.innerHeight - bottom;
-        var maxHeight = isClosestToTop ? (window.innerHeight - y) / 2 : y / 2;
+        var maxHeight = isClosestToTop
+            ? (window.innerHeight - adjustedY) / 2
+            : adjustedY / 2;
         var inputProps = {
-            x: x,
-            y: y,
+            x: adjustedX,
+            y: adjustedY,
             height: height,
             width: width,
-            top: top,
-            bottom: bottom,
+            top: top + scrollY,
+            bottom: bottom + scrollY,
             isClosestToTop: isClosestToTop,
-            topDistance: y + height + 15,
-            bottomDistance: window.innerHeight - y - 7.5 + height / 2,
+            topDistance: adjustedY + height + 15,
+            bottomDistance: window.innerHeight - adjustedY - 7.5 + height / 2,
             maxHeight: maxHeight,
-            left: left,
-            right: right,
+            left: left + scrollX,
+            right: right + scrollX,
         };
         appendOptionsBoxToBody(inputProps);
     };
     var SelectOptionsBox = function () {
-        var _a = (0, react_1.useState)(selectionList !== null && selectionList !== void 0 ? selectionList : []), optionsSelectionList = _a[0], setOptionsSelectionList = _a[1];
+        var _a = (0, react_1.useState)(selectionList ? selectionList : []), optionsSelectionList = _a[0], setOptionsSelectionList = _a[1];
         var _b = (0, react_1.useState)(optionsList !== null && optionsList !== void 0 ? optionsList : []), optionsFilterList = _b[0], setOptionsFilterList = _b[1];
         (0, react_1.useEffect)(function () {
             var allCheck = document.getElementById("reactivusSelectAllCheckbox");
@@ -259,9 +265,10 @@ function Select(_a) {
                     react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "-8 -8 48 48", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" },
                         react_1.default.createElement("path", { d: "M2,2 L30,30 M2,30 L30,2" }))))), optionsFilterList === null || optionsFilterList === void 0 ? void 0 :
             optionsFilterList.map(function (option, index) {
-                var _a;
                 return (react_1.default.createElement("span", { className: "r-select-item-box " +
-                        (JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)) && "r-item-selected"), onClick: function () {
+                        (JSON.stringify(optionsSelectionList).includes(JSON.stringify(option))
+                            ? "r-item-selected"
+                            : ""), onClick: function () {
                         if (multiSelect) {
                             setSelectionList(function (prev) {
                                 var isOptionInList = prev.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
@@ -287,14 +294,16 @@ function Select(_a) {
                             if (!value) {
                                 value = option;
                                 handleOptionLabelStateDefinition([option]);
+                                setOptionsSelectionList(option);
+                                typeof option == "string" && setSelectionList([option]);
                             }
                             setShowOptions(false);
                         }
                     }, key: index },
-                    multiSelect && (react_1.default.createElement("input", { className: "r-select-item-box-checkbox", type: "checkbox", checked: JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)), onChange: function () { } })),
+                    multiSelect && (react_1.default.createElement("input", { className: "r-select-item-box-checkbox", type: "checkbox", checked: JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)) })),
                     optionTemplate
                         ? optionTemplate(option)
-                        : (_a = option[optionLabel]) !== null && _a !== void 0 ? _a : option));
+                        : optionLabel ? option[optionLabel] : option));
             })));
     };
     function appendOptionsBoxToBody(inputProps) {
@@ -318,7 +327,7 @@ function Select(_a) {
             : "";
         div.style.bottom = inputProps.isClosestToTop
             ? ""
-            : inputProps.bottomDistance + "px";
+            : inputProps.bottomDistance - 8 + "px";
         div.style.left = inputProps.left + "px";
         div.style.width = largerOption * 9.5 + 15 + "px";
         (div.style.minWidth = width
@@ -339,7 +348,7 @@ function Select(_a) {
         react_1.default.createElement("div", { className: "r-select-title-box r-box-shadow", ref: titleBoxRef, onClick: function () {
                 setShowOptions(!showOptions);
             }, style: {
-                width: width ? width : label ? label.length * 9 + 15 + "px" : "50px",
+                width: width ? width : "auto",
                 minWidth: width
                     ? width
                     : label
