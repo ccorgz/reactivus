@@ -1,7 +1,5 @@
 import React, { ChangeEvent, useRef, useState } from "react";
-
 import "../../../styles/inputs/switch.css";
-
 type SwitchProps = {
   /**
    * Defines if the default value of the checked property of the input checkbox.

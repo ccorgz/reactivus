@@ -1,10 +1,12 @@
 import React from "react";
-
 import "../../styles/progress.css";
 
 type ProgressProps = {
+  /**String value to be displayed inside the component when it's rounded or right above it when it's not */
   label?: string;
-  labelPosition?: 'right' | 'left';
+  /**When it's rounded, controls the label position between right or left. Default will be left */
+  labelPosition?: "right" | "left";
+  /**String value that controls the styling mode */
   color:
     | "danger"
     | "success"
@@ -15,11 +17,17 @@ type ProgressProps = {
     | "warning"
     | "black"
     | string;
+  /**Value that defines if the progress style will be rounded or a bar */
   rounded?: boolean;
+  /**Controls if a shadow will be displayed in the component */
   shadow?: boolean;
+  /**Defines the width of the progress */
   width?: string;
+  /**Value that controls how much of the progress will be filled */
   percentage: number;
+  /**Controls the width of the stroke when it's rounded */
   stroke?: number;
+  /**Controls the height of the bar when it's not rounded */
   barHeight?: number;
 };
 
@@ -91,7 +99,10 @@ export default function Progress({
         <div
           className={`r-progress-bar-box-label`}
           style={{
-            justifyContent: labelPosition && labelPosition == 'right' ? "flex-end" : 'flex-start',
+            justifyContent:
+              labelPosition && labelPosition == "right"
+                ? "flex-end"
+                : "flex-start",
           }}
         >
           {label}
@@ -104,7 +115,7 @@ export default function Progress({
           }
           style={{
             minWidth: width ?? "50px",
-            height: barHeight ? `${barHeight}px` : "6px"
+            height: barHeight ? `${barHeight}px` : "6px",
           }}
           {...rest}
         >

@@ -1,8 +1,10 @@
+import React from "react";
 import "../../styles/button.css";
 
-// DEFINE TIPAGEM DE DADOS DO COMPONENTE
 type ButtonProps = {
+  /**Defines the text to be displayed inside the button */
   label?: string;
+  /**Defines the button style */
   style?:
     | "btn-primary"
     | "btn-secondary"
@@ -14,23 +16,32 @@ type ButtonProps = {
     | "btn-none"
     | "btn-warning"
     | "btn-black";
+  /**Defines the button width. Default will be auto. */
   width?: string;
+  /**Defines the button heigth. Default will be auto.  */
   heigth?: string;
+  /**Defines the button icon to be displayed inside.  */
   icon?: any;
+  /**Defines the button icon position. Default will be left.  */
   iconPosition?: "left" | "right";
+  /**Defines the button size. Default will be md.  */
   size?: "btn-sm" | "btn-md" | "btn-lg";
+  /**Controls if the button will be rounded.  */
   rounded?: true | false;
+  /**Controls if the button is disabled.  */
   disabled?: true | false;
+  /**Controls the button tooltip string to be displayed.  */
   tooltip?: string;
+  /**Defines the tooltip position.  */
   tooltipPosition?: "top" | "right" | "bottom" | "left";
+  /**Controls the button loading state.  */
   loading?: boolean;
+  /**Controls if the button is in text style mode. This mode consists of low opacity colors and text colored.  */
   text?: boolean;
+  /**Controls the button have a shadow on it or not.  */
   shadow?: boolean;
 };
 
-import React from "react";
-
-// EXPORTA COMPONENTE POR PADRÃO
 export default function Button({
   label,
   style,
@@ -48,7 +59,6 @@ export default function Button({
   shadow,
   ...rest
 }: ButtonProps & Record<string, unknown>) {
-  // DEFINE VALOR PARA STYLE OPTIONS
   let styleOption: any = rest.style ?? {};
   styleOption.width = width ?? "auto";
 
@@ -65,11 +75,7 @@ export default function Button({
       {...rest}
     >
       {tooltip && (
-        <span
-          className={`r-tooltip ${
-            "r-tooltip-" + tooltipPosition
-          }`}
-        >
+        <span className={`r-tooltip ${"r-tooltip-" + tooltipPosition}`}>
           {tooltip ?? ""}
         </span>
       )}

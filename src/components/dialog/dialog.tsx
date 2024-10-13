@@ -1,22 +1,14 @@
-"use client"
-
-// IMPORT REACTDOM FOR DOM OPERATIONS
+"use client";
 import ReactDOM from "react-dom/client";
-
-// IMPORT REACT IN FULL AND REACT USESTATE HOOK
 import React, { useState } from "react";
-
-// IMPORT BUTTON COMPONENT
 import Button from "../button/button";
-
-// IMPORT SVG FILES TO COMPOSE THE DIALOG ICON
 import SuccessSvg from "./icons/success/success";
 import DangerSvg from "./icons/danger/danger";
 import QuestionSvg from "./icons/question/question";
 import InfoSvg from "./icons/info/info";
 import WarningSvg from "./icons/warning/warning";
+import "../../styles/dialog.css";
 
-// GROUP THE ICONS SVG INTO AN OBJECT
 const iconsList: any = {
   success: <SuccessSvg />,
   danger: <DangerSvg />,
@@ -25,13 +17,8 @@ const iconsList: any = {
   warning: <WarningSvg />,
 };
 
-// IMPORT STYLESHEET FILE FOR THE DIALOG COMPONENT
-import "../../styles/dialog.css";
-
-// DEFINE THE ICONS TYPES
 type icons = "success" | "danger" | "info" | "question" | "warning";
 
-// DEFINE THE STYLES TYPES
 type styles =
   | "btn-primary"
   | "btn-secondary"
@@ -42,7 +29,6 @@ type styles =
   | "btn-light"
   | "btn-none";
 
-// DEFINE THE POSITIONS TYPES
 type positions =
   | "top-center"
   | "top-left"
@@ -54,7 +40,6 @@ type positions =
   | "bottom-left"
   | "bottom-right";
 
-// DEFINE THE WHOLE DIALOG TYPES
 type AlertProps = {
   /**
    * Title to be displayed as a header in the dialog.
@@ -288,18 +273,14 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
         {alertProps?.title && (
           <div className={"r-alertBoxTitle"}>{alertProps?.title}</div>
         )}
-        <div className={"r-alertBoxTitleContent"}>
-          {alertProps?.text}
-        </div>
+        <div className={"r-alertBoxTitleContent"}>{alertProps?.text}</div>
         {alertProps?.customHeader && (
           <div className={"r-alertBoxTitleContent"}>
             {alertProps?.customHeader}
           </div>
         )}
         {alertProps?.htmlx && (
-          <div className={"r-htmlx-content"}>
-            {alertProps?.htmlx}
-          </div>
+          <div className={"r-htmlx-content"}>{alertProps?.htmlx}</div>
         )}
         {alertProps?.html && (
           <div
@@ -307,26 +288,28 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
             dangerouslySetInnerHTML={{ __html: alertProps?.html }}
           ></div>
         )}
-        {!alertProps?.isCustomDialog && <div className={"r-alertButtonsBox"}>
-          {alertProps?.showConfirmButton && (
-            <Button
-              label={alertProps?.confirmButtonText ?? "Ok"}
-              style={alertProps?.confirmButtonStyle ?? "btn-success"}
-              onClick={() => {
-                handleConfirm();
-              }}
-            />
-          )}
-          {alertProps?.showCancelButton && (
-            <Button
-              label={alertProps?.cancelButtonText ?? "Cancel"}
-              style={alertProps?.cancelButtonStyle ?? "btn-danger"}
-              onClick={() => {
-                handleCancel();
-              }}
-            />
-          )}
-        </div>}
+        {!alertProps?.isCustomDialog && (
+          <div className={"r-alertButtonsBox"}>
+            {alertProps?.showConfirmButton && (
+              <Button
+                label={alertProps?.confirmButtonText ?? "Ok"}
+                style={alertProps?.confirmButtonStyle ?? "btn-success"}
+                onClick={() => {
+                  handleConfirm();
+                }}
+              />
+            )}
+            {alertProps?.showCancelButton && (
+              <Button
+                label={alertProps?.cancelButtonText ?? "Cancel"}
+                style={alertProps?.cancelButtonStyle ?? "btn-danger"}
+                onClick={() => {
+                  handleCancel();
+                }}
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

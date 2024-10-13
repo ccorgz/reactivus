@@ -1,13 +1,8 @@
 "use client";
-
-// IMPORT REACT HOOKS
 import React, { useEffect, useRef, useState } from "react";
-
-// IMPORT STYLESHEET FILE FOR THE SELECT COMPONENT
 import "../../../styles/inputs/select.css";
 import ReactDOM from "react-dom/client";
 
-// DEFINE THE SELECT PROPERTIES TYPES
 type SelectInputProps = {
   /**
    * Text to be displayed as a label above the component.
