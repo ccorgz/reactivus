@@ -52,10 +52,11 @@
 .r-btn-success.r-text-button {
   color: #3f7d54 !important;
   fill: #3f7d54 !important;
+  background-color: #3f7d5410 !important;
   font-weight: 500;
 }
 .r-btn-success.r-text-button:hover {
-  background-color: #3f7d5420 !important;
+  background-color: #3f7d5430 !important;
 }
 
 .r-btn-danger {
@@ -69,10 +70,11 @@
 .r-btn-danger.r-text-button {
   color: #cb2a29 !important;
   fill: #cb2a29 !important;
+  background-color: #cb2a2910 !important;
   font-weight: 500;
 }
 .r-btn-danger.r-text-button:hover {
-  background-color: #cb2a2920 !important;
+  background-color: #cb2a2930 !important;
 }
 
 .r-btn-info {
@@ -86,10 +88,11 @@
 .r-btn-info.r-text-button {
   color: #2e86c1 !important;
   fill: #2e86c1 !important;
+  background-color: #2e86c110 !important;
   font-weight: 500;
 }
 .r-btn-info.r-text-button:hover {
-  background-color: #2e86c120 !important;
+  background-color: #2e86c130 !important;
 }
 
 .r-btn-dark {
@@ -120,10 +123,11 @@
 .r-btn-warning.r-text-button {
   color: #ffa500 !important;
   fill: #ffa500 !important;
+  background-color: #ffa50010 !important;
   font-weight: 500;
 }
 .r-btn-warning.r-text-button:hover {
-  background-color: #ffa50020 !important;
+  background-color: #ffa50030 !important;
 }
 
 .r-btn-black {
@@ -137,10 +141,11 @@
 .r-btn-black.r-text-button {
   color: #000000 !important;
   fill: #000000 !important;
+  background-color: #19191910 !important;
   font-weight: 500;
 }
 .r-btn-black.r-text-button:hover {
-  background-color: #19191920 !important;
+  background-color: #19191930 !important;
 }
 
 .r-btn-sm {

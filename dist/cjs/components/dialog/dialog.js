@@ -63,19 +63,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// IMPORT REACTDOM FOR DOM OPERATIONS
 var client_1 = __importDefault(require("react-dom/client"));
-// IMPORT REACT IN FULL AND REACT USESTATE HOOK
 var react_1 = __importStar(require("react"));
-// IMPORT BUTTON COMPONENT
 var button_1 = __importDefault(require("../button/button"));
-// IMPORT SVG FILES TO COMPOSE THE DIALOG ICON
 var success_1 = __importDefault(require("./icons/success/success"));
 var danger_1 = __importDefault(require("./icons/danger/danger"));
 var question_1 = __importDefault(require("./icons/question/question"));
 var info_1 = __importDefault(require("./icons/info/info"));
 var warning_1 = __importDefault(require("./icons/warning/warning"));
-// GROUP THE ICONS SVG INTO AN OBJECT
+require("../../styles/dialog.css");
 var iconsList = {
     success: react_1.default.createElement(success_1.default, null),
     danger: react_1.default.createElement(danger_1.default, null),
@@ -83,8 +79,6 @@ var iconsList = {
     info: react_1.default.createElement(info_1.default, null),
     warning: react_1.default.createElement(warning_1.default, null),
 };
-// IMPORT STYLESHEET FILE FOR THE DIALOG COMPONENT
-require("../../styles/dialog.css");
 // FUNCTION TO APPEND THE NEW ALERT DOM COMPONENT INTO THE HTML FILE
 var appendAlert = function (props) {
     var container = document.createElement("div");
@@ -165,13 +159,13 @@ var AlertBox = function (_a) {
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader) && (react_1.default.createElement("div", { className: "r-alertBoxTitleContent" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.customHeader)),
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx) && (react_1.default.createElement("div", { className: "r-htmlx-content" }, alertProps === null || alertProps === void 0 ? void 0 : alertProps.htmlx)),
             (alertProps === null || alertProps === void 0 ? void 0 : alertProps.html) && (react_1.default.createElement("div", { className: "r-alertBoxTitleContent", dangerouslySetInnerHTML: { __html: alertProps === null || alertProps === void 0 ? void 0 : alertProps.html } })),
-            !(alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) && react_1.default.createElement("div", { className: "r-alertButtonsBox" },
-                (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showConfirmButton) && (react_1.default.createElement(button_1.default, { label: (_d = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonText) !== null && _d !== void 0 ? _d : "Ok", style: (_e = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonStyle) !== null && _e !== void 0 ? _e : "btn-success", onClick: function () {
+            !(alertProps === null || alertProps === void 0 ? void 0 : alertProps.isCustomDialog) && (react_1.default.createElement("div", { className: "r-alertButtonsBox" },
+                (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showConfirmButton) && (react_1.default.createElement(button_1.default, { label: (_d = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonText) !== null && _d !== void 0 ? _d : "Ok", color: (_e = alertProps === null || alertProps === void 0 ? void 0 : alertProps.confirmButtonStyle) !== null && _e !== void 0 ? _e : "success", onClick: function () {
                         handleConfirm();
                     } })),
-                (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCancelButton) && (react_1.default.createElement(button_1.default, { label: (_f = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonText) !== null && _f !== void 0 ? _f : "Cancel", style: (_g = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonStyle) !== null && _g !== void 0 ? _g : "btn-danger", onClick: function () {
+                (alertProps === null || alertProps === void 0 ? void 0 : alertProps.showCancelButton) && (react_1.default.createElement(button_1.default, { label: (_f = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonText) !== null && _f !== void 0 ? _f : "Cancel", color: (_g = alertProps === null || alertProps === void 0 ? void 0 : alertProps.cancelButtonStyle) !== null && _g !== void 0 ? _g : "danger", onClick: function () {
                         handleCancel();
-                    } }))))));
+                    } })))))));
 };
 // METHOD TO FIRE THE DIALOG BOX
 var show = function (props) { return __awaiter(void 0, void 0, void 0, function () {

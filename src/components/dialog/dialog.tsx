@@ -20,14 +20,14 @@ const iconsList: any = {
 type icons = "success" | "danger" | "info" | "question" | "warning";
 
 type styles =
-  | "btn-primary"
-  | "btn-secondary"
-  | "btn-danger"
-  | "btn-success"
-  | "btn-info"
-  | "btn-dark"
-  | "btn-light"
-  | "btn-none";
+  | "primary"
+  | "secondary"
+  | "danger"
+  | "success"
+  | "info"
+  | "dark"
+  | "light"
+  | "none";
 
 type positions =
   | "top-center"
@@ -293,7 +293,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
             {alertProps?.showConfirmButton && (
               <Button
                 label={alertProps?.confirmButtonText ?? "Ok"}
-                style={alertProps?.confirmButtonStyle ?? "btn-success"}
+                color={alertProps?.confirmButtonStyle ?? "success"}
                 onClick={() => {
                   handleConfirm();
                 }}
@@ -302,7 +302,7 @@ const AlertBox = ({ onClose, alertProps }: AlertBoxProps): any => {
             {alertProps?.showCancelButton && (
               <Button
                 label={alertProps?.cancelButtonText ?? "Cancel"}
-                style={alertProps?.cancelButtonStyle ?? "btn-danger"}
+                color={alertProps?.cancelButtonStyle ?? "danger"}
                 onClick={() => {
                   handleCancel();
                 }}

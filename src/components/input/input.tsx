@@ -1,8 +1,8 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useRef, useState } from "react";
 import "../../styles/input.css";
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
    * Defines the type of the input. (For a select input type, use the <Select /> component.)
    */
@@ -59,7 +59,7 @@ interface InputProps {
   /**
    * Defines a custom size for the component. (md is set by default)
    */
-  size?: "sm" | "md";
+  inputSize?: "sm" | "md";
   /**
    * Defines a custom className object to be set as the input box styles.
    */
@@ -71,7 +71,11 @@ interface InputProps {
   /**
    * Defines a custom color for the description.
    */
-  descriptionColor?: 'success' | 'danger' | 'info' | 'warning' | 'default';
+  descriptionColor?: "success" | "danger" | "info" | "warning" | "default";
+  /**
+   * Defines a custom color to serve as a status for the input value.
+   */
+  status?: "success" | "danger" | "info" | "warning" | "default";
 }
 
 // EXPORTA COMPONENTE POR PADRÃO
@@ -85,30 +89,66 @@ const Input = ({
   width,
   placeholder,
   password,
-  size,
+  inputSize,
   className,
   description,
   descriptionColor,
   inputRef,
+  status,
   ...rest
 }: InputProps & Record<string, unknown>) => {
   const [seePwd, setSeePwd] = useState(false);
 
+  const inputBoxRef = useRef<any>(null);
+
+  const handleDivClickActions = () => {
+    if (inputBoxRef && inputBoxRef.current && !status) {
+      inputBoxRef.current.classList.remove("r-input-focus");
+      inputBoxRef.current.classList.add("r-input-focus");
+    }
+  };
+
+  const handleDivBlurActions = () => {
+    if (inputBoxRef && inputBoxRef.current) {
+      inputBoxRef.current.classList.remove("r-input-focus");
+    }
+  };
+
   return (
     <div className="r-input-main-box" style={{ width: width }}>
-      {label && <label className="r-input-main-box-label">{label}</label>}
+      {label && (
+        <label
+          className={`r-input-main-box-label r-status-${status ?? "default"}`}
+        >
+          {label}
+        </label>
+      )}
       <div
         {...rest}
         className={
           "r-input-box r-box-shadow " +
-          ("r-input-" +( size ?? "md")) +
+          ("r-input-" + (inputSize ?? "md")) +
+          (" r-input-status-" + (status ?? "default")) +
           " " +
           (className ? className : "")
         }
+        ref={inputBoxRef}
+        onClick={() => {
+          handleDivClickActions();
+        }}
+        onBlur={() => {
+          handleDivBlurActions();
+        }}
       >
         {icon &&
           (!iconPosition || (iconPosition && iconPosition == "left")) && (
-            <span onClick={() => iconAction && iconAction()}>{icon}</span>
+            <span
+              onClick={() =>
+                iconAction ? iconAction() : handleDivBlurActions()
+              }
+            >
+              {icon}
+            </span>
           )}
         <input
           type={type == "password" && seePwd ? "text" : type}
@@ -117,21 +157,40 @@ const Input = ({
           ref={inputRef ?? null}
           onChange={(e: any) => e.preventDefault()}
           onKeyDown={onKeyDown}
+          onClick={() => {
+            handleDivClickActions();
+          }}
+          onBlur={() => {
+            handleDivBlurActions();
+          }}
         />
         {password?.seePwd && (
           <span
-            onClick={(e) => setSeePwd(!seePwd)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setSeePwd(!seePwd);
+            }}
             style={{ cursor: "pointer" }}
           >
             {seePwd ? password?.onIcon : password?.offIcon}{" "}
           </span>
         )}
         {icon && iconPosition && iconPosition == "right" && (
-          <span onClick={() => iconAction && iconAction()}>{icon}</span>
+          <span
+            onClick={() => (iconAction ? iconAction() : handleDivBlurActions())}
+          >
+            {icon}
+          </span>
         )}
       </div>
       {description && description.length > 0 && (
-        <span className={`r-input-box-description r-input-box-description-${descriptionColor ?? 'default'}`}>{description}</span>
+        <span
+          className={`r-input-box-description r-input-box-description-${
+            descriptionColor ?? "default"
+          }`}
+        >
+          {description}
+        </span>
       )}
     </div>
   );

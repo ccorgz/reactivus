@@ -58,9 +58,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// IMPORT REACT HOOKS
 var react_1 = __importStar(require("react"));
-// IMPORT STYLESHEET FILE FOR THE SELECT COMPONENT
 require("../../../styles/inputs/select.css");
 var client_1 = __importDefault(require("react-dom/client"));
 // EXPORTS COMPONENT BY DEFAULT

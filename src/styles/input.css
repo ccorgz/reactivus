@@ -9,7 +9,9 @@
   color: #00000080;
   width: 100%;
 }
-
+.r-input-box:focus {
+  border: 1px solid red !important;
+}
 .r-input-box input {
   padding: 5px;
   font-size: 1.15rem;
@@ -58,20 +60,42 @@
   flex-direction: column;
 }
 
-.r-input-box-description, .r-input-box-description-default {
+.r-input-box-description,
+.r-input-box-description-default {
   width: 100%;
   text-align: left;
   font-size: 0.8rem;
   padding: 2px 5px;
   color: #00000080;
-}.r-input-box-description-success {
+}
+.r-input-box-description-success {
   color: #3f7d54;
-}.r-input-box-description-danger {
+}
+.r-input-box-description-danger {
   color: #cb2a29;
-}.r-input-box-description-info {
+}
+.r-input-box-description-info {
   color: #2e86c1;
-}.r-input-box-description-warning {
+}
+.r-input-box-description-warning {
   color: #ffa500;
+}
+
+.r-input-status-success {
+  color: #3f7d54;
+  box-shadow: #3f7d54 0px 0px 0px 1px !important;
+}
+.r-input-status-danger {
+  color: #cb2a29;
+  box-shadow: #cb2a29 0px 0px 0px 1px !important;
+}
+.r-input-status-info {
+  color: #2e86c1;
+  box-shadow: #2e86c1 0px 0px 0px 1px !important;
+}
+.r-input-status-warning {
+  color: #ffa500;
+  box-shadow: #ffa500 0px 0px 0px 1px !important;
 }
 
 .r-input-sm {

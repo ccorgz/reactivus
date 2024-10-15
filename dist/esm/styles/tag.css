@@ -33,10 +33,10 @@
 }
 .r-tag-text-success {
   color: #3f7d54;
-  background-color: #3f7d5420;
+  background-color: #3f7d5410;
 }
 .r-tag-text-success:hover {
-  background-color: #3f7d5440;
+  background-color: #3f7d5430;
 }
 .r-tag-text-success-border {
   border: 1.5px solid #3f7d5440;
@@ -50,7 +50,7 @@
 }
 .r-tag-text-danger {
   color: #cb2a29;
-  background-color: #cb2a2920;
+  background-color: #cb2a2910;
 }
 .r-tag-text-danger:hover {
   background-color: #cb2a2930;
@@ -67,10 +67,10 @@
 }
 .r-tag-text-info {
   color: #2e86c1;
-  background-color: #2e86c120;
+  background-color: #2e86c110;
 }
 .r-tag-text-info:hover {
-  background-color: #2e86c140;
+  background-color: #2e86c130;
 }
 .r-tag-text-info-border {
   border: 1.5px solid #2e86c140;
@@ -119,10 +119,10 @@
 }
 .r-tag-text-black {
   color: #000000;
-  background-color: #19191920;
+  background-color: #19191910;
 }
 .r-tag-text-black:hover {
-  background-color: #19191940;
+  background-color: #19191930;
 }
 .r-tag-text-black-border {
   border: 1.5px solid #19191950;

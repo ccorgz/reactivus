@@ -50,22 +50,48 @@ var react_1 = __importStar(require("react"));
 require("../../styles/input.css");
 // EXPORTA COMPONENTE POR PADRÃO
 var Input = function (_a) {
-    var onKeyDown = _a.onKeyDown, type = _a.type, icon = _a.icon, iconPosition = _a.iconPosition, iconAction = _a.iconAction, label = _a.label, width = _a.width, placeholder = _a.placeholder, password = _a.password, size = _a.size, className = _a.className, description = _a.description, descriptionColor = _a.descriptionColor, inputRef = _a.inputRef, rest = __rest(_a, ["onKeyDown", "type", "icon", "iconPosition", "iconAction", "label", "width", "placeholder", "password", "size", "className", "description", "descriptionColor", "inputRef"]);
+    var onKeyDown = _a.onKeyDown, type = _a.type, icon = _a.icon, iconPosition = _a.iconPosition, iconAction = _a.iconAction, label = _a.label, width = _a.width, placeholder = _a.placeholder, password = _a.password, inputSize = _a.inputSize, className = _a.className, description = _a.description, descriptionColor = _a.descriptionColor, inputRef = _a.inputRef, status = _a.status, rest = __rest(_a, ["onKeyDown", "type", "icon", "iconPosition", "iconAction", "label", "width", "placeholder", "password", "inputSize", "className", "description", "descriptionColor", "inputRef", "status"]);
     var _b = (0, react_1.useState)(false), seePwd = _b[0], setSeePwd = _b[1];
+    var inputBoxRef = (0, react_1.useRef)(null);
+    var handleDivClickActions = function () {
+        if (inputBoxRef && inputBoxRef.current && !status) {
+            inputBoxRef.current.classList.remove("r-input-focus");
+            inputBoxRef.current.classList.add("r-input-focus");
+        }
+    };
+    var handleDivBlurActions = function () {
+        if (inputBoxRef && inputBoxRef.current) {
+            inputBoxRef.current.classList.remove("r-input-focus");
+        }
+    };
     return (react_1.default.createElement("div", { className: "r-input-main-box", style: { width: width } },
-        label && react_1.default.createElement("label", { className: "r-input-main-box-label" }, label),
+        label && (react_1.default.createElement("label", { className: "r-input-main-box-label r-status-".concat(status !== null && status !== void 0 ? status : "default") }, label)),
         react_1.default.createElement("div", __assign({}, rest, { className: "r-input-box r-box-shadow " +
-                ("r-input-" + (size !== null && size !== void 0 ? size : "md")) +
+                ("r-input-" + (inputSize !== null && inputSize !== void 0 ? inputSize : "md")) +
+                (" r-input-status-" + (status !== null && status !== void 0 ? status : "default")) +
                 " " +
-                (className ? className : "") }),
+                (className ? className : ""), ref: inputBoxRef, onClick: function () {
+                handleDivClickActions();
+            }, onBlur: function () {
+                handleDivBlurActions();
+            } }),
             icon &&
-                (!iconPosition || (iconPosition && iconPosition == "left")) && (react_1.default.createElement("span", { onClick: function () { return iconAction && iconAction(); } }, icon)),
-            react_1.default.createElement("input", __assign({ type: type == "password" && seePwd ? "text" : type, placeholder: placeholder !== null && placeholder !== void 0 ? placeholder : "" }, rest, { ref: inputRef !== null && inputRef !== void 0 ? inputRef : null, onChange: function (e) { return e.preventDefault(); }, onKeyDown: onKeyDown })),
-            (password === null || password === void 0 ? void 0 : password.seePwd) && (react_1.default.createElement("span", { onClick: function (e) { return setSeePwd(!seePwd); }, style: { cursor: "pointer" } },
+                (!iconPosition || (iconPosition && iconPosition == "left")) && (react_1.default.createElement("span", { onClick: function () {
+                    return iconAction ? iconAction() : handleDivBlurActions();
+                } }, icon)),
+            react_1.default.createElement("input", __assign({ type: type == "password" && seePwd ? "text" : type, placeholder: placeholder !== null && placeholder !== void 0 ? placeholder : "" }, rest, { ref: inputRef !== null && inputRef !== void 0 ? inputRef : null, onChange: function (e) { return e.preventDefault(); }, onKeyDown: onKeyDown, onClick: function () {
+                    handleDivClickActions();
+                }, onBlur: function () {
+                    handleDivBlurActions();
+                } })),
+            (password === null || password === void 0 ? void 0 : password.seePwd) && (react_1.default.createElement("span", { onClick: function (e) {
+                    e.stopPropagation();
+                    setSeePwd(!seePwd);
+                }, style: { cursor: "pointer" } },
                 seePwd ? password === null || password === void 0 ? void 0 : password.onIcon : password === null || password === void 0 ? void 0 : password.offIcon,
                 " ")),
-            icon && iconPosition && iconPosition == "right" && (react_1.default.createElement("span", { onClick: function () { return iconAction && iconAction(); } }, icon))),
-        description && description.length > 0 && (react_1.default.createElement("span", { className: "r-input-box-description r-input-box-description-".concat(descriptionColor !== null && descriptionColor !== void 0 ? descriptionColor : 'default') }, description))));
+            icon && iconPosition && iconPosition == "right" && (react_1.default.createElement("span", { onClick: function () { return (iconAction ? iconAction() : handleDivBlurActions()); } }, icon))),
+        description && description.length > 0 && (react_1.default.createElement("span", { className: "r-input-box-description r-input-box-description-".concat(descriptionColor !== null && descriptionColor !== void 0 ? descriptionColor : "default") }, description))));
 };
 exports.default = Input;
 //# sourceMappingURL=input.js.map
