@@ -102,15 +102,21 @@ const Input = ({
   const inputBoxRef = useRef<any>(null);
 
   const handleDivClickActions = () => {
-    if (inputBoxRef && inputBoxRef.current && (!status || status == 'default') ) {
-      inputBoxRef.current.classList.remove("r-input-focus");
-      inputBoxRef.current.classList.add("r-input-focus");
+    if (
+      inputBoxRef &&
+      inputBoxRef.current &&
+      (!status || status == "default")
+    ) {
+      inputBoxRef.current.classList.remove("r-input-focused");
+      // inputBoxRef.current.classList.remove("r-box-shadow");
+      inputBoxRef.current.classList.add("r-input-focused");
     }
   };
 
   const handleDivBlurActions = () => {
     if (inputBoxRef && inputBoxRef.current) {
-      inputBoxRef.current.classList.remove("r-input-focus");
+      inputBoxRef.current.classList.remove("r-input-focused");
+      // inputBoxRef.current.classList.add("r-box-shadow");
     }
   };
 
