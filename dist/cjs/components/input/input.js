@@ -54,7 +54,7 @@ var Input = function (_a) {
     var _b = (0, react_1.useState)(false), seePwd = _b[0], setSeePwd = _b[1];
     var inputBoxRef = (0, react_1.useRef)(null);
     var handleDivClickActions = function () {
-        if (inputBoxRef && inputBoxRef.current && !status) {
+        if (inputBoxRef && inputBoxRef.current && (!status || status == 'default')) {
             inputBoxRef.current.classList.remove("r-input-focus");
             inputBoxRef.current.classList.add("r-input-focus");
         }

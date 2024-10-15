@@ -102,7 +102,7 @@ const Input = ({
   const inputBoxRef = useRef<any>(null);
 
   const handleDivClickActions = () => {
-    if (inputBoxRef && inputBoxRef.current && !status) {
+    if (inputBoxRef && inputBoxRef.current && (!status || status == 'default') ) {
       inputBoxRef.current.classList.remove("r-input-focus");
       inputBoxRef.current.classList.add("r-input-focus");
     }
