@@ -63,13 +63,13 @@ require("../../../styles/inputs/select.css");
 var client_1 = __importDefault(require("react-dom/client"));
 // EXPORTS COMPONENT BY DEFAULT
 function Select(_a) {
-    var label = _a.label, width = _a.width, value = _a.value, defaultValue = _a.defaultValue, options = _a.options, optionLabel = _a.optionLabel, selectedLabel = _a.selectedLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, multiSelect = _a.multiSelect, onChange = _a.onChange, selectAll = _a.selectAll, className = _a.className, rest = __rest(_a, ["label", "width", "value", "defaultValue", "options", "optionLabel", "selectedLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll", "className"]);
-    var _b = (0, react_1.useState)(false), showOptions = _b[0], setShowOptions = _b[1];
-    var _c = (0, react_1.useState)(options !== null && options !== void 0 ? options : []), optionsList = _c[0], setOptionsList = _c[1];
-    var _d = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _d[0], setOptionLabelState = _d[1];
-    var _e = (0, react_1.useState)([]), selectionList = _e[0], setSelectionList = _e[1];
+    var label = _a.label, width = _a.width, value = _a.value, defaultValue = _a.defaultValue, options = _a.options, optionLabel = _a.optionLabel, selectedLabel = _a.selectedLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, _b = _a.multiSelect, multiSelect = _b === void 0 ? false : _b, onChange = _a.onChange, selectAll = _a.selectAll, className = _a.className, rest = __rest(_a, ["label", "width", "value", "defaultValue", "options", "optionLabel", "selectedLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll", "className"]);
+    var _c = (0, react_1.useState)(false), showOptions = _c[0], setShowOptions = _c[1];
+    var _d = (0, react_1.useState)(options !== null && options !== void 0 ? options : []), optionsList = _d[0], setOptionsList = _d[1];
+    var _e = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _e[0], setOptionLabelState = _e[1];
+    var _f = (0, react_1.useState)([]), selectionList = _f[0], setSelectionList = _f[1];
     var titleBoxRef = (0, react_1.useRef)(null);
-    optionLabel = !optionLabel ? "" : (optionLabel !== null && optionLabel !== void 0 ? optionLabel : '');
+    optionLabel = !optionLabel ? "" : optionLabel !== null && optionLabel !== void 0 ? optionLabel : "";
     (0, react_1.useEffect)(function () {
         var handleResize = function () {
             setShowOptions(false);
@@ -89,7 +89,7 @@ function Select(_a) {
         if (optionsList.length > 0 && typeof options[0] != "string") {
             var higgherValueString = 0;
             for (var i = 0; i < options.length; i++) {
-                var option = options[i][optionLabel !== null && optionLabel !== void 0 ? optionLabel : ''];
+                var option = options[i][optionLabel !== null && optionLabel !== void 0 ? optionLabel : ""];
                 higgherValueString =
                     option.length >= higgherValueString
                         ? option.length
@@ -101,7 +101,10 @@ function Select(_a) {
         setSelectionList(typeof value == "string" ? [value] : value);
     }, [value]);
     (0, react_1.useEffect)(function () {
-        if (defaultValue && optionLabel != undefined && defaultValue[optionLabel] && !value) {
+        if (defaultValue &&
+            optionLabel != undefined &&
+            defaultValue[optionLabel] &&
+            !value) {
             setOptionLabelState(defaultValue[optionLabel]);
         }
         else {
@@ -112,7 +115,11 @@ function Select(_a) {
         var valueToSet = "";
         if (multiSelect) {
             valueToSet = values === null || values === void 0 ? void 0 : values.map(function (v) {
-                return selectedLabel ? v[selectedLabel] : optionLabel ? v[optionLabel] : "";
+                return selectedLabel
+                    ? v[selectedLabel]
+                    : optionLabel
+                        ? v[optionLabel]
+                        : "";
             }).join(", ");
         }
         else {
@@ -126,13 +133,17 @@ function Select(_a) {
                 ? valueToSet.slice(0, -2)
                 : valueToSet;
         if (valueToSet == "" && !placeholder) {
-            valueToSet = selectedLabel ? selectedLabel : (optionLabel !== null && optionLabel !== void 0 ? optionLabel : '');
+            valueToSet = selectedLabel ? selectedLabel : optionLabel !== null && optionLabel !== void 0 ? optionLabel : "";
         }
         else if (valueToSet == "" && placeholder) {
             valueToSet = placeholder;
         }
         if (value && optionLabel != undefined && value[optionLabel]) {
-            valueToSet = selectedLabel ? value[selectedLabel] : optionLabel ? value[optionLabel] : '';
+            valueToSet = selectedLabel
+                ? value[selectedLabel]
+                : optionLabel
+                    ? value[optionLabel]
+                    : "";
         }
         setOptionLabelState(valueToSet);
     };
@@ -301,7 +312,9 @@ function Select(_a) {
                     multiSelect && (react_1.default.createElement("input", { className: "r-select-item-box-checkbox", type: "checkbox", checked: JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)) })),
                     optionTemplate
                         ? optionTemplate(option)
-                        : optionLabel ? option[optionLabel] : option));
+                        : optionLabel
+                            ? option[optionLabel]
+                            : option));
             })));
     };
     function appendOptionsBoxToBody(inputProps) {

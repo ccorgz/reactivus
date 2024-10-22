@@ -75,6 +75,9 @@ type SelectInputProps = {
     multiSelect?: false;
     value?: any;
     selectAll?: never;
+} | {
+    multiSelect?: boolean;
+    value: any;
 }) & ({
     options: string[];
     optionLabel?: never;

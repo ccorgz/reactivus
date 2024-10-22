@@ -75,6 +75,7 @@ type SelectInputProps = {
       value: any;
     }
   | { multiSelect?: false; value?: any; selectAll?: never }
+  | { multiSelect?: boolean; value: any }
 ) &
   (
     | { options: string[]; optionLabel?: never }
@@ -95,7 +96,7 @@ export default function Select({
   filterPlaceHolder,
   filterBy,
   placeholder,
-  multiSelect,
+  multiSelect = false,
   onChange,
   selectAll,
   className,
@@ -113,7 +114,7 @@ export default function Select({
 
   const titleBoxRef = useRef<any>(null);
 
-  optionLabel = !optionLabel ? "" : (optionLabel ?? '');
+  optionLabel = !optionLabel ? "" : optionLabel ?? "";
 
   useEffect(() => {
     const handleResize = () => {
@@ -138,7 +139,7 @@ export default function Select({
     if (optionsList.length > 0 && typeof options[0] != "string") {
       let higgherValueString = 0;
       for (let i = 0; i < options.length; i++) {
-        const option = options[i][optionLabel ?? ''];
+        const option = options[i][optionLabel ?? ""];
         higgherValueString =
           option.length >= higgherValueString
             ? option.length
@@ -152,7 +153,12 @@ export default function Select({
   }, [value]);
 
   useEffect(() => {
-    if (defaultValue && optionLabel != undefined && defaultValue[optionLabel] && !value) {
+    if (
+      defaultValue &&
+      optionLabel != undefined &&
+      defaultValue[optionLabel] &&
+      !value
+    ) {
       setOptionLabelState(defaultValue[optionLabel]);
     } else {
       handleOptionLabelStateDefinition(selectionList);
@@ -164,7 +170,11 @@ export default function Select({
     if (multiSelect) {
       valueToSet = values
         ?.map((v: any) => {
-          return selectedLabel ? v[selectedLabel] : optionLabel ? v[optionLabel] : "";
+          return selectedLabel
+            ? v[selectedLabel]
+            : optionLabel
+            ? v[optionLabel]
+            : "";
         })
         .join(", ");
     } else {
@@ -178,12 +188,16 @@ export default function Select({
         ? valueToSet.slice(0, -2)
         : valueToSet;
     if (valueToSet == "" && !placeholder) {
-      valueToSet = selectedLabel ? selectedLabel : (optionLabel ?? '');
+      valueToSet = selectedLabel ? selectedLabel : optionLabel ?? "";
     } else if (valueToSet == "" && placeholder) {
       valueToSet = placeholder;
     }
     if (value && optionLabel != undefined && value[optionLabel]) {
-      valueToSet = selectedLabel ? value[selectedLabel] : optionLabel ? value[optionLabel] : '';
+      valueToSet = selectedLabel
+        ? value[selectedLabel]
+        : optionLabel
+        ? value[optionLabel]
+        : "";
     }
     setOptionLabelState(valueToSet);
   };
@@ -442,7 +456,9 @@ export default function Select({
               )}
               {optionTemplate
                 ? optionTemplate(option)
-                : optionLabel ? option[optionLabel] : option}
+                : optionLabel
+                ? option[optionLabel]
+                : option}
             </span>
           );
         })}
