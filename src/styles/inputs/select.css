@@ -115,7 +115,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
   transition: height 0.2s ease, max-height 0.2s ease;
   z-index: 9999999999 !important;
   max-height: 50vh;
@@ -123,6 +122,15 @@
   scrollbar-width: thin;
   scrollbar-color: #8f8f8f #60606040;
 }
+
+.r-select-options-box-scroll {
+  overflow-x: hidden;
+}
+
+.r-select-options-box-not-scroll {
+  overflow-x: unset;
+}
+
 .r-select-options-box::-webkit-scrollbar {
   width: 12px;
 }

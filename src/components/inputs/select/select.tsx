@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../../styles/inputs/select.css";
 import ReactDOM from "react-dom/client";
+import debounce from "../../../utils/debounce";
+import VirtualizedList from "../../../utils/virtualizedList";
 
 type SelectInputProps = {
   /**
@@ -54,6 +56,10 @@ type SelectInputProps = {
    */
   multiSelect?: boolean;
   /**
+   * Insert a list with virtualization and pre-rendering. Works best when you expect to display many items.
+   */
+  virtualizedList?: boolean;
+  /**
    * Function that returns the value of the component.
    */
   onChange?: (selectedOption: { value: any }) => void;
@@ -99,6 +105,7 @@ export default function Select({
   onChange,
   selectAll,
   className,
+  virtualizedList,
   ...rest
 }: SelectInputProps & Record<string, unknown>) {
   const [showOptions, setShowOptions] = useState(false);
@@ -113,7 +120,7 @@ export default function Select({
 
   const titleBoxRef = useRef<any>(null);
 
-  optionLabel = !optionLabel ? "" : (optionLabel ?? '');
+  optionLabel = !optionLabel ? "" : optionLabel ?? "";
 
   useEffect(() => {
     const handleResize = () => {
@@ -138,7 +145,7 @@ export default function Select({
     if (optionsList.length > 0 && typeof options[0] != "string") {
       let higgherValueString = 0;
       for (let i = 0; i < options.length; i++) {
-        const option = options[i][optionLabel ?? ''];
+        const option = options[i][optionLabel ?? ""];
         higgherValueString =
           option.length >= higgherValueString
             ? option.length
@@ -152,7 +159,12 @@ export default function Select({
   }, [value]);
 
   useEffect(() => {
-    if (defaultValue && optionLabel != undefined && defaultValue[optionLabel] && !value) {
+    if (
+      defaultValue &&
+      optionLabel != undefined &&
+      defaultValue[optionLabel] &&
+      !value
+    ) {
       setOptionLabelState(defaultValue[optionLabel]);
     } else {
       handleOptionLabelStateDefinition(selectionList);
@@ -164,7 +176,11 @@ export default function Select({
     if (multiSelect) {
       valueToSet = values
         ?.map((v: any) => {
-          return selectedLabel ? v[selectedLabel] : optionLabel ? v[optionLabel] : "";
+          return selectedLabel
+            ? v[selectedLabel]
+            : optionLabel
+            ? v[optionLabel]
+            : "";
         })
         .join(", ");
     } else {
@@ -178,12 +194,16 @@ export default function Select({
         ? valueToSet.slice(0, -2)
         : valueToSet;
     if (valueToSet == "" && !placeholder) {
-      valueToSet = selectedLabel ? selectedLabel : (optionLabel ?? '');
+      valueToSet = selectedLabel ? selectedLabel : optionLabel ?? "";
     } else if (valueToSet == "" && placeholder) {
       valueToSet = placeholder;
     }
     if (value && optionLabel != undefined && value[optionLabel]) {
-      valueToSet = selectedLabel ? value[selectedLabel] : optionLabel ? value[optionLabel] : '';
+      valueToSet = selectedLabel
+        ? value[selectedLabel]
+        : optionLabel
+        ? value[optionLabel]
+        : "";
     }
     setOptionLabelState(valueToSet);
   };
@@ -310,8 +330,83 @@ export default function Select({
       }
     };
 
+    const debouncedSearch = debounce((value: string) => {
+      handleOptionsFilter(value);
+    }, 500);
+
+    const Option: React.FC<any> = React.memo(({ option, key, style }) => {
+      return (
+        <span
+          className={
+            `r-select-item-box ` +
+            (JSON.stringify(optionsSelectionList).includes(
+              JSON.stringify(option)
+            )
+              ? "r-item-selected"
+              : "")
+          }
+          style={style}
+          onClick={() => {
+            if (multiSelect) {
+              setSelectionList((prev: any) => {
+                const isOptionInList = prev.some(
+                  (p: any) => JSON.stringify(p) === JSON.stringify(option)
+                );
+
+                if (isOptionInList) {
+                  return prev.filter(
+                    (p: any) => JSON.stringify(p) !== JSON.stringify(option)
+                  );
+                } else {
+                  return [...prev, option];
+                }
+              });
+              setOptionsSelectionList((prev: any) => {
+                const isOptionInList = prev.some(
+                  (p: any) => JSON.stringify(p) === JSON.stringify(option)
+                );
+
+                if (isOptionInList) {
+                  return prev.filter(
+                    (p: any) => JSON.stringify(p) !== JSON.stringify(option)
+                  );
+                } else {
+                  return [...prev, option];
+                }
+              });
+            } else {
+              onChange && onChange({ value: option });
+              if (!value) {
+                value = option;
+                handleOptionLabelStateDefinition([option]);
+                setOptionsSelectionList(option);
+                typeof option == "string" && setSelectionList([option]);
+              }
+              setShowOptions(false);
+            }
+          }}
+          key={key}
+        >
+          {multiSelect && (
+            <input
+              className="r-select-item-box-checkbox"
+              type={"checkbox"}
+              checked={JSON.stringify(optionsSelectionList).includes(
+                JSON.stringify(option)
+              )}
+            />
+          )}
+          {optionTemplate
+            ? optionTemplate(option)
+            : optionLabel
+            ? option[optionLabel]
+            : option}
+        </span>
+      );
+    });
+
     return (
-      <div>
+      <div style={{ overflowX: "hidden" }}>
         {(filter || selectAll) && (
           <span
             className={`r-select-item-box r-select-filter-box`}
@@ -345,7 +440,7 @@ export default function Select({
                 className={`r-select-filter-box-text`}
                 placeholder={filterPlaceHolder ?? "Search"}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleOptionsFilter(e.target.value)
+                  debouncedSearch(e.target.value)
                 }
               />
             )}
@@ -379,73 +474,88 @@ export default function Select({
             </span>
           </span>
         )}
-        {optionsFilterList?.map((option: any, index: any) => {
-          return (
-            <span
-              className={
-                `r-select-item-box ` +
-                (JSON.stringify(optionsSelectionList).includes(
-                  JSON.stringify(option)
-                )
-                  ? "r-item-selected"
-                  : "")
-              }
-              onClick={() => {
-                if (multiSelect) {
-                  setSelectionList((prev: any) => {
-                    const isOptionInList = prev.some(
-                      (p: any) => JSON.stringify(p) === JSON.stringify(option)
-                    );
-
-                    if (isOptionInList) {
-                      return prev.filter(
-                        (p: any) => JSON.stringify(p) !== JSON.stringify(option)
-                      );
-                    } else {
-                      return [...prev, option];
-                    }
-                  });
-                  setOptionsSelectionList((prev: any) => {
-                    const isOptionInList = prev.some(
-                      (p: any) => JSON.stringify(p) === JSON.stringify(option)
-                    );
-
-                    if (isOptionInList) {
-                      return prev.filter(
-                        (p: any) => JSON.stringify(p) !== JSON.stringify(option)
-                      );
-                    } else {
-                      return [...prev, option];
-                    }
-                  });
-                } else {
-                  onChange && onChange({ value: option });
-                  if (!value) {
-                    value = option;
-                    handleOptionLabelStateDefinition([option]);
-                    setOptionsSelectionList(option);
-                    typeof option == "string" && setSelectionList([option]);
-                  }
-                  setShowOptions(false);
-                }
-              }}
-              key={index}
-            >
-              {multiSelect && (
-                <input
-                  className="r-select-item-box-checkbox"
-                  type={"checkbox"}
-                  checked={JSON.stringify(optionsSelectionList).includes(
+        {!virtualizedList ? (
+          optionsFilterList?.map((option: any, index: any) => {
+            return (
+              <span
+                className={
+                  `r-select-item-box ` +
+                  (JSON.stringify(optionsSelectionList).includes(
                     JSON.stringify(option)
-                  )}
-                />
-              )}
-              {optionTemplate
-                ? optionTemplate(option)
-                : optionLabel ? option[optionLabel] : option}
-            </span>
-          );
-        })}
+                  )
+                    ? "r-item-selected"
+                    : "")
+                }
+                onClick={() => {
+                  if (multiSelect) {
+                    setSelectionList((prev: any) => {
+                      const isOptionInList = prev.some(
+                        (p: any) => JSON.stringify(p) === JSON.stringify(option)
+                      );
+
+                      if (isOptionInList) {
+                        return prev.filter(
+                          (p: any) =>
+                            JSON.stringify(p) !== JSON.stringify(option)
+                        );
+                      } else {
+                        return [...prev, option];
+                      }
+                    });
+                    setOptionsSelectionList((prev: any) => {
+                      const isOptionInList = prev.some(
+                        (p: any) => JSON.stringify(p) === JSON.stringify(option)
+                      );
+
+                      if (isOptionInList) {
+                        return prev.filter(
+                          (p: any) =>
+                            JSON.stringify(p) !== JSON.stringify(option)
+                        );
+                      } else {
+                        return [...prev, option];
+                      }
+                    });
+                  } else {
+                    onChange && onChange({ value: option });
+                    if (!value) {
+                      value = option;
+                      handleOptionLabelStateDefinition([option]);
+                      setOptionsSelectionList(option);
+                      typeof option == "string" && setSelectionList([option]);
+                    }
+                    setShowOptions(false);
+                  }
+                }}
+                key={index}
+              >
+                {multiSelect && (
+                  <input
+                    className="r-select-item-box-checkbox"
+                    type={"checkbox"}
+                    checked={JSON.stringify(optionsSelectionList).includes(
+                      JSON.stringify(option)
+                    )}
+                  />
+                )}
+                {optionTemplate
+                  ? optionTemplate(option)
+                  : optionLabel
+                  ? option[optionLabel]
+                  : option}
+              </span>
+            );
+          })
+        ) : (
+          <VirtualizedList
+            height={170}
+            itemCount={optionsFilterList.length}
+            itemHeight={35}
+            renderItem={(index) => (
+              <Option option={optionsFilterList[index]} key={index} />
+            )}
+          />
+        )}
       </div>
     );
   };
@@ -466,7 +576,7 @@ export default function Select({
     const div = document.createElement("div");
     div.className = `r-select-options-box r-box-shadow r-select-options-box-${
       showOptions ? "show" : "hide"
-    }`;
+    } r-select-options-box-${virtualizedList ? 'not-scroll' : 'scroll'}`;
     div.style.top = inputProps.isClosestToTop
       ? inputProps.topDistance - 10 + "px"
       : "";
