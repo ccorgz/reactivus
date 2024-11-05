@@ -53,13 +53,15 @@ function Progress(_a) {
     else {
         return (react_1.default.createElement("div", { className: "r-progress-bar-box-main" },
             react_1.default.createElement("div", { className: "r-progress-bar-box-label", style: {
-                    justifyContent: labelPosition && labelPosition == 'right' ? "flex-end" : 'flex-start',
+                    justifyContent: labelPosition && labelPosition == "right"
+                        ? "flex-end"
+                        : "flex-start",
                 } }, label),
             react_1.default.createElement("div", __assign({ className: (shadow == undefined || (shadow != undefined && shadow == false)
                     ? ""
                     : "r-box-shadow ") + "r-progress-bar-box", style: {
                     minWidth: width !== null && width !== void 0 ? width : "50px",
-                    height: barHeight ? "".concat(barHeight, "px") : "6px"
+                    height: barHeight ? "".concat(barHeight, "px") : "6px",
                 } }, rest),
                 react_1.default.createElement("div", { className: "r-progress-bar ".concat(predefinedColors.includes(color) ? "r-progress-".concat(color) : ""), style: {
                         width: "".concat(percentage, "%"),

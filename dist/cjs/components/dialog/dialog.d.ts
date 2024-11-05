@@ -1,6 +1,6 @@
 import "../../styles/dialog.css";
 type icons = "success" | "danger" | "info" | "question" | "warning";
-type styles = "btn-primary" | "btn-secondary" | "btn-danger" | "btn-success" | "btn-info" | "btn-dark" | "btn-light" | "btn-none";
+type styles = "primary" | "secondary" | "danger" | "success" | "info" | "dark" | "light" | "none";
 type positions = "top-center" | "top-left" | "top-right" | "center" | "center-left" | "center-right" | "bottom-center" | "bottom-left" | "bottom-right";
 type AlertProps = {
     /**

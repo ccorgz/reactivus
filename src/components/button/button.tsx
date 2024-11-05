@@ -5,17 +5,17 @@ type ButtonProps = {
   /**Defines the text to be displayed inside the button */
   label?: string;
   /**Defines the button style */
-  style?:
-    | "btn-primary"
-    | "btn-secondary"
-    | "btn-danger"
-    | "btn-success"
-    | "btn-info"
-    | "btn-dark"
-    | "btn-light"
-    | "btn-none"
-    | "btn-warning"
-    | "btn-black";
+  color?:
+    | "primary"
+    | "secondary"
+    | "danger"
+    | "success"
+    | "info"
+    | "dark"
+    | "light"
+    | "none"
+    | "warning"
+    | "black";
   /**Defines the button width. Default will be auto. */
   width?: string;
   /**Defines the button heigth. Default will be auto.  */
@@ -25,7 +25,7 @@ type ButtonProps = {
   /**Defines the button icon position. Default will be left.  */
   iconPosition?: "left" | "right";
   /**Defines the button size. Default will be md.  */
-  size?: "btn-sm" | "btn-md" | "btn-lg";
+  size?: "sm" | "md" | "lg";
   /**Controls if the button will be rounded.  */
   rounded?: true | false;
   /**Controls if the button is disabled.  */
@@ -44,7 +44,7 @@ type ButtonProps = {
 
 export default function Button({
   label,
-  style,
+  color,
   width,
   heigth,
   icon,
@@ -65,7 +65,7 @@ export default function Button({
   return (
     <button
       className={`r-button-main-box 
-      r-${style ?? "btn-light"} r-${size ?? "btn-md"} 
+      r-btn-${color ?? "light"} r-btn-${size ?? "md"} 
       ${disabled ? "r-btn-disabled" : ""} 
       ${rounded ? "r-btn-rounded" : ""} 
       ${text ? "r-text-button" : ""} 

@@ -81,6 +81,7 @@ type SelectInputProps = {
       value: any;
     }
   | { multiSelect?: false; value?: any; selectAll?: never }
+  | { multiSelect?: boolean; value: any }
 ) &
   (
     | { options: string[]; optionLabel?: never }
@@ -101,7 +102,7 @@ export default function Select({
   filterPlaceHolder,
   filterBy,
   placeholder,
-  multiSelect,
+  multiSelect = false,
   onChange,
   selectAll,
   className,

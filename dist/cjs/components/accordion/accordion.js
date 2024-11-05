@@ -78,9 +78,7 @@ function Accordion(_a) {
                 }
             } },
             react_1.default.createElement("div", { className: "r-accordion-header-title" }, headerTemplate ? headerTemplate : title ? title : ""),
-            react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className: isOpen
-                    ? "r-accordion-rotate-svg-up"
-                    : "r-accordion-rotate-svg-down" },
+            react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className: isOpen ? "r-accordion-rotate-svg-up" : "r-accordion-rotate-svg-down" },
                 react_1.default.createElement("path", { d: "M6 9l6 6 6-6" }))),
         react_1.default.createElement("div", { className: "r-accordion-content-box", style: {
                 maxHeight: isOpenControl || isOpen ? "100dvh" : "0px",

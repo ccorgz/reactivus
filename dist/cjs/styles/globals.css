@@ -1,16 +1,19 @@
+/* Defines global styles for itens with shadows applied */
+.r-box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+
 /* Defines global styles for itens on focus or selected */
 .r-item-selected {
   color: #0c63e4;
   background-color: #0c63e410;
 }
-.r-item-selected:hover { 
+.r-item-selected:hover {
   color: #0a5ad2;
   background-color: #0a5ad220;
 }
-
-/* Defines global styles for itens with shadows applied */
-.r-box-shadow {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+.r-input-focused {
+  box-shadow: #0a5ad290 0px 0px 0px 1px;
 }
 
 /* Defines global styles for the background color of the input switch when it's active */
@@ -35,4 +38,18 @@
 }
 .r-tag-text-custom-border {
   border: 1.5px solid #3f7d5440;
+}
+
+/* These status classes are used throughout the lib*/
+.r-status-success {
+  color: #3f7d54;
+}
+.r-status-danger {
+  color: #cb2a29;
+}
+.r-status-info {
+  color: #2e86c1;
+}
+.r-status-warning {
+  color: #ffa500;
 }

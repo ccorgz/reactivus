@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/input.css";
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     /**
      * Defines the type of the input. (For a select input type, use the <Select /> component.)
      */
@@ -57,7 +57,7 @@ interface InputProps {
     /**
      * Defines a custom size for the component. (md is set by default)
      */
-    size?: "sm" | "md";
+    inputSize?: "sm" | "md";
     /**
      * Defines a custom className object to be set as the input box styles.
      */
@@ -69,7 +69,11 @@ interface InputProps {
     /**
      * Defines a custom color for the description.
      */
-    descriptionColor?: 'success' | 'danger' | 'info' | 'warning' | 'default';
+    descriptionColor?: "success" | "danger" | "info" | "warning" | "default";
+    /**
+     * Defines a custom color to serve as a status for the input value.
+     */
+    status?: "success" | "danger" | "info" | "warning" | "default";
 }
-declare const Input: ({ onKeyDown, type, icon, iconPosition, iconAction, label, width, placeholder, password, size, className, description, descriptionColor, inputRef, ...rest }: InputProps & Record<string, unknown>) => React.JSX.Element;
+declare const Input: ({ onKeyDown, type, icon, iconPosition, iconAction, label, width, placeholder, password, inputSize, className, description, descriptionColor, inputRef, status, ...rest }: InputProps & Record<string, unknown>) => React.JSX.Element;
 export default Input;
