@@ -61,9 +61,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 require("../../../styles/inputs/select.css");
 var client_1 = __importDefault(require("react-dom/client"));
+var debounce_1 = __importDefault(require("../../../utils/debounce"));
+var virtualizedList_1 = __importDefault(require("../../../utils/virtualizedList"));
 // EXPORTS COMPONENT BY DEFAULT
 function Select(_a) {
-    var label = _a.label, width = _a.width, value = _a.value, defaultValue = _a.defaultValue, options = _a.options, optionLabel = _a.optionLabel, selectedLabel = _a.selectedLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, _b = _a.multiSelect, multiSelect = _b === void 0 ? false : _b, onChange = _a.onChange, selectAll = _a.selectAll, className = _a.className, rest = __rest(_a, ["label", "width", "value", "defaultValue", "options", "optionLabel", "selectedLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll", "className"]);
+    var label = _a.label, width = _a.width, value = _a.value, defaultValue = _a.defaultValue, options = _a.options, optionLabel = _a.optionLabel, selectedLabel = _a.selectedLabel, optionTemplate = _a.optionTemplate, filter = _a.filter, filterPlaceHolder = _a.filterPlaceHolder, filterBy = _a.filterBy, placeholder = _a.placeholder, _b = _a.multiSelect, multiSelect = _b === void 0 ? false : _b, onChange = _a.onChange, selectAll = _a.selectAll, className = _a.className, virtualizedList = _a.virtualizedList, rest = __rest(_a, ["label", "width", "value", "defaultValue", "options", "optionLabel", "selectedLabel", "optionTemplate", "filter", "filterPlaceHolder", "filterBy", "placeholder", "multiSelect", "onChange", "selectAll", "className", "virtualizedList"]);
     var _c = (0, react_1.useState)(false), showOptions = _c[0], setShowOptions = _c[1];
     var _d = (0, react_1.useState)(options !== null && options !== void 0 ? options : []), optionsList = _d[0], setOptionsList = _d[1];
     var _e = (0, react_1.useState)(placeholder !== null && placeholder !== void 0 ? placeholder : ""), optionLabelState = _e[0], setOptionLabelState = _e[1];
@@ -249,7 +251,54 @@ function Select(_a) {
                 setOptionsFilterList(options !== null && options !== void 0 ? options : []);
             }
         };
-        return (react_1.default.createElement("div", null,
+        var debouncedSearch = (0, debounce_1.default)(function (value) {
+            handleOptionsFilter(value);
+        }, 500);
+        var Option = react_1.default.memo(function (_a) {
+            var option = _a.option, key = _a.key, style = _a.style;
+            return (react_1.default.createElement("span", { className: "r-select-item-box " +
+                    (JSON.stringify(optionsSelectionList).includes(JSON.stringify(option))
+                        ? "r-item-selected"
+                        : ""), style: style, onClick: function () {
+                    if (multiSelect) {
+                        setSelectionList(function (prev) {
+                            var isOptionInList = prev.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
+                            if (isOptionInList) {
+                                return prev.filter(function (p) { return JSON.stringify(p) !== JSON.stringify(option); });
+                            }
+                            else {
+                                return __spreadArray(__spreadArray([], prev, true), [option], false);
+                            }
+                        });
+                        setOptionsSelectionList(function (prev) {
+                            var isOptionInList = prev.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
+                            if (isOptionInList) {
+                                return prev.filter(function (p) { return JSON.stringify(p) !== JSON.stringify(option); });
+                            }
+                            else {
+                                return __spreadArray(__spreadArray([], prev, true), [option], false);
+                            }
+                        });
+                    }
+                    else {
+                        onChange && onChange({ value: option });
+                        if (!value) {
+                            value = option;
+                            handleOptionLabelStateDefinition([option]);
+                            setOptionsSelectionList(option);
+                            typeof option == "string" && setSelectionList([option]);
+                        }
+                        setShowOptions(false);
+                    }
+                }, key: key },
+                multiSelect && (react_1.default.createElement("input", { className: "r-select-item-box-checkbox", type: "checkbox", checked: JSON.stringify(optionsSelectionList).includes(JSON.stringify(option)) })),
+                optionTemplate
+                    ? optionTemplate(option)
+                    : optionLabel
+                        ? option[optionLabel]
+                        : option));
+        });
+        return (react_1.default.createElement("div", { style: { overflowX: "hidden" } },
             (filter || selectAll) && (react_1.default.createElement("span", { className: "r-select-item-box r-select-filter-box", style: {
                     zIndex: 9998,
                 } },
@@ -260,7 +309,7 @@ function Select(_a) {
                         handleAllOptionsSelection();
                     } }, "Todos")),
                 filter && (react_1.default.createElement("input", { type: "text", className: "r-select-filter-box-text", placeholder: filterPlaceHolder !== null && filterPlaceHolder !== void 0 ? filterPlaceHolder : "Search", onChange: function (e) {
-                        return handleOptionsFilter(e.target.value);
+                        return debouncedSearch(e.target.value);
                     } })),
                 react_1.default.createElement("span", { className: "r-select-title-icon-close", onClick: function () {
                         setSelectionList([]);
@@ -272,8 +321,8 @@ function Select(_a) {
                         }
                     } },
                     react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "-8 -8 48 48", width: "18", height: "18", fill: "none", stroke: "currentColor", strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" },
-                        react_1.default.createElement("path", { d: "M2,2 L30,30 M2,30 L30,2" }))))), optionsFilterList === null || optionsFilterList === void 0 ? void 0 :
-            optionsFilterList.map(function (option, index) {
+                        react_1.default.createElement("path", { d: "M2,2 L30,30 M2,30 L30,2" }))))),
+            !virtualizedList ? (optionsFilterList === null || optionsFilterList === void 0 ? void 0 : optionsFilterList.map(function (option, index) {
                 return (react_1.default.createElement("span", { className: "r-select-item-box " +
                         (JSON.stringify(optionsSelectionList).includes(JSON.stringify(option))
                             ? "r-item-selected"
@@ -282,7 +331,9 @@ function Select(_a) {
                             setSelectionList(function (prev) {
                                 var isOptionInList = prev.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
                                 if (isOptionInList) {
-                                    return prev.filter(function (p) { return JSON.stringify(p) !== JSON.stringify(option); });
+                                    return prev.filter(function (p) {
+                                        return JSON.stringify(p) !== JSON.stringify(option);
+                                    });
                                 }
                                 else {
                                     return __spreadArray(__spreadArray([], prev, true), [option], false);
@@ -291,7 +342,9 @@ function Select(_a) {
                             setOptionsSelectionList(function (prev) {
                                 var isOptionInList = prev.some(function (p) { return JSON.stringify(p) === JSON.stringify(option); });
                                 if (isOptionInList) {
-                                    return prev.filter(function (p) { return JSON.stringify(p) !== JSON.stringify(option); });
+                                    return prev.filter(function (p) {
+                                        return JSON.stringify(p) !== JSON.stringify(option);
+                                    });
                                 }
                                 else {
                                     return __spreadArray(__spreadArray([], prev, true), [option], false);
@@ -315,7 +368,7 @@ function Select(_a) {
                         : optionLabel
                             ? option[optionLabel]
                             : option));
-            })));
+            })) : (react_1.default.createElement(virtualizedList_1.default, { height: 170, itemCount: optionsFilterList.length, itemHeight: 35, renderItem: function (index) { return (react_1.default.createElement(Option, { option: optionsFilterList[index], key: index })); } }))));
     };
     function appendOptionsBoxToBody(inputProps) {
         var largerOption = 0;
@@ -332,7 +385,7 @@ function Select(_a) {
             }
         }
         var div = document.createElement("div");
-        div.className = "r-select-options-box r-box-shadow r-select-options-box-".concat(showOptions ? "show" : "hide");
+        div.className = "r-select-options-box r-box-shadow r-select-options-box-".concat(showOptions ? "show" : "hide", " r-select-options-box-").concat(virtualizedList ? 'not-scroll' : 'scroll');
         div.style.top = inputProps.isClosestToTop
             ? inputProps.topDistance - 10 + "px"
             : "";

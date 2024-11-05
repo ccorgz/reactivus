@@ -51,6 +51,10 @@ type SelectInputProps = {
      */
     multiSelect?: boolean;
     /**
+     * Insert a list with virtualization and pre-rendering. Works best when you expect to display many items.
+     */
+    virtualizedList?: boolean;
+    /**
      * Function that returns the value of the component.
      */
     onChange?: (selectedOption: {
@@ -85,5 +89,5 @@ type SelectInputProps = {
     options: Array<any>;
     optionLabel: string;
 });
-export default function Select({ label, width, value, defaultValue, options, optionLabel, selectedLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, multiSelect, onChange, selectAll, className, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
+export default function Select({ label, width, value, defaultValue, options, optionLabel, selectedLabel, optionTemplate, filter, filterPlaceHolder, filterBy, placeholder, multiSelect, onChange, selectAll, className, virtualizedList, ...rest }: SelectInputProps & Record<string, unknown>): React.JSX.Element;
 export {};
