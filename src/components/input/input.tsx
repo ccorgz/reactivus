@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../styles/input.css";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -76,6 +76,10 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
    * Defines a custom color to serve as a status for the input value.
    */
   status?: "success" | "danger" | "info" | "warning" | "default";
+  /**
+   * Defines whether the width will be dynamic.
+   */
+  dynamic?: boolean
 }
 
 // EXPORTA COMPONENTE POR PADRÃO
@@ -95,11 +99,34 @@ const Input = ({
   descriptionColor,
   inputRef,
   status,
+  defaultValue,
+  value,
+  dynamic,
+  onChange,
   ...rest
 }: InputProps & Record<string, unknown>) => {
   const [seePwd, setSeePwd] = useState(false);
+  const [inputValue, setInputValue] = useState<string>(
+    String(defaultValue || value || "")
+  );
 
   const inputBoxRef = useRef<any>(null);
+  const inputDynamicRef = useRef<HTMLInputElement>(null);
+  const spanDynamicRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (dynamic && (spanDynamicRef.current && inputDynamicRef.current && inputBoxRef.current)) {
+      if (
+        ((!defaultValue && !value) || String(value).length === 0) &&
+        inputValue.length === 0 &&
+        (!placeholder || placeholder.length === 0)
+      ) {
+        inputBoxRef.current.style.width = "5px";
+      } else {
+        inputBoxRef.current.style.width = `${spanDynamicRef.current.offsetWidth + 24}px`;
+      }
+    }
+  }, [defaultValue, value, spanDynamicRef, inputDynamicRef, inputValue, inputBoxRef]);
 
   const handleDivClickActions = () => {
     if (
@@ -160,8 +187,12 @@ const Input = ({
           type={type == "password" && seePwd ? "text" : type}
           placeholder={placeholder ?? ""}
           {...rest}
-          ref={inputRef ?? null}
-          onChange={(e: any) => e.preventDefault()}
+          ref={inputRef ? inputRef : inputDynamicRef}
+          onChange={(e) => {
+            e.preventDefault();
+            setInputValue(e.target.value);
+            if(onChange) onChange(e);
+          }}
           onKeyDown={onKeyDown}
           onClick={() => {
             handleDivClickActions();
@@ -169,7 +200,20 @@ const Input = ({
           onBlur={() => {
             handleDivBlurActions();
           }}
+          defaultValue={defaultValue}
+          value={value || inputValue}
+          className={dynamic ? "r-input-dynamic" : ""}
         />
+        {
+          dynamic && (
+            <span
+            ref={spanDynamicRef}
+            className={"r-input-dynamic-span" + " " + className}
+          >
+            {value || inputValue || defaultValue || placeholder}
+          </span>
+          )
+        }
         {password?.seePwd && (
           <span
             onClick={(e) => {
