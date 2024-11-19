@@ -116,6 +116,22 @@
   font-size: 0.8rem !important;
 }
 
+.r-input-dynamic {
+  box-sizing: content-box;
+}
+
+.r-input-dynamic-span {
+  visibility: hidden;
+  white-space: pre;
+  position: absolute;
+  left: -9999px;
+  height: 0;
+  overflow: hidden;
+  width: none;
+  min-width: none;
+  max-width: none;
+}
+
 @media only screen and (max-width: 780px) {
   .r-input-box input {
     font-size: 1rem;
